@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
-import './AppCard.css';
+import './MainDisplay.css';
 
 class AppCard extends Component {
+  constructor(props) {
+    super();
+    this.props = props;
+    console.log(this.props);
+  }
+
   render() {
+    const { name, title, version, author, repo, description } = this.props;
+
     return (
       <div className="AppCard">
-        Hello!
+        <img alt="icon" src={`${repo}/packages/${name}/icon.png`} />
+        <div>{ title }</div>
+        <div>{ version }</div>
+        <div>{ author }</div>
+        <div>{ description }</div>
       </div>
     );
   }

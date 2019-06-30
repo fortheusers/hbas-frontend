@@ -5,7 +5,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="Footer">
-        <span class="copyleft">&copy;</span> GPLv3 License. ForTheUsers is not affiliated with Nintendo Co. Ltd. in any way.
+        <span className="copyleft">&copy;</span> GPLv3 License. ForTheUsers is not affiliated with Nintendo Co. Ltd. in any way.
       </div>
     );
   }

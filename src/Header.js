@@ -8,7 +8,7 @@ class Header extends Component {
         <div className="left">
           Homebrew App Store
         </div>
-        <div clssName="right">
+        <div className="right">
           <a href="https://fortheusers.org">About</a>
           <a href="https://discord.gg/F2PKpEj">Discord</a>
           <a href="https://twitter.com/wiiubru">Twitter</a>
