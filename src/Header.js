@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './MainDisplay.css';
 
+const platform = "Switch";
+
 class Header extends Component {
   render() {
     return (
       <div className="Header">
         <div className="left">
-          Homebrew App Store
+          <span className="title">Homebrew App Store</span> for {platform}
         </div>
         <div className="right">
           <a href="https://fortheusers.org">About</a>

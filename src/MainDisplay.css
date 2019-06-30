@@ -1,17 +1,141 @@
+body, html, #root, .main {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
 .copyleft {
   display: inline-block;
   transform: rotate(180deg);
+}
+
+.Header, .Footer {
+  padding: 10px;
+  background-color: #eee;
+  overflow: auto;
+  height: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  width: calc(100% - 80px);
+  position: fixed;
+  box-sizing: margin-box;
+  font-weight: 200;
+}
+
+.Header a {
+  color: black;
+  text-decoration: none;
+}
+
+.Header a:hover {
+  text-decoration: underline;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.Header .right a {
+  padding: 10px;
+}
+
+.main {
+  display: flex;
+}
+
+.Sidebar {
+  background-color: #555;
+  color: white;
+  font-size: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 265px;
+  position: fixed;
+  margin-top: 40px;
+  height: calc(100% - 110px);
+}
+
+.Sidebar a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding: 12px;
+  padding-left: 50px;
+}
+
+.Sidebar a:hover, .Sidebar a.active {
+  background-color: #777;
+}
+
+.Sidebar a .icon {
+  width: 40px;
+  font-size: 22px;
+  display: inline-block;
 }
 
 .AppList {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Sidebar ~ div {
+  margin-left: 265px;
+  margin-top: 50px;
+}
+
+.Sidebar ~ div::after {
+  padding-bottom: 500px;
+  content: "";
 }
 
 .AppCard {
-  margin: 10px;
+  margin: 4px;
   width: 256px;
   flex-direction: row;
   flex-grow: 1;
+}
+
+.Footer {
+  bottom: 0;
+}
+
+.title {
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 800px) {
+  .right {
+    display: none;
+  }
+
+  .Sidebar .text {
+    display: none;
+  }
+
+  .Sidebar {
+    width: 80px;
+  }
+
+  .Sidebar ~ div {
+    margin-left: 80px;
+  }
+
+  .Sidebar a {
+    padding-left: 25px;
+  }
+}
+
+.AppList h2 {
+  font-weight: 400;
+  width: 100%;
+  padding-left: 40px;
 }

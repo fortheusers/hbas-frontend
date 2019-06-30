@@ -17,11 +17,8 @@ class MainDisplay extends Component {
           <Switch>
             <Route path='/apps/*' component={AppDetails} />
             <Route path='/apps' component={AppDetails} />
-
-            {/* <Route path='/about' component={About} />
-            <Route path='/privacy-policy' component={PrivacyPolicy} />
-            <Route path='/support' component={Support} /> */}
-
+            <Route path='/search' component={AppList} />
+            <Route path='/search/*' component={AppList} />
             <Route path='/' component={AppList} />
           </Switch>
         </div>
