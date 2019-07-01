@@ -15,8 +15,8 @@ class MainDisplay extends Component {
         <div className="main">
           <Sidebar />
           <Switch>
-            <Route path='/apps/*' component={AppDetails} />
-            <Route path='/apps' component={AppDetails} />
+            <Route path='/app/*' component={AppDetails} />
+            <Route path='/app' component={AppDetails} />
             <Route path='/search' component={AppList} />
             <Route path='/search/*' component={AppList} />
             <Route path='/' component={AppList} />

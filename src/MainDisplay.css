@@ -97,11 +97,36 @@ body, html, #root, .main {
   content: "";
 }
 
+.AppCardWrapper {
+  text-decoration: none;
+}
+
 .AppCard {
   margin: 4px;
   width: 256px;
   flex-direction: row;
   flex-grow: 1;
+  color: #333;
+  margin: 5px;
+  margin-bottom: 50px;
+}
+
+.AppCard:hover {
+  filter: saturate(2);
+  opacity: 0.7;
+}
+
+.AppCard img {
+  width: 256px;
+  height: 150px;
+}
+
+.AppCard__Title {
+  font-weight: 700;
+}
+
+.AppCard .right {
+  text-align: right;
 }
 
 .Footer {
@@ -113,7 +138,11 @@ body, html, #root, .main {
 }
 
 @media only screen and (max-width: 800px) {
-  .right {
+  .Header .right, .Footer .right {
+    display: none;
+  }
+
+  .catTitle button {
     display: none;
   }
 
@@ -134,8 +163,35 @@ body, html, #root, .main {
   }
 }
 
-.AppList h2 {
+.Header svg {
+  width: 15px;
+  padding-right: 8px;
+}
+
+.AppList .catTitle {
   font-weight: 400;
-  width: 100%;
+  flex: 0 1 100%;
+  font-size: 25px;
+  padding: 20px;
   padding-left: 40px;
+  display: block;
+}
+
+.AppList .catTitle .right {
+  padding-right: 40px;
+}
+
+button {
+  background-color: #eee;
+  border: none;
+  padding: 10px;
+  font-size: 13px;
+  margin-right: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.catTitle .sort {
+  font-size: 15px;
+  color: #777;
 }

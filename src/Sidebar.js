@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faRobot, faCubes } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faRobot, faCubes, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import './MainDisplay';
 
 const Categories = [
@@ -10,7 +10,7 @@ const Categories = [
     icon: faSearch
   }, {
     short: "_all",
-    name: "",
+    name: "All Apps",
     icon: faThLarge
   }, {
     short: "game",
@@ -32,6 +32,10 @@ const Categories = [
     short: "theme",
     name: "Themes",
     icon: faSwatchbook
+  }, {
+    short: "concept",
+    name: "Concepts",
+    icon: faLightbulb
   }, {
     short: "_courses",
     name: "Courses",
@@ -62,9 +66,9 @@ if (valid) {
   selected = valid;
 }
 
-// if (path.startsWith("/search")) {
-//   selected = Categories[0]; // search is 0
-// }
+if (path.startsWith("/search")) {
+  selected = Categories[0]; // search is 0
+}
 
 class Sidebar extends Component {
   constructor() {
@@ -76,12 +80,16 @@ class Sidebar extends Component {
     return selected;
   }
 
+  static getAllCategories() {
+    return Categories;
+  }
+
   render() {
     return (
       <div className="Sidebar">
         {
           Categories.map(cat => {
-            let target = cat.name ? `/category/${cat.name.toLowerCase()}` : '/';
+            let target = cat.short !== "_all" ? `/category/${cat.name.toLowerCase()}` : '/';
             target = cat.short === "_search" ? "/search" : target;
 
             return (<a href={target}>

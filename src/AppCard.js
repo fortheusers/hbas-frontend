@@ -13,10 +13,14 @@ class AppCard extends Component {
     return (
       <div className="AppCard">
         <img alt="icon" src={`${repo}/packages/${name}/icon.png`} />
-        <div>{ title }</div>
-        <div>{ version }</div>
-        <div>{ author }</div>
-        <div>{ description }</div>
+        <div className="left">
+          <div>v. { version }</div>
+        </div>
+        <div className="right">
+          <div className="AppCard__Title">{ title }</div>
+          {/* <div>{ description }</div> */}
+          <div>{ author }</div>
+        </div>
       </div>
     );
   }
