@@ -80,7 +80,7 @@ body, html, #root, .main {
   display: inline-block;
 }
 
-.AppList {
+.AppList, .AppDetails {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
@@ -137,6 +137,99 @@ body, html, #root, .main {
   font-weight: 600;
 }
 
+.Header svg {
+  width: 15px;
+  padding-right: 8px;
+}
+
+.catTitle {
+  font-weight: 400;
+  flex: 0 1 100%;
+  font-size: 25px;
+  padding: 20px;
+  padding-left: 40px;
+  display: block;
+}
+
+.AppList .catTitle .right {
+  padding-right: 40px;
+}
+
+button {
+  background-color: #eee;
+  border: none;
+  padding: 10px;
+  font-size: 13px;
+  margin-right: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.catTitle .sort, .catTitle .lesser {
+  font-size: 15px;
+  color: #777;
+}
+
+.AppDetailsInner {
+  max-width: 848px;
+}
+
+.AppDetails .banner {
+  width: 848px;
+  height: 208px;
+}
+
+.details::after {
+  padding-bottom: 500px;
+  content: "";
+}
+
+.AppDetails .details {
+  white-space: pre-line;
+  width: 600px;
+  margin-left: 5px;
+  line-height: 1.2;
+  min-height: 700px;
+}
+
+.AppDetails .catTitle {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.sideHeader {
+  color: darkred;
+  font-weight: 500;
+}
+
+.infoBox .row {
+  margin-left: 15px;
+  margin-top: 15px;
+  background-color: #eee;
+  padding: 10px;
+  width: 195px;
+  margin-right: 5px;
+}
+
+.infoBox span {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 10px;
+}
+
+.infoBox button {
+  width: 205px;
+  margin: 10px;
+  margin-bottom: 0px;
+  display: block;
+  font-size: 25px;
+  float: right;
+}
+
 @media only screen and (max-width: 800px) {
   .Header .right, .Footer .right {
     display: none;
@@ -161,37 +254,13 @@ body, html, #root, .main {
   .Sidebar a {
     padding-left: 25px;
   }
-}
 
-.Header svg {
-  width: 15px;
-  padding-right: 8px;
-}
+  .AppDetails .banner {
+    width: 300px;
+    height: 73px;
+  }
 
-.AppList .catTitle {
-  font-weight: 400;
-  flex: 0 1 100%;
-  font-size: 25px;
-  padding: 20px;
-  padding-left: 40px;
-  display: block;
-}
-
-.AppList .catTitle .right {
-  padding-right: 40px;
-}
-
-button {
-  background-color: #eee;
-  border: none;
-  padding: 10px;
-  font-size: 13px;
-  margin-right: 10px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.catTitle .sort {
-  font-size: 15px;
-  color: #777;
+  .AppDetails .left {
+    max-width: 300px;
+  }
 }

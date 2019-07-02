@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import noicon from './noicon.png';
 import './MainDisplay.css';
 
 class AppCard extends Component {
@@ -12,7 +13,7 @@ class AppCard extends Component {
 
     return (
       <div className="AppCard">
-        <img alt="icon" src={`${repo}/packages/${name}/icon.png`} />
+        <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror=null; e.target.src=noicon} } />
         <div className="left">
           <div>v. { version }</div>
         </div>
