@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Switch, Link, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import AppList from './AppList';
 import AppDetails from './AppDetails';
 import Sidebar from './Sidebar';

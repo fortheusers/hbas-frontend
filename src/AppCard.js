@@ -9,7 +9,7 @@ class AppCard extends Component {
   }
 
   render() {
-    const { name, title, version, author, repo, description } = this.props;
+    const { name, title, version, author, repo } = this.props;
 
     return (
       <div className="AppCard">
