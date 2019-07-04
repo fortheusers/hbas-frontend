@@ -206,13 +206,19 @@ button {
   font-weight: 500;
 }
 
+.infoBox {
+  width: 195px;
+  margin: 15px;
+  box-sizing: border-box;
+  margin-right: 5px;
+}
+
 .infoBox .row {
-  margin-left: 15px;
-  margin-top: 15px;
   background-color: #eee;
   padding: 10px;
-  width: 195px;
-  margin-right: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 .infoBox span {
@@ -222,12 +228,12 @@ button {
 }
 
 .infoBox button {
-  width: 205px;
-  margin: 10px;
+  width: 100%;
+  margin-top: 10px;
   margin-bottom: 0px;
   display: block;
   font-size: 25px;
-  float: right;
+  padding: 10px;
 }
 
 @media only screen and (max-width: 800px) {
@@ -255,12 +261,22 @@ button {
     padding-left: 25px;
   }
 
-  .AppDetails .banner {
-    width: 300px;
-    height: 73px;
+  .AppDetails {
+    padding: 20px;
   }
 
-  .AppDetails .left {
-    max-width: 300px;
+  .AppDetails .infoBox {
+    width: 100%;
+    margin-right: 0px;
+  }
+
+  .AppDetails .banner {
+    width: 100%;
+    height: unset;
+  }
+
+  .AppDetails .details {
+    width: 100%;
+    margin-left: 0px;
   }
 }

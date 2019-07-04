@@ -73,13 +73,8 @@ class AppDetails extends Component {
             </div>
             <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />
           </div>
-          <div className="left row">
-            <p className="details">
-              { details }
-            </p>
-          </div>
-          <div className="infoBox">
-            <div className="right row">
+          <div className="right infoBox">
+            <div className="row">
               <div>{ description }</div>
               <br />
               <div className="sideHeader">Additional Info</div>
@@ -95,6 +90,11 @@ class AppDetails extends Component {
             </div>
             <button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
             <button onClick={() => window.open(`${url}`)}>Source</button>
+          </div>
+          <div className="left row">
+            <p className="details">
+              { details }
+            </p>
           </div>
         </div>
       </div>
