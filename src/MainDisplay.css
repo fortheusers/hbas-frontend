@@ -146,23 +146,26 @@ body, html, #root, .main {
   font-weight: 400;
   flex: 0 1 100%;
   font-size: 25px;
-  padding: 20px;
-  padding-left: 40px;
+  padding: 20px 0 20px 40px;
   display: block;
 }
 
-.AppList .catTitle .right {
+.AppList .right {
   padding-right: 40px;
 }
 
 button {
-  background-color: #eee;
+  background-color: #555;
+  color: #eee;
   border: none;
   padding: 10px;
   font-size: 13px;
   margin-left: 10px;
   font-weight: 500;
   cursor: pointer;
+}
+button:hover {
+  background-color: #777;
 }
 
 .catTitle .sort, .catTitle .lesser {
