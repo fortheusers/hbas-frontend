@@ -15,7 +15,7 @@ class Header extends Component {
             Homebrew App Store</span> for {platform}
         </div>
         <div className="right">
-          <a href="https://fortheusers.org">About</a>
+          <a href="https://fortheusers.org">Aboot</a>
           <a href="https://discord.gg/F2PKpEj">Discord</a>
           <a href="https://twitter.com/wiiubru">Twitter</a>
           <a href="https://www.switchbru.com/account/">Account</a>
