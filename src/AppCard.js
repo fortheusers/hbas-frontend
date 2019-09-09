@@ -13,14 +13,15 @@ class AppCard extends Component {
 
     return (
       <div className="AppCard">
-        <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror=null; e.target.src=noicon} } />
+        <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} />
+
         <div className="left">
-          <div>v. { version }</div>
+          <div>v. {version}</div>
         </div>
-        <div className="right">
-          <div className="AppCard__Title">{ title }</div>
+        <div className="cardright">
+          <div className="AppCard__Title">{title}</div>
           {/* <div>{ description }</div> */}
-          <div>{ author }</div>
+          <div>{author}</div>
         </div>
       </div>
     );

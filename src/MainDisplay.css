@@ -10,28 +10,52 @@ body, html, #root, .main {
   transform: rotate(180deg);
 }
 
-.Header, .Footer {
+.Footer {
   padding: 10px;
   background-color: #eee;
-  overflow: hidden;
   height: 20px;
   padding-left: 40px;
   padding-right: 40px;
   width: calc(100% - 80px);
   position: fixed;
-  box-sizing: margin-box;
-  font-weight: 200;
 }
 
-.Header a {
-  color: black;
+.nav {
+  position: fixed;
+  z-index: 999;
+}
+
+ul {
+  position: fixed;
+  top: 0;
+  width: calc(100%);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #eee;
+}
+
+li {
+  float: right;
+}
+
+li:nth-child(2) {
+  padding: 0 40px 0 0;
+}
+
+li a {
+  display: block;
+  color:#111;
+  text-align: center;
+  padding: 7px 7px;
   text-decoration: none;
+  border: 2px solid #eee;
 }
 
-.Header a:hover {
-  text-decoration: underline;
+li a:hover {
+  border-bottom-color: #111;
 }
-
 .left {
   float: left;
 }
@@ -40,12 +64,18 @@ body, html, #root, .main {
   float: right;
 }
 
-.Header .right a {
-  padding: 10px;
-}
-
 .main {
   display: flex;
+}
+
+.title {
+  float:left;
+  padding: 10px 0 0 15px;
+  font-weight: 600;
+}
+
+.platform {
+  font-weight: 200;
 }
 
 .Sidebar {
@@ -56,7 +86,7 @@ body, html, #root, .main {
   padding-bottom: 15px;
   width: 265px;
   position: fixed;
-  margin-top: 40px;
+  margin-top: 41px;
   height: calc(100% - 110px);
 }
 
@@ -129,12 +159,13 @@ body, html, #root, .main {
   text-align: right;
 }
 
-.Footer {
-  bottom: 0;
+.cardright {
+  float:right;
+  text-align: right;
 }
 
-.title {
-  font-weight: 600;
+.Footer {
+  bottom: 0;
 }
 
 .Header svg {
