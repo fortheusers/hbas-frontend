@@ -274,7 +274,10 @@ button:hover {
 }
 
 @media only screen and (max-width: 800px) {
-  .Header .right, .Footer .right .nav{
+  .Header .right, .Footer .right {
+    display: none;
+  }
+  .nav {
     display: none;
   }
 
@@ -288,6 +291,7 @@ button:hover {
 
   .Sidebar {
     width: 80px;
+    margin-top: 1px;
   }
 
   .Sidebar ~ div {
