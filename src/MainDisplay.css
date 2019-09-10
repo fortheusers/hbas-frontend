@@ -5,10 +5,6 @@ body, html, #root, .main {
   width: 100%;
 }
 
-body {
-  padding-bottom:100px; 
-}
-
 .copyleft {
   display: inline-block;
   transform: rotate(180deg);
@@ -92,6 +88,15 @@ li a:hover {
   position: fixed;
   margin-top: 41px;
   height: calc(100% - 110px);
+  overflow: scroll;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.Sidebar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .Sidebar a {
@@ -217,8 +222,8 @@ button:hover {
   height: 208px;
 }
 
-.details::after {
-  padding-bottom: 500px;
+.details {
+  padding-bottom: 100px;
   content: "";
 }
 
@@ -277,8 +282,12 @@ button:hover {
   .Header .right, .Footer .right {
     display: none;
   }
-  .nav {
-    display: none;
+
+  #dns,#account,#twitter,#discord {
+    display:none;
+  }
+  li:nth-child(2) {
+    padding: 0 0 0 0;
   }
 
   .catTitle button {
@@ -291,7 +300,6 @@ button:hover {
 
   .Sidebar {
     width: 80px;
-    margin-top: 1px;
   }
 
   .Sidebar ~ div {
