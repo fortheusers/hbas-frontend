@@ -4,6 +4,12 @@ body, html, #root, .main {
   height: 100%;
   width: 100%;
 }
+.copyright {
+  text-decoration: none;
+}
+.copyright:link, .copyright:hover, .copyright:active, .copyright:visited {
+  color:#111;
+}
 
 .copyleft {
   display: inline-block;
@@ -326,6 +332,10 @@ button:hover {
 
   .AppDetails .details {
     width: 100%;
+    margin-left: 0px;
+  }
+  
+  button {
     margin-left: 0px;
   }
 }

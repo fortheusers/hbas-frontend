@@ -6,10 +6,12 @@ class Footer extends Component {
     return (
       <div className="Footer">
         <div className="left">
-          <span className="copyleft">&copy;</span> GPLv3 License
+          <a className="copyright" href="https://gitlab.com/4TU/hbas-frontend/blob/master/LICENSE">
+            <span className="copyleft">&copy;</span> GPLv3 License</a>
         </div>
         <div className="right">
-          ForTheUsers is not affiliated with Nintendo Co. Ltd
+          <a className="copyright" href="https://fortheusers.org/">ForTheUsers </a>
+           is not affiliated with <a className="copyright" href="https://en.wikipedia.org/wiki/Nintendo"> Nintendo Co. Ltd</a>
         </div>
       </div>
     );
