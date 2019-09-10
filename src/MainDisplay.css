@@ -5,6 +5,10 @@ body, html, #root, .main {
   width: 100%;
 }
 
+body {
+  padding-bottom:100px; 
+}
+
 .copyleft {
   display: inline-block;
   transform: rotate(180deg);
@@ -270,7 +274,7 @@ button:hover {
 }
 
 @media only screen and (max-width: 800px) {
-  .Header .right, .Footer .right {
+  .Header .right, .Footer .right .nav{
     display: none;
   }
 
