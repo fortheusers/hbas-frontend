@@ -371,3 +371,8 @@ button:hover {
   }
 }
 
+@media only screen and (max-width: 600px) {
+  #m_dns,#m_account,#m_submit { 
+    display:none;
+  }
+}
