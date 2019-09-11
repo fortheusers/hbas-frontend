@@ -83,6 +83,10 @@ select {
   white-space: nowrap;
 }
 
+select:focus {
+  outline: none;
+  }
+
 .left {
   float: left;
 }
@@ -310,9 +314,10 @@ button:hover {
     display: none;
   }
 
-  #dns,#account,#twitter,#discord {
+  #dns,#account,#twitter,#discord,#ftu,#submit {
     display:none;
   }
+
   li:nth-child(2) {
     padding: 0 0 0 0;
   }
@@ -358,6 +363,11 @@ button:hover {
   
   button {
     margin-left: 0px;
+  }
+}
+@media only screen and (min-width: 800px) {
+  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit { 
+    display:none;
   }
 }
 
