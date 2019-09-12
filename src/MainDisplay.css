@@ -309,6 +309,7 @@ button:hover {
   padding: 10px;
 }
 
+/*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
   .Header .right, .Footer .right {
     display: none;
@@ -364,15 +365,59 @@ button:hover {
   button {
     margin-left: 0px;
   }
-}
-@media only screen and (min-width: 800px) {
-  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit { 
+  #m_menu {
     display:none;
   }
 }
 
-@media only screen and (max-width: 600px) {
-  #m_dns,#m_account,#m_submit { 
+/*Remove Mobile Icons for Large Displays*/
+@media only screen and (min-width: 800px) {
+  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit,#m_menu { 
     display:none;
+  }
+}
+
+/*Filters for Mobile Portrait*/
+@media only screen and (max-width: 600px) {
+  #m_dns,#m_account,#m_submit,#m_ftu,#m_twitter { 
+    display:none;
+  }
+  #m_menu {
+    display:block;
+    position:fixed;
+    z-index: 1999;
+  }
+
+  #bars {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+     transform: rotate(0deg);
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+     transition-duration: 0.5s;
+  }
+
+  #bars:hover,#bars:active {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+     transform: rotate(90deg);
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+     transition-duration: 0.5s;
+  }
+
+  .Sidebar {
+    width:0;
+  }
+  .Sidebar ~ div {
+    margin-left: 0;
+    margin-top: 50px;
+  }
+  .title {
+    padding-left:55px;
   }
 }
