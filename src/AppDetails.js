@@ -29,11 +29,11 @@ class AppDetails extends Component {
 
     const d = "details";
     this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\\n/g, '\n') : this.pkg[d];
-    this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\b(?:https?|ftp):[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim, '<a href="$&" target="_blank">$&</a>') : this.pkg[d];
+    this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm, '<a href="$&" target="_blank">$&</a>') : this.pkg[d];
 
     const clog = "changelog";
     this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\\n/g, '\n') : this.pkg[clog];
-    this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\b(?:https?|ftp):[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim, '<a href="$&" target="_blank">$&</a>') : this.pkg[clog];
+    this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm, '<a href="$&" target="_blank">$&</a>') : this.pkg[clog];
 
 
     
