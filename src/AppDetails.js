@@ -29,11 +29,11 @@ class AppDetails extends Component {
 
     const d = "details";
     this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\\n/g, '\n') : this.pkg[d];
-    this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim, '<a href="$&" target="_blank">$&</a>') : this.pkg[d];
+    this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\b(?:https?|ftp):\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim, '<a href="$&" target="_blank">$&</a>') : this.pkg[d];
 
     const clog = "changelog";
     this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\\n/g, '\n') : this.pkg[clog];
-    this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim, '<a href="$&" target="_blank">$&</a>') : this.pkg[clog];
+    this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\b(?:https?|ftp):\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim, '<a href="$&" target="_blank">$&</a>') : this.pkg[clog];
 
 
     
@@ -105,7 +105,7 @@ class AppDetails extends Component {
               <div className="details" dangerouslySetInnerHTML={{ __html: details }}></div>
             <div className="changelog">
             <p className="sideHeader">Changelog</p>
-            <p className="details" dangerouslySetInnerHTML={{ __html: details }}></p>
+            <p className="details" dangerouslySetInnerHTML={{ __html: changelog }}></p>
             </div>
           </div>
         </div>
