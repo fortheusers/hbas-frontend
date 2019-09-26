@@ -30,6 +30,9 @@ class AppDetails extends Component {
     const d = "details";
     this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\\n/g, '\n') : this.pkg[d];
 
+    const clog = "changelog";
+    this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\\n/g, '\n') : this.pkg[clog];
+    
     this.setState({
       pkg: this.pkg
     });
@@ -43,6 +46,7 @@ class AppDetails extends Component {
         title,
         description,
         details,
+        changelog,
         author,
         version,
         web_dls,
@@ -92,9 +96,16 @@ class AppDetails extends Component {
             <button onClick={() => window.open(`${url}`)}>Source</button>
           </div>
           <div className="left row">
+          <p className="sideHeader">App Details</p>
             <p className="details">
               { details }
             </p>
+            <div className="changelog">
+            <p className="sideHeader">Changelog</p>
+            <p className="details">
+              { changelog }
+            </p>
+            </div>
           </div>
         </div>
       </div>
