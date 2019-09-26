@@ -29,9 +29,14 @@ class AppDetails extends Component {
 
     const d = "details";
     this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\\n/g, '\n') : this.pkg[d];
+    this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim, '<a href="$&" target="_blank">$&</a>') : this.pkg[d];
 
     const clog = "changelog";
     this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\\n/g, '\n') : this.pkg[clog];
+    this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim, '<a href="$&" target="_blank">$&</a>') : this.pkg[clog];
+
+
+    
     
     this.setState({
       pkg: this.pkg
@@ -97,14 +102,10 @@ class AppDetails extends Component {
           </div>
           <div className="left row">
           <p className="sideHeader">App Details</p>
-            <p className="details">
-              { details }
-            </p>
+              <div className="details" dangerouslySetInnerHTML={{ __html: details }}></div>
             <div className="changelog">
             <p className="sideHeader">Changelog</p>
-            <p className="details">
-              { changelog }
-            </p>
+            <p className="details" dangerouslySetInnerHTML={{ __html: details }}></p>
             </div>
           </div>
         </div>
