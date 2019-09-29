@@ -1,7 +1,6 @@
-
 const repos = [
-    "https://www.switchbru.com/appstore/repo.json",
-    "https://www.wiiubru.com/appstore/repo.json",
+    "https://www.switchbru.com/appstore",
+    "https://www.wiiubru.com/appstore",
     //"https://4tu.gitlab.io/dragonite-test-repo",
   ];
 
