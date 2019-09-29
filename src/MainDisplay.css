@@ -286,14 +286,13 @@ button:hover {
 
 .infoBox {
   width: 195px;
-  margin: 15px;
+  margin: 15px 0 15px 15px;
   box-sizing: border-box;
-  margin-right: 5px;
 }
 
 .infoBox .row {
   background-color: #eee;
-  padding: 10px;
+  padding: 10px 10px 10px 10px;
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 10px;
@@ -308,10 +307,9 @@ button:hover {
 .infoBox button {
   width: 100%;
   margin-top: 10px;
-  margin-bottom: 0px;
+  margin-left: 0px;
   display: block;
   font-size: 25px;
-  padding: 10px;
 }
 
 /*Mobile Display and Landscape display*/
