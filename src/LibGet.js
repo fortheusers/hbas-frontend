@@ -1,8 +1,8 @@
-//this is ugly but is to trial some stuff is all :s
 
-let repos = [
+const repos = [
     "https://www.switchbru.com/appstore/repo.json",
     "https://www.wiiubru.com/appstore/repo.json",
+    //"https://4tu.gitlab.io/dragonite-test-repo",
   ];
 
 
