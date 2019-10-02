@@ -1,26 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import AppCard from './AppCard';
 import LibGet from './LibGet';
 import loader from './loader.gif';
 import Sidebar from './Sidebar';
+import { getParams } from './Utils';
 
 class AppList extends Component {
   state = {
-    packages: []
+    packages: null
   }
 
   constructor(props) {
     super(props);
     this.category = Sidebar.getCurrentCategory();
+    const { platform, query } = getParams(props);
+    this.platform = platform;
+    this.query = query;
   }
 
-  doesSearchMatch() {
-
+  doesSearchMatch(query = "", pkg = {}) {
+    const { title, description, details } = pkg;
+    const searchUs = [title, description, details];
+    return searchUs.filter(a => a && a.toLowerCase().indexOf(query.toLowerCase()) >= 0).length > 0;
   }
 
-  static async fetchPackages() {
+  static async fetchPackages(platform) {
+    const repos = LibGet.getRepos(platform);
+
     const repoPackages = await Promise.all(
-      (await LibGet.getApps()).map(
+      (await LibGet.getApps(repos)).map(
         async (response) => await response.json()
       ));
     
@@ -28,14 +36,15 @@ class AppList extends Component {
       (acc, cur, idx) => acc.concat(
         cur["packages"].map(pkg => ({
           ...pkg,
-          repo: LibGet.repos[idx]
+          repo: repos[idx].url,
+          platform: repos[idx].platform
         }))
       ), []);
   }
 
   async componentDidMount() {
     
-    let packages = await AppList.fetchPackages();
+    let packages = await AppList.fetchPackages(this.platform);
 
     // perform the actual sort of packages, based on current sort / category
     packages = packages.sort((b, a) => (a.web_dls + a.app_dls) - (b.web_dls + b.app_dls));
@@ -43,6 +52,7 @@ class AppList extends Component {
     const cats = new Set(Sidebar.getAllCategories().map(cat => cat.short));
 
     const { short } = this.category;
+
     // let through for all and search, and misc only if not in any others
     packages = packages.filter(pkg => {
       return (pkg.category === short || short === "_all") ||
@@ -50,14 +60,16 @@ class AppList extends Component {
         (short === "_search");
     });
 
-    this.setState({ packages });
+    packages = packages.filter(pkg => this.doesSearchMatch(this.query, pkg));
+
+    this.setState({ packages, query: this.query });
   }
 
   render() {
-    const { packages } = this.state;
-    const { name } = this.category;
+    const { packages, query } = this.state;
+    const { name, short } = this.category;
 
-    if (packages.length === 0) {
+    if (!packages) {
       return (<div className="AppList">
         <div className="left">
           <img src={loader} alt="Loading apps..." style={{width: 270, height: 130}} />
@@ -65,20 +77,46 @@ class AppList extends Component {
       </div>);
     }
 
+    let headerText = (
+      <div className="catTitle">
+        {name} <span className="sort"> by download count</span>
+        <div className="right">
+          <button>Adjust Sort</button>
+          <button>Feedback</button>
+          <button>Help!</button>
+        </div>
+      </div>);
+
+    const updateURL = async (event) => {
+      this.query = event.target.value;
+      window.history.replaceState({}, "", `/search/${this.query}`);
+      this.componentDidMount();
+    }
+
+    if (window.location.href.indexOf("/search") >= 0) {
+      headerText = (
+        <div className="catTitle">
+          Search: <input type="text" onChange={updateURL} defaultValue={this.query}>
+          </input>
+        </div>
+      )
+    }
+
+    if (packages.length === 0) {
+      return (
+        <div className="AppList">
+          {headerText}
+          No apps found for the given {this.query ? "search query" : "category"}.
+        </div>)
+    }
+
     return (
       <div className="AppList">
-        <div className="catTitle">
-          {name} <span className="sort"> by download count</span>
-          <div className="right">
-            <button>Adjust Sort</button>
-            <button>Feedback</button>
-            <button>Help!</button>
-          </div>
-        </div>
+        { headerText }
         {
           packages.map(pkg => {
             return (
-              <a className="AppCardWrapper" href={`/app/${pkg.name}`}>
+              <a className="AppCardWrapper" href={`/${pkg.platform}/${pkg.name}`}>
                 <AppCard {...pkg} key={`${pkg.name}_${pkg.repo}`} />
               </a>)
             ;

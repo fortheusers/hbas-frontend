@@ -3,23 +3,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { faCube, faPlus, faServer, faSignInAlt, faBars } from '@fortawesome/free-solid-svg-icons'
 import './MainDisplay.css';
+import { getParams } from './Utils';
 
 class Header extends Component {
+  constructor(props) {
+    super();
+    this.platform = window.localStorage.getItem("platform") || "both";
+
+    const { platform, package: pkg } = getParams(props);
+
+    // if we don't have a package, (on a listing page) defer to the URL to get platform
+    if (!pkg) {
+      this.platform = platform || "both";
+    }
+  }
   
   sub = (event) => {
-    let selectedrepo = event.target.value;
-    console.log('Selected repo:', selectedrepo);
+    let repo = event.target.value;
+    window.localStorage.setItem("platform", repo);
+    window.location.href = (repo && repo !== "both") ? `/${repo}` : '/';
   }
+
   render() {
     return (
       <div className="nav">
         <ul>
           <li id="title" className="title"><FontAwesomeIcon icon={faCube} />
             &nbsp;&nbsp;Homebrew App Store <span className="platform">for </span>
-            <select id="device" defaultValue="all" onChange={this.sub}>
+            <select id="device" defaultValue={this.platform} onChange={this.sub}>
               <option value="switch">Switch</option>
-              <option value="wiiu">WiiU</option>
-              <option value="all">Switch & WiiU</option>
+              <option value="wiiu">Wii U</option>
+              <option value="both">Switch &amp; Wii U</option>
             </select>
           </li>
           <li id="ftu"><a href="https://fortheusers.org">About</a></li>

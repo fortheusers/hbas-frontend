@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faRobot, faCubes, faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import { getParams } from './Utils';
 import './MainDisplay';
 
-const Categories = [
+const categories = [
   {
     short: "_search",
     name: "Search",
@@ -47,33 +48,29 @@ const Categories = [
   },
 ];
 
-// to support older links:
-// if there's a hash, just immediately redirect them to not having the hash
-// (our URL structure should be the same, just no more hash)
-if (window.location.hash) {
-  window.location.href = window.location.hash.substring(1);
-}
-
-const CAT_MAGIC = "/category/";
-
-const path = window.location.pathname.toLowerCase();
-let selected = path.startsWith(CAT_MAGIC) ? 
-  path.substring(CAT_MAGIC.length) : "_all";
-
-// check if our category from the URL is valid, else default to all
-const valid = Categories.find(cat => cat.name.toLowerCase() === selected || cat.short === selected)
-if (valid) {
-  selected = valid;
-}
-
-if (path.startsWith("/search")) {
-  selected = Categories[0]; // search is 0
-}
+let selected = "_all";
 
 class Sidebar extends Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.selected = selected;
+
+    const params = getParams(props);
+
+    const { category, package: pkg } = params;
+    let { platform } = params;
+
+    console.log(params);
+
+    // if we have local storage, and we _DO_ have a package, (aka _not_ on a listing page) respect local storage platform over the URL!
+    if (pkg && window.localStorage.getItem("platform")) {
+      platform = window.localStorage.getItem("platform");
+    }
+
+    // check if our category from the URL is valid, else default to all
+    const valid = categories.find(cat => cat.name.toLowerCase() === category || cat.short === category)
+    selected = valid ? valid : categories[1];
+
+    this.platform = platform;
   }
 
   static getCurrentCategory() {
@@ -81,18 +78,24 @@ class Sidebar extends Component {
   }
 
   static getAllCategories() {
-    return Categories;
+    return categories;
   }
 
   render() {
+    console.log(platInfo);
+    const platInfo = (this.platform && this.platform !== "both") ? `/${this.platform}` : "";
     return (
       <div className="Sidebar">
         {
-          Categories.map(cat => {
-            let target = cat.short !== "_all" ? `/category/${cat.name.toLowerCase()}` : '/';
-            target = cat.short === "_search" ? "/search" : target;
+          categories.map(cat => {
+            let target = cat.short !== "_all" ? `${platInfo}/category/${cat.name.toLowerCase()}` : `${platInfo || "/"}`;
+            target = cat.short === "_search" ? `${platInfo}/search` : target;
 
-            return (<a href={target}>
+            console.log(target);
+            return (<a
+                href={target}
+                key={target}
+              >
                 <div className="icon">
                   <FontAwesomeIcon icon={cat.icon} />
                 </div>

@@ -191,6 +191,10 @@ select:focus {
   height: 150px;
 }
 
+.AppCard.wiiu img {
+  height: 96px;
+}
+
 .AppCard__Title {
   font-weight: 700;
 }

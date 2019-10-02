@@ -1,15 +1,28 @@
 const repos = [
-    "https://www.switchbru.com/appstore",
-    "https://www.wiiubru.com/appstore",
-    //"https://4tu.gitlab.io/dragonite-test-repo",
+    {
+      url: "https://www.switchbru.com/appstore",
+      platform: "switch"
+    },
+    {
+      url: "https://www.wiiubru.com/appstore",
+      platform: "wiiu"
+    },
+    // {
+    //   url: "https://4tu.gitlab.io/dragonite-test-repo",
+    //   platform: "switch"
+    // }
   ];
 
 
 const LibGet = {
   repos,
 
-  getApps: () => {
-    return Promise.all(repos.map(url => fetch(`${url}/repo.json`)));
+  getRepos: (platform = "both") => {
+    return repos.filter(repo => platform === "both" || repo.platform === platform);
+  },
+
+  getApps: (myRepos = repos) => {
+    return Promise.all(myRepos.map(repo => fetch(`${repo.url}/repo.json`)));
   }
 }
 

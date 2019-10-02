@@ -3,13 +3,7 @@ import loading from './loader.gif';
 import noscreen from './noscreen.png';
 import AppList from './AppList';
 import './MainDisplay.css';
-
-const APP_MAGIC = "/app/";
-
-// get current package name out of URL
-const path = window.location.pathname.toLowerCase();
-let selected = path.startsWith(APP_MAGIC) ? 
-  path.substring(APP_MAGIC.length) : "dummy";
+import { getParams } from './Utils';
 
 class AppDetails extends Component {
   state = {
@@ -19,13 +13,16 @@ class AppDetails extends Component {
   constructor(props) {
     super(props);
     this.pkg = {};
-    this.curPkg = selected;
+    const { package: pkg } = getParams(props);
+    this.curPkg = pkg;
   }
 
   async componentDidMount() {
 
     const packages = await AppList.fetchPackages();
     this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg);
+
+    if (!this.pkg) return;
 
     const d = "details";
     this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\\n/g, '\n') : this.pkg[d];
@@ -34,16 +31,21 @@ class AppDetails extends Component {
     const clog = "changelog";
     this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\\n/g, '\n') : this.pkg[clog];
     this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig, '<a href="$&" target="_blank">$&</a>') : this.pkg[clog];
-
-
-    
     
     this.setState({
       pkg: this.pkg
     });
   }
 
-  render() {
+  render()
+  {
+    console.log(this.pkg);
+    if (!this.pkg || Object.keys(this.pkg).length === 0) {
+      return (<div className="AppDetails">
+        There's no package named "{this.curPkg}" for the selected repos.
+      </div>);
+    }
+
     const {
       pkg: {
         repo,

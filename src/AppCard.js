@@ -9,10 +9,12 @@ class AppCard extends Component {
   }
 
   render() {
-    const { name, title, version, author, repo } = this.props;
+    const { name, title, version, author, repo, platform } = this.props;
+
+    const cardClass = `AppCard ${platform === "wiiu" ? "wiiu" : ""}`;
 
     return (
-      <div className="AppCard">
+      <div className={cardClass}>
         <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} />
 
         <div className="left">
