@@ -82,7 +82,6 @@ class Sidebar extends Component {
   }
 
   render() {
-    console.log(platInfo);
     const platInfo = (this.platform && this.platform !== "both") ? `/${this.platform}` : "";
     return (
       <div className="Sidebar">

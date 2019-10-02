@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import AppCard from './AppCard';
 import LibGet from './LibGet';
 import loader from './loader.gif';
@@ -66,8 +66,8 @@ class AppList extends Component {
   }
 
   render() {
-    const { packages, query } = this.state;
-    const { name, short } = this.category;
+    const { packages } = this.state;
+    const { name } = this.category;
 
     if (!packages) {
       return (<div className="AppList">
