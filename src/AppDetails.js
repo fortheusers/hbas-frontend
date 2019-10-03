@@ -78,8 +78,8 @@ class AppDetails extends Component {
             <div className="catTitle">
               { title } <span className="lesser">by { author }</span>
               <div className="right">
-                <button>Leave Feedback</button>
-                <button>More by Author</button>
+                <button onClick={() => window.location.href = `mailto:fight@fortheusers.org?subject=[HBAS] Leaving feedback for ${name}`}>Leave Feedback</button>
+                <button onClick={() => window.location.href = `/search/${author && author.toLowerCase()}`}>More by Author</button>
               </div>
             </div>
             <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />

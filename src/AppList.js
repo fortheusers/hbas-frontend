@@ -5,9 +5,23 @@ import loader from './loader.gif';
 import Sidebar from './Sidebar';
 import { getParams } from './Utils';
 
+let sorts = [{
+  flavor: "by download count",
+  order: (b, a) => (a.web_dls + a.app_dls) - (b.web_dls + b.app_dls)
+},
+{
+  flavor: "randomly",
+  order: () => 0.5 - Math.random()
+},
+{
+  flavor: "by file size",
+  order: (b, a) => (a.filesize + a.filesize) - (b.filesize + b.filesize)
+}];
+
 class AppList extends Component {
   state = {
-    packages: null
+    packages: null,
+    curSort: 0
   }
 
   constructor(props) {
@@ -24,9 +38,13 @@ class AppList extends Component {
     return searchUs.filter(a => a && a.toLowerCase().indexOf(query.toLowerCase()) >= 0).length > 0;
   }
 
-  static async fetchPackages(platform) {
-    const repos = LibGet.getRepos(platform);
+  async adjustSort(me) {
+    let curSort = ((me.state.curSort + 1) % sorts.length);
+    me.setState({curSort});
+    await me.sortLogic(me);
+  }
 
+  static async fetchPackages() {
     const repoPackages = await Promise.all(
       (await LibGet.getApps(repos)).map(
         async (response) => await response.json()
@@ -43,16 +61,19 @@ class AppList extends Component {
   }
 
   async componentDidMount() {
+    await this.sortLogic(this);
+  }
+
+  async sortLogic(me) {
     
     let packages = await AppList.fetchPackages(this.platform);
 
     // perform the actual sort of packages, based on current sort / category
-    packages = packages.sort((b, a) => (a.web_dls + a.app_dls) - (b.web_dls + b.app_dls));
+    packages = packages.sort(sorts[me.state.curSort].order);
 
     const cats = new Set(Sidebar.getAllCategories().map(cat => cat.short));
 
-    const { short } = this.category;
-
+    const { short } = me.category;
     // let through for all and search, and misc only if not in any others
     packages = packages.filter(pkg => {
       return (pkg.category === short || short === "_all") ||
@@ -60,13 +81,13 @@ class AppList extends Component {
         (short === "_search");
     });
 
-    packages = packages.filter(pkg => this.doesSearchMatch(this.query, pkg));
+    packages = packages.filter(pkg => me.doesSearchMatch(me.query, pkg));
 
-    this.setState({ packages, query: this.query });
+    me.setState({ packages, query: me.query });
   }
 
   render() {
-    const { packages } = this.state;
+    const { packages, curSort } = this.state;
     const { name } = this.category;
 
     if (!packages) {
@@ -81,9 +102,9 @@ class AppList extends Component {
       <div className="catTitle">
         {name} <span className="sort"> by download count</span>
         <div className="right">
-          <button>Adjust Sort</button>
-          <button>Feedback</button>
-          <button>Help!</button>
+            <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
+            <button onClick={() => window.location.href = "mailto:fight@fortheusers.org?subject=[HBAS] App Store Feedback"}>Feedback</button>
+            <button onClick={() => window.open("https://discord.gg/F2PKpEj")}>Help!</button>
         </div>
       </div>);
 
