@@ -81,10 +81,29 @@ select {
   padding-bottom: 2px;
   text-overflow: ellipsis;
   white-space: nowrap;
+  background: url(down-256.png) 96% / 10% no-repeat #eee; 
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: 2px;
+
 }
 
 select:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 2px #555;
+  box-shadow: 0 0 0 2px -moz-mac-focusring;
+  color: #222; 
   outline: none;
+  background: url(up-256.png) 96% / 10% no-repeat #eee;
+  }
+
+  select:hover {
+    border-color: #888;
+  }
+
+  select option {
+    background-color: #555;
+    color: #eee;
   }
 
 .left {
@@ -181,7 +200,7 @@ select:focus {
   margin-bottom: 50px;
 }
 
-.AppCard:hover {
+.AppCard img:hover {
   filter: saturate(2);
   opacity: 0.7;
 }

@@ -31,9 +31,9 @@ class Header extends Component {
           <li id="title" className="title"><FontAwesomeIcon icon={faCube} />
             &nbsp;&nbsp;Homebrew App Store <span className="platform">for </span>
             <select id="device" defaultValue={this.platform} onChange={this.sub}>
-              <option value="switch">Switch</option>
-              <option value="wiiu">Wii U</option>
-              <option value="both">Switch &amp; Wii U</option>
+              <option id="swit" value="switch">Switch</option>
+              <option id="wii" value="wiiu">Wii U</option>
+              <option id ="switwii" value="both">Switch &amp; Wii U</option>
             </select>
           </li>
           <li id="ftu"><a href="https://fortheusers.org">About</a></li>
