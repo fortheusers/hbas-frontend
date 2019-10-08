@@ -70,6 +70,9 @@ class AppDetails extends Component {
         <img src={loading} alt="Loading" style={{width: 270, height: 130}} />
       </div>);
     }
+    let mba = () => {
+      window.location.href = (`./search/${author}`);
+    }
 
     return (
       <div className="AppDetails">
@@ -79,7 +82,7 @@ class AppDetails extends Component {
               { title } <span className="lesser">by { author }</span>
               <div className="right">
                 <button>Leave Feedback</button>
-                <button>More by Author</button>
+                <button onClick={mba}>More by Author</button>
               </div>
             </div>
             <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />

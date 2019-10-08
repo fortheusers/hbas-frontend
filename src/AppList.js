@@ -19,8 +19,8 @@ class AppList extends Component {
   }
 
   doesSearchMatch(query = "", pkg = {}) {
-    const { title, description, details } = pkg;
-    const searchUs = [title, description, details];
+    const { title, description, author } = pkg;
+    const searchUs = [title, description, author];
     return searchUs.filter(a => a && a.toLowerCase().indexOf(query.toLowerCase()) >= 0).length > 0;
   }
 
