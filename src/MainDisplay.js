@@ -49,6 +49,7 @@ class MainDisplay extends Component {
           </Switch>
         </div>
         <Footer />
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       </BrowserRouter>);
   }
 }
