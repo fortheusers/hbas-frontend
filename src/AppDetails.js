@@ -71,7 +71,10 @@ class AppDetails extends Component {
       </div>);
     }
     let mba = () => {
-      window.location.href = (`./search/${author}`);
+      window.location.href = (`../search/${author}`);
+    }
+    let lf = () => {
+      window.location.href = (`https://discord.gg/F2PKpEj`); // temp link 
     }
 
     return (
@@ -81,7 +84,7 @@ class AppDetails extends Component {
             <div className="catTitle">
               { title } <span className="lesser">by { author }</span>
               <div className="right">
-                <button>Leave Feedback</button>
+                <button onClick={lf}>Leave Feedback</button>
                 <button onClick={mba}>More by Author</button>
               </div>
             </div>

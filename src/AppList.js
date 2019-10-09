@@ -77,13 +77,23 @@ class AppList extends Component {
       </div>);
     }
 
+    let sort = () => {
+      window.location.href = (`./search`); // temp link 
+    }
+    let fdbk = () => {
+      window.location.href = (`https://discord.gg/F2PKpEj`); // temp link 
+    }
+    let help = () => {
+      window.location.href = (`https://discord.gg/F2PKpEj`); // temp link 
+    }
+
     let headerText = (
       <div className="catTitle">
         {name} <span className="sort"> by download count</span>
         <div className="right">
-          <button>Adjust Sort</button>
-          <button>Feedback</button>
-          <button>Help!</button>
+          <button onClick={sort}>Adjust Sort</button>
+          <button onClick={fdbk}>Feedback</button>
+          <button onClick={help}>Help!</button>
         </div>
       </div>);
 
