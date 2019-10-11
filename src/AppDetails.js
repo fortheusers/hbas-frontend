@@ -90,7 +90,7 @@ class AppDetails extends Component {
             </div>
             <div className="overlay">
             <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />
-            <img id="console" src={`${repo}/packages/logo.png`} />
+            <img id="console" src={`${repo}/packages/logo.png`} alt={platform} />
             </div>
           </div>
           <div className="right infoBox">
