@@ -47,9 +47,19 @@ class MainDisplay extends Component {
 
             <Route path='/' component={AppList} />
           </Switch>
+          <div className="menu">
+            <div className="title">MENU</div>
+            <ul className="navmenu">
+            <li><a href="https://fortheusers.org">About</a></li>
+            <li><a href="https://discord.gg/F2PKpEj">Discord</a></li>
+            <li><a href="https://twitter.com/wiiubru">Twitter</a></li>
+            <li><a href="https://www.switchbru.com/account/">Account</a></li>
+            <li><a href="https://www.switchbru.com/dns">DNS</a></li>
+            <li><a href="https://submit.fortheusers.org/">Submit</a></li>
+            </ul>
+          </div>
         </div>
         <Footer />
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       </BrowserRouter>);
   }
 }

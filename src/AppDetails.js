@@ -88,7 +88,10 @@ class AppDetails extends Component {
                 <button onClick={mba}>More by Author</button>
               </div>
             </div>
+            <div className="overlay">
             <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />
+            <img id="console" src={`${repo}/packages/logo.png`} />
+            </div>
           </div>
           <div className="right infoBox">
             <div className="row">

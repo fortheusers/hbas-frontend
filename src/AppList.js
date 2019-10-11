@@ -4,7 +4,6 @@ import LibGet from './LibGet';
 import loader from './loader.gif';
 import Sidebar from './Sidebar';
 import { getParams } from './Utils';
-import AdSense from 'react-adsense';
 
 class AppList extends Component {
   state = {
@@ -133,10 +132,6 @@ class AppList extends Component {
             ;
           })
         }
-        <AdSense.Google
-          client='ca-pub-7623664678937879'
-          slot='2485973050'
-        />
       </div>
     );
   }
