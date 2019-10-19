@@ -44,7 +44,9 @@ class AppList extends Component {
     await me.sortLogic(me);
   }
 
-  static async fetchPackages() {
+  static async fetchPackages(platform) {
+    const repos = LibGet.getRepos(platform);
+
     const repoPackages = await Promise.all(
       (await LibGet.getApps(repos)).map(
         async (response) => await response.json()
@@ -105,9 +107,11 @@ class AppList extends Component {
       window.location.href = (`https://discord.gg/F2PKpEj`); // temp link 
     }
 
+    let { flavor: sortFlavor } = sorts[curSort];
+
     let headerText = (
       <div className="catTitle">
-        {name} <span className="sort"> by download count</span>
+        {name} <span className="sort">{sortFlavor}</span>
         <div className="right">
           <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
           <button onClick={fdbk}>Feedback</button>

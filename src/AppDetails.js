@@ -7,7 +7,8 @@ import { getParams } from './Utils';
 
 class AppDetails extends Component {
   state = {
-    pkg: {}
+    pkg: {},
+    loading: true
   }
 
   constructor(props) {
@@ -22,7 +23,7 @@ class AppDetails extends Component {
     const packages = await AppList.fetchPackages();
     this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg);
 
-    if (!this.pkg) return;
+    if (!this.pkg) return this.setState({loading: false});
 
     const d = "details";
     this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\\n/g, '\n') : this.pkg[d];
@@ -33,13 +34,19 @@ class AppDetails extends Component {
     this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig, '<a href="$&" target="_blank">$&</a>') : this.pkg[clog];
     
     this.setState({
-      pkg: this.pkg
+      pkg: this.pkg,
+      loading: false
     });
   }
 
   render()
   {
-    console.log(this.pkg);
+    if (this.state.loading) {
+      return (<div className="AppDetails">
+        <img src={loading} alt="Loading" style={{width: 270, height: 130}} />
+      </div>);
+    }
+
     if (!this.pkg || Object.keys(this.pkg).length === 0) {
       return (<div className="AppDetails">
         There's no package named "{this.curPkg}" for the selected repos.
@@ -65,11 +72,6 @@ class AppDetails extends Component {
         url
         } } = this.state;
 
-    if (!repo || !name) {
-      return (<div className="AppDetails">
-        <img src={loading} alt="Loading" style={{width: 270, height: 130}} />
-      </div>);
-    }
     let mba = () => {
       window.location.href = (`../search/${author && author.toLowerCase()}`);
     }
