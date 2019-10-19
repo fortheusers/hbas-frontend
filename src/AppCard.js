@@ -16,7 +16,7 @@ class AppCard extends Component {
     return (
       <div className={cardClass}>
         <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} />
-
+        <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
         <div className="left">
           <div>v. {version}</div>
         </div>

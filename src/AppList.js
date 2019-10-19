@@ -33,8 +33,8 @@ class AppList extends Component {
   }
 
   doesSearchMatch(query = "", pkg = {}) {
-    const { title, description, details } = pkg;
-    const searchUs = [title, description, details];
+    const { title, description, author } = pkg;
+    const searchUs = [title, description, author];
     return searchUs.filter(a => a && a.toLowerCase().indexOf(query.toLowerCase()) >= 0).length > 0;
   }
 
@@ -98,13 +98,20 @@ class AppList extends Component {
       </div>);
     }
 
+    let fdbk = () => {
+      window.location.href = ("mailto:fight@fortheusers.org?subject=[HBAS] App Store Feedback"); // temp link
+    }
+    let help = () => {
+      window.location.href = (`https://discord.gg/F2PKpEj`); // temp link 
+    }
+
     let headerText = (
       <div className="catTitle">
         {name} <span className="sort"> by download count</span>
         <div className="right">
-            <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
-            <button onClick={() => window.location.href = "mailto:fight@fortheusers.org?subject=[HBAS] App Store Feedback"}>Feedback</button>
-            <button onClick={() => window.open("https://discord.gg/F2PKpEj")}>Help!</button>
+          <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
+          <button onClick={fdbk}>Feedback</button>
+          <button onClick={help}>Help!</button>
         </div>
       </div>);
 

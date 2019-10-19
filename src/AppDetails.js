@@ -70,6 +70,12 @@ class AppDetails extends Component {
         <img src={loading} alt="Loading" style={{width: 270, height: 130}} />
       </div>);
     }
+    let mba = () => {
+      window.location.href = (`../search/${author && author.toLowerCase()}`);
+    }
+    let lf = () => {
+      window.location.href = (`mailto:fight@fortheusers.org?subject=[HBAS] Leaving feedback for ${name}`); // temp link
+    }
 
     return (
       <div className="AppDetails">
@@ -78,11 +84,14 @@ class AppDetails extends Component {
             <div className="catTitle">
               { title } <span className="lesser">by { author }</span>
               <div className="right">
-                <button onClick={() => window.location.href = `mailto:fight@fortheusers.org?subject=[HBAS] Leaving feedback for ${name}`}>Leave Feedback</button>
-                <button onClick={() => window.location.href = `/search/${author && author.toLowerCase()}`}>More by Author</button>
+                <button onClick={lf}>Leave Feedback</button>
+                <button onClick={mba}>More by Author</button>
               </div>
             </div>
+            <div className="overlay">
             <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />
+            <img id="console" src={`${repo}/packages/logo.png`} alt="" />
+            </div>
           </div>
           <div className="right infoBox">
             <div className="row">

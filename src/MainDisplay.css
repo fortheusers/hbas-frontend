@@ -81,10 +81,29 @@ select {
   padding-bottom: 2px;
   text-overflow: ellipsis;
   white-space: nowrap;
+  background: url(down-256.png) 96% / 10% no-repeat #eee; 
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: 2px;
+
 }
 
 select:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 1px #555;
+  box-shadow: 0 0 0 2px -moz-mac-focusring;
+  color: #222; 
   outline: none;
+  background: url(up-256.png) 96% / 10% no-repeat #eee;
+  }
+
+  select:hover {
+    border-color: #888;
+  }
+
+  select option {
+    background-color: #555;
+    color: #eee;
   }
 
 .left {
@@ -179,9 +198,10 @@ select:focus {
   color: #333;
   margin: 5px;
   margin-bottom: 50px;
+  position: relative;
 }
 
-.AppCard:hover {
+.AppCard img:hover {
   filter: saturate(2);
   opacity: 0.7;
 }
@@ -189,10 +209,12 @@ select:focus {
 .AppCard img {
   width: 256px;
   height: 150px;
+  position: relative;
 }
 
 .AppCard.wiiu img {
   height: 96px;
+  position: relative;
 }
 
 .AppCard__Title {
@@ -201,6 +223,14 @@ select:focus {
 
 .AppCard .right {
   text-align: right;
+}
+
+#console {
+  max-width: 20px;
+  max-height: 20px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 
 .cardright {
@@ -252,9 +282,14 @@ button:hover {
   max-width: 848px;
 }
 
+.overlay {
+  position: relative;
+}
+
 .AppDetails .banner {
   width: 848px;
   height: 208px;
+  position: relative;
 }
 
 .details {
@@ -315,6 +350,9 @@ button:hover {
   display: block;
   font-size: 25px;
 }
+.menu {
+  display:none;
+}
 
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
@@ -372,59 +410,88 @@ button:hover {
   button {
     margin-left: 0px;
   }
-  #m_menu {
-    display:none;
-  }
 }
 
 /*Remove Mobile Icons for Large Displays*/
 @media only screen and (min-width: 800px) {
-  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit,#m_menu { 
+  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit { 
     display:none;
   }
 }
 
 /*Filters for Mobile Portrait*/
 @media only screen and (max-width: 600px) {
-  #m_dns,#m_account,#m_submit,#m_ftu,#m_twitter { 
+  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit { 
     display:none;
-  }
-  #m_menu {
-    display:block;
-    position:fixed;
-    z-index: 1999;
-  }
-
-  #bars {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-     transform: rotate(0deg);
-    -webkit-transition-duration: 0.5s;
-    -moz-transition-duration: 0.5s;
-    -o-transition-duration: 0.5s;
-     transition-duration: 0.5s;
-  }
-
-  #bars:hover,#bars:active {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-     transform: rotate(90deg);
-    -webkit-transition-duration: 0.5s;
-    -moz-transition-duration: 0.5s;
-    -o-transition-duration: 0.5s;
-     transition-duration: 0.5s;
   }
 
   .Sidebar {
     width:0;
   }
+
   .Sidebar ~ div {
     margin-left: 0;
     margin-top: 50px;
   }
-  .title {
-    padding-left:55px;
+
+  .AppDetails {
+    padding-right: 50px;
+  }
+
+  .menu {
+    display: unset;
+    background: #efefef;
+    width: 170px;
+    height: 100%;
+    padding-left: 20px;
+    position: fixed;
+    z-index: 9999;
+    -webkit-box-shadow: -3px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: -3px 0px 5px 0px rgba(0, 0, 0, 0.2);
+    right: -160px;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    color: #222;
+  }
+  .menu:hover, .menu:focus, .menu:active {
+    transform: translate3d(-130px, 0, 0);
+    animation-timing-function: 1s ease-in;
+  }
+  .menu .title {
+    position: absolute;
+    top: 7%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    transform: rotate(270deg);
+    left: -20px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .menu .navmenu {
+    position: absolute;
+    top: 25%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-weight: 100;
+  }
+  .menu .navmenu li {
+    padding: 0 60px 1px 0;
+    list-style-type: none; 
+    float: none;
+    font-weight: 600;
+    font-size: 25px;
+  }
+  
+  .menu .navmenu li a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+  }
+  .menu .navmenu li a:hover {
+    color: #222;
   }
 }

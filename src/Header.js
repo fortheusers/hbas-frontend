@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
-import { faCube, faPlus, faServer, faSignInAlt, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faCube, faPlus, faServer, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import './MainDisplay.css';
 import { getParams } from './Utils';
 
@@ -48,7 +48,6 @@ class Header extends Component {
           <li id="m_account"><a href="https://www.switchbru.com/account/"><FontAwesomeIcon icon={faSignInAlt} /></a></li>
           <li id="m_dns"><a href="https://www.switchbru.com/dns"><FontAwesomeIcon icon={faServer} /></a></li>
           <li id="m_submit"><a href="https://submit.fortheusers.org/"><FontAwesomeIcon icon={faPlus} /></a></li>
-          <li id="m_menu"><button><FontAwesomeIcon id="bars" icon={faBars} /></button></li>
         </ul>
       </div>
     );
