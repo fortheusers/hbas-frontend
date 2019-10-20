@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AppCard from './AppCard';
 import LibGet from './LibGet';
-import loader from './loader.gif';
+import loader from './img/loader.gif';
 import Sidebar from './Sidebar';
 import { getParams } from './Utils';
 

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { faCube, faPlus, faServer, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import './MainDisplay.css';
-import { getParams } from './Utils';
+import { getParams, platformIcons } from './Utils';
 
 class Header extends Component {
   constructor(props) {
@@ -30,10 +30,11 @@ class Header extends Component {
         <ul>
           <li id="title" className="title"><FontAwesomeIcon icon={faCube} />
             &nbsp;&nbsp;Homebrew App Store <span className="platform">for </span>
-            <select id="device" defaultValue={this.platform} onChange={this.sub}>
+            <select id="device" defaultValue={this.platform} onChange={this.sub}
+                    style={{backgroundImage: `url(${platformIcons[this.platform]})`}}>
               <option value="switch">Switch</option>
               <option value="wiiu">Wii U</option>
-              <option value="both">Switch &amp; Wii U</option>
+              <option value="both">Switch &amp; Wii U&nbsp;&nbsp;&nbsp;</option>
             </select>
           </li>
           <li id="ftu"><a href="https://fortheusers.org">About</a></li>

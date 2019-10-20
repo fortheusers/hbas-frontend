@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import noicon from './noicon.png';
+import noicon from './img/noicon.png';
 import './MainDisplay.css';
 
 class AppCard extends Component {

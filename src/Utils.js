@@ -1,3 +1,7 @@
+import wiiuIcon from './img/wiiu.png';
+import switchIcon from './img/switch.png';
+import bothIcon from './img/both.png';
+
 const getParams = props => {
   const { match: { params: content } } = props;
 
@@ -9,4 +13,10 @@ const getParams = props => {
   }, {});
 };
 
-export { getParams };
+const platformIcons = {
+  wiiu: wiiuIcon,
+  switch: switchIcon,
+  both: bothIcon
+}
+
+export { getParams, platformIcons };

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import loading from './loader.gif';
-import noscreen from './noscreen.png';
+import loading from './img/loader.gif';
+import noscreen from './img/noscreen.png';
 import AppList from './AppList';
 import './MainDisplay.css';
-import { getParams } from './Utils';
+import { getParams, platformIcons } from './Utils';
 
 class AppDetails extends Component {
   state = {
@@ -14,15 +14,17 @@ class AppDetails extends Component {
   constructor(props) {
     super(props);
     this.pkg = {};
-    const { package: pkg } = getParams(props);
+    const { package: pkg, platform } = getParams(props);
     this.curPkg = pkg;
+
+    this.state = {...this.state, platform};
   }
 
   async componentDidMount() {
 
     const packages = await AppList.fetchPackages();
-    this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg);
-
+    this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg && pkg.platform === this.state.platform);
+    console.log(packages);
     if (!this.pkg) return this.setState({loading: false});
 
     const d = "details";
@@ -56,6 +58,7 @@ class AppDetails extends Component {
     const {
       pkg: {
         repo,
+        platform,
         name,
         title,
         description,
@@ -92,7 +95,7 @@ class AppDetails extends Component {
             </div>
             <div className="overlay">
             <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />
-            <img id="console" src={`${repo}/packages/logo.png`} alt="" />
+            <img id="console" src={platformIcons[platform]} alt="" />
             </div>
           </div>
           <div className="right infoBox">
