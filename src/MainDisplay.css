@@ -40,6 +40,7 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #eee;
+  padding-bottom: 5px;
 }
 
 li {
@@ -178,7 +179,7 @@ select:focus {
 
 .Sidebar ~ div {
   margin-left: 265px;
-  margin-top: 50px;
+  margin-top: 41px;
 }
 
 .Sidebar ~ div::after {
@@ -253,6 +254,15 @@ select:focus {
   font-size: 25px;
   padding: 20px 0 20px 40px;
   display: block;
+}
+
+.Ad {
+  flex: 0 1 100%;
+  padding: 20px 0 20px 40px;
+  display: block;
+  margin: 10px;
+  margin-bottom: 0px;
+  padding: 0;
 }
 
 .AppList .right {
@@ -431,7 +441,7 @@ button:hover {
 
   .Sidebar ~ div {
     margin-left: 0;
-    margin-top: 50px;
+    margin-top: 41px;
   }
 
   .AppDetails {

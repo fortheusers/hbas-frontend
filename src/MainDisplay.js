@@ -5,10 +5,21 @@ import AppDetails from './AppDetails';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
+import { FullWidthAd } from './Utils';
 import './MainDisplay.css';
 
 class MainDisplay extends Component {
+  state = {
+    hasError: false
+  }
+
   render() {
+    if (this.state.hasError) {
+      return <h2 style={{padding: 10}}>
+        An error occurred, please check the console for details
+      </h2>;
+    }
+
     return (
       <BrowserRouter>
         <Switch>
@@ -61,6 +72,15 @@ class MainDisplay extends Component {
         </div>
         <Footer />
       </BrowserRouter>);
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.log(error);
+    console.log(errorInfo);
   }
 }
 

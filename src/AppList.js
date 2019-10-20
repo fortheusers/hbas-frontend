@@ -3,7 +3,7 @@ import AppCard from './AppCard';
 import LibGet from './LibGet';
 import loader from './img/loader.gif';
 import Sidebar from './Sidebar';
-import { getParams } from './Utils';
+import { getParams, FullWidthAd, Spacer } from './Utils';
 
 let sorts = [{
   flavor: "by download count",
@@ -144,6 +144,7 @@ class AppList extends Component {
 
     return (
       <div className="AppList">
+        <FullWidthAd />
         { headerText }
         {
           packages.map(pkg => {
@@ -154,6 +155,8 @@ class AppList extends Component {
             ;
           })
         }
+        <FullWidthAd />
+        <Spacer />
       </div>
     );
   }
