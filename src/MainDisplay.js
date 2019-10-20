@@ -5,7 +5,6 @@ import AppDetails from './AppDetails';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
-import { FullWidthAd } from './Utils';
 import './MainDisplay.css';
 
 class MainDisplay extends Component {

@@ -3,7 +3,7 @@ import loading from './img/loader.gif';
 import noscreen from './img/noscreen.png';
 import AppList from './AppList';
 import './MainDisplay.css';
-import { getParams, platformIcons } from './Utils';
+import { getParams, platformIcons, FullWidthAd, Spacer } from './Utils';
 
 class AppDetails extends Component {
   state = {
@@ -84,6 +84,7 @@ class AppDetails extends Component {
 
     return (
       <div className="AppDetails">
+        <FullWidthAd />
         <div className="AppDetailsInner">
           <div>
             <div className="catTitle">
@@ -125,6 +126,8 @@ class AppDetails extends Component {
             </div>
           </div>
         </div>
+        <FullWidthAd />
+        <Spacer />
       </div>
     );
   }

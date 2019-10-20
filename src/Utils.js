@@ -48,7 +48,7 @@ class FullWidthAd extends Component {
       <AdSense.Google
         client={adClient}
         slot={adSlot}
-        style={{ display: 'block', height: 150 }}
+        style={{ display: 'block', height: 70 }}
         format='fluid'
         responsive='true'
       />
