@@ -88,6 +88,19 @@ class AppList extends Component {
     me.setState({ packages, query: me.query });
   }
 
+  selectedcat = (event) => {
+    let catselect = event.target.value;
+    window.location.href = (`/${this.platform}${catselect}`);
+  }
+
+  choice = (event) => {
+    let path = event.target.value;
+    window.location.href = (path);
+  }
+
+
+
+
   render() {
     const { packages, curSort } = this.state;
     const { name } = this.category;
@@ -111,13 +124,38 @@ class AppList extends Component {
 
     let headerText = (
       <div className="catTitle">
+        <div className="menuspan">
         {name} <span className="sort">{sortFlavor}</span>
-        <div className="right">
-          <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
-          <button onClick={fdbk}>Feedback</button>
-          <button onClick={help}>Help!</button>
         </div>
-      </div>);
+        <div className="menu">
+        <select className="menuselect" defaultValue="#" onChange={this.selectedcat}>
+              <option selected disabled hidden value="#">Categories</option>
+              <option value="/search">Search</option>
+              <option value="/">All apps</option>
+              <option value="/category/games">Games</option>
+              <option value="/category/emulators">Emulators</option>
+              <option value="/category/tools">Tools</option>
+              <option value="/category/advanced">Advanced</option>
+              <option value="/category/themes">Themes</option>
+              <option value="/category/concepts">Concepts</option>
+              <option value="/category/courses">Courses</option>
+              <option value="/category/misc">Misc</option>
+            </select>  
+            <select className="menuselect" id="menu" defaultValue="#" onChange={this.choice}>
+              <option selected disabled hidden value="#">Menu</option>
+              <option value="https://fortheusers.org">About</option>
+              <option value="https://discord.gg/F2PKpEj">Discord</option>
+              <option value="https://twitter.com/wiiubru">Twitter</option>
+              <option value="https://www.switchbru.com/account/">Account</option>
+              <option value="https://www.switchbru.com/dns">DNS</option>
+              <option value="https://submit.fortheusers.org/">Submit</option>
+            </select>  
+          <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
+          <button id="feedback" onClick={fdbk}>Feedback</button>
+          <button onClick={help}>Help!</button>          
+        </div>
+        </div>
+      );
 
     const updateURL = async (event) => {
       this.query = event.target.value;
