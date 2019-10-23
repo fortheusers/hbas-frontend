@@ -88,7 +88,7 @@ class AppList extends Component {
     me.setState({ packages, query: me.query });
   }
 
-  selectedcat = (event) => {
+  selectedcat(event) {
     let catselect = event.target.value;
     window.location.href = (`/${this.platform}${catselect}`);
   }
