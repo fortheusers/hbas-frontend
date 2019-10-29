@@ -282,6 +282,7 @@ select:focus {
 
 .catTitle {
   font-weight: 400;
+  width: 98.5%;
   flex: 0 1 100%;
   font-size: 25px;
   padding: 20px 0 20px 40px;
@@ -326,6 +327,7 @@ button:hover {
 }
 
 .overlay {
+  margin-top:80px;
   position: relative;
 }
 
@@ -450,10 +452,7 @@ button:hover {
     width: 100%;
     margin-left: 0px;
   }
-  
-  button {
-    margin-left: 0px;
-  }
+
 }
 
 /*Remove Mobile Icons for Large Displays*/

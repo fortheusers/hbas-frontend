@@ -3,7 +3,7 @@ import loading from './img/loader.gif';
 import noscreen from './img/noscreen.png';
 import AppList from './AppList';
 import './MainDisplay.css';
-import { getParams, platformIcons, FullWidthAd, Spacer } from './Utils';
+import { getParams, FullWidthAd, Spacer } from './Utils';
 
 class AppDetails extends Component {
   state = {
@@ -76,7 +76,7 @@ class AppDetails extends Component {
         } } = this.state;
 
     let mba = () => {
-      window.location.href = (`../search/${author && author.toLowerCase()}`);
+      window.location.href = (`../search/${author}`);
     }
     let lf = () => {
       window.location.href = (`mailto:fight@fortheusers.org?subject=[HBAS] Leaving feedback for ${name}`); // temp link
@@ -85,20 +85,18 @@ class AppDetails extends Component {
     return (
       <div className="AppDetails">
         <FullWidthAd />
-        <div className="AppDetailsInner">
-          <div>
+        <div className="AppDetailsInner">   
             <div className="catTitle">
               { title } <span className="lesser">by { author }</span>
               <div className="right">
-                <button onClick={lf}>Leave Feedback</button>
+                <button id="feedback" onClick={lf}>Leave Feedback</button>
                 <button onClick={mba}>More by Author</button>
               </div>
             </div>
             <div className="overlay">
-            <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />
-            <img id="console" src={platformIcons[platform]} alt="" />
+              <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />
+              <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
             </div>
-          </div>
           <div className="right infoBox">
             <div className="row">
               <div>{ description }</div>
