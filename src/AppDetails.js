@@ -3,7 +3,7 @@ import loading from './img/loader.gif';
 import noscreen from './img/noscreen.png';
 import AppList from './AppList';
 import './MainDisplay.css';
-import { getParams, FullWidthAd, Spacer } from './Utils';
+import { getParams, FullWidthAd, Spacer, Mobile } from './Utils';
 
 class AppDetails extends Component {
   state = {
@@ -84,13 +84,13 @@ class AppDetails extends Component {
 
     return (
       <div className="AppDetails">
-        <FullWidthAd />
+       <Mobile />
         <div className="AppDetailsInner">   
             <div className="catTitle">
               { title } <span className="lesser">by { author }</span>
               <div className="right">
                 <button id="feedback" onClick={lf}>Leave Feedback</button>
-                <button onClick={mba}>More by Author</button>
+                <button id="full" onClick={mba}>More by Author</button>
               </div>
             </div>
             <div className="overlay">
@@ -114,6 +114,7 @@ class AppDetails extends Component {
             </div>
             <button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
             <button onClick={() => window.open(`${url}`)}>Source</button>
+            <button id="mobileonly" onClick={mba}>More by Author</button>
           </div>
           <div className="left row">
           <p className="sideHeader">App Details</p>

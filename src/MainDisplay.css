@@ -122,8 +122,8 @@ select:focus {
     font-size: 13px;
     margin: 0;
     overflow: hidden;
-    padding-top: 9px;
-    padding-bottom: 9px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     text-overflow: ellipsis;
     white-space: nowrap;
     border: 1px solid #aaa;
@@ -200,6 +200,10 @@ select:focus {
   width: 40px;
   font-size: 22px;
   display: inline-block;
+}
+
+.AppList {
+  padding-top: 5px;
 }
 
 .AppList, .AppDetails {
@@ -396,6 +400,7 @@ button:hover {
   font-size: 25px;
 }
 .menu {
+  display:inline-block;
   float: right;
   margin-right: 40px;
 }
@@ -403,6 +408,13 @@ button:hover {
 .menuspan {
   display:inline-block;
 }
+.mobile,.mobilebr, #mobileonly{
+  display: none;
+}
+#full {
+  display: unset;
+}
+
 
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
@@ -435,7 +447,7 @@ button:hover {
   }
 
   .AppDetails {
-    padding: 20px;
+    padding: 5px 20px 20px 20px;
   }
 
   .AppDetails .infoBox {
@@ -464,7 +476,7 @@ button:hover {
 
 /*Filters for Mobile Portrait*/
 @media only screen and (max-width: 600px) {
-  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit,#feedback { 
+  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit,#feedback,#full { 
     display:none;
   }
 
@@ -479,18 +491,28 @@ button:hover {
 
   .menuselect {
     display: unset;
-    margin-right:2px;
+    margin:0 10px 0 10px;
   }
 
   button {
-    margin-right:2px;
+    margin-right:1px;
   }
 
-  .menuspan {
+  .menuspan, .mobilebr, #mobileonly{
     display:unset;
   }
 
-  .menu {
-    float:left;
+  .mobile {
+    display : block;
+    width:100%;
+  }
+  .categories {
+    float: left;
+  }
+  .links {
+    float: right;
+  }
+  .mobilemenu {
+    width: 100%;
   }
 }

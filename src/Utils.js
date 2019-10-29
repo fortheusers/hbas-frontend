@@ -64,4 +64,55 @@ class Spacer extends Component {
   }
 }
 
-export { getParams, platformIcons, FullWidthAd, Spacer };
+class Mobile extends Component {
+
+  selectedcat = (event) => {
+    /* Hacky get platform method */
+    let e = document.getElementById("device");
+    let repo = e.options[e.selectedIndex].value;
+    let catselect = event.target.value;
+    if (repo == "both") {
+      window.location.href = (`${catselect}`);
+    }
+    else {
+      window.location.href = (`/${repo}${catselect}`);
+    }
+  }
+
+  choice = (event) => {
+    let path = event.target.value;
+    window.location.href = (path);
+  }
+  render() {
+    return <div className="mobile">
+    <div className="categories">
+    <select className="menuselect" defaultValue="#" onChange={this.selectedcat}>
+    <option selected disabled hidden value="#">Categories</option>
+    <option value="/search">Search</option>
+    <option value="/">All apps</option>
+    <option value="/category/games">Games</option>
+    <option value="/category/emulators">Emulators</option>
+    <option value="/category/tools">Tools</option>
+    <option value="/category/advanced">Advanced</option>
+    <option value="/category/themes">Themes</option>
+    <option value="/category/concepts">Concepts</option>
+    <option value="/category/courses">Courses</option>
+    <option value="/category/misc">Misc</option>
+  </select>  
+  </div>
+  <div className="links">
+  <select className="menuselect" id="menu" defaultValue="#" onChange={this.choice}>
+    <option selected disabled hidden value="#">Menu</option>
+    <option value="https://fortheusers.org">About</option>
+    <option value="https://discord.gg/F2PKpEj">Discord</option>
+    <option value="https://twitter.com/wiiubru">Twitter</option>
+    <option value="https://www.switchbru.com/account/">Account</option>
+    <option value="https://www.switchbru.com/dns">DNS</option>
+    <option value="https://submit.fortheusers.org/">Submit</option>
+  </select>
+  </div>
+  </div>
+  }
+}
+
+export { getParams, platformIcons, FullWidthAd, Spacer, Mobile };
