@@ -71,7 +71,7 @@ class Mobile extends Component {
     let e = document.getElementById("device");
     let repo = e.options[e.selectedIndex].value;
     let catselect = event.target.value;
-    if (repo == "both") {
+    if (repo === "both") {
       window.location.href = (`${catselect}`);
     }
     else {
