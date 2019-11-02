@@ -84,7 +84,8 @@ class AppDetails extends Component {
 
     let ua = navigator.userAgent;
     let dlButton;
-    if (ua.includes("Switch") || ("WiiU")) {
+    console.log(ua);
+    if (ua.includes("Switch" || "WiiU")) {
       dlButton = (<button onClick={() => alert(`We are sorry but Downloads are not available on this device.\n\nYou must install our Homebrew app to download from our Repo.\n\nIf you require more info on this please join us on Discord.`)}>Download</button>);
     }
     else {
