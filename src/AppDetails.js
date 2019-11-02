@@ -82,6 +82,14 @@ class AppDetails extends Component {
       window.location.href = (`mailto:fight@fortheusers.org?subject=[HBAS] Leaving feedback for ${name}`); // temp link
     }
 
+    let ua = navigator.userAgent;
+    let dlButton;
+    if (!ua.includes("Nintendo Switch") || ("Nintendo WiiU")) {
+        dlButton = (<button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
+      );
+    }
+
+
     return (
       <div className="AppDetails">
        <Mobile />
@@ -112,7 +120,7 @@ class AppDetails extends Component {
               <div><span>Web DLs</span> { web_dls }</div>
               <div><span>App DLs</span> { app_dls }</div>
             </div>
-            <button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
+            { dlButton }
             <button onClick={() => window.open(`${url}`)}>Source</button>
             <button id="mobileonly" onClick={mba}>More by Author</button>
           </div>

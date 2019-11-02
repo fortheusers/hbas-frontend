@@ -415,7 +415,6 @@ button:hover {
   display: unset;
 }
 
-
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
   .Header .right, .Footer .right {
@@ -514,5 +513,8 @@ button:hover {
   }
   .mobilemenu {
     width: 100%;
+  }
+  .AppDetails {
+    padding: 5px 10px 20px 10px;
   }
 }
