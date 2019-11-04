@@ -17,7 +17,7 @@ class AppDetails extends Component {
     const { package: pkg, platform } = getParams(props);
     this.curPkg = pkg;
 
-    this.state = {...this.state, platform};
+    this.state = { ...this.state, platform };
   }
 
   async componentDidMount() {
@@ -25,7 +25,7 @@ class AppDetails extends Component {
     const packages = await AppList.fetchPackages();
     this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg && pkg.platform === this.state.platform);
     console.log(packages);
-    if (!this.pkg) return this.setState({loading: false});
+    if (!this.pkg) return this.setState({ loading: false });
 
     const d = "details";
     this.pkg[d] = this.pkg[d] ? this.pkg[d].replace(/\\n/g, '\n') : this.pkg[d];
@@ -34,18 +34,17 @@ class AppDetails extends Component {
     const clog = "changelog";
     this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/\\n/g, '\n') : this.pkg[clog];
     this.pkg[clog] = this.pkg[clog] ? this.pkg[clog].replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig, '<a href="$&" target="_blank">$&</a>') : this.pkg[clog];
-    
+
     this.setState({
       pkg: this.pkg,
       loading: false
     });
   }
 
-  render()
-  {
+  render() {
     if (this.state.loading) {
       return (<div className="AppDetails">
-        <img src={loading} alt="Loading" style={{width: 270, height: 130}} />
+        <img src={loading} alt="Loading" style={{ width: 270, height: 130 }} />
       </div>);
     }
 
@@ -73,7 +72,7 @@ class AppDetails extends Component {
         license,
         updated,
         url
-        } } = this.state;
+      } } = this.state;
 
     let mba = () => {
       window.location.href = (`../search/${author}`);
@@ -89,51 +88,51 @@ class AppDetails extends Component {
       dlButton = (<button onClick={() => alert(`We are sorry but Downloads are not available on this device.\n\nYou must install our Homebrew app to download from our Repo.\n\nIf you require more info on this please join us on Discord.`)}>Download</button>);
     }
     else {
-        dlButton = (<button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
+      dlButton = (<button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
       );
     }
 
 
     return (
       <div className="AppDetails">
-       <Mobile />
-        <div className="AppDetailsInner">   
-            <div className="catTitle">
-              { title } <span className="lesser">by { author }</span>
-              <div className="right">
-                <button id="feedback" onClick={lf}>Leave Feedback</button>
-                <button id="full" onClick={mba}>More by Author</button>
-              </div>
+        <Mobile />
+        <div className="AppDetailsInner">
+          <div className="catTitle">
+            {title} <span className="lesser">by {author}</span>
+            <div className="right">
+              <button id="feedback" onClick={lf}>Leave Feedback</button>
+              <button id="full" onClick={mba}>More by Author</button>
             </div>
-            <div className="overlay">
-              <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror=null; e.target.src=noscreen} } />
-              <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
-            </div>
+          </div>
+          <div className="overlay">
+            <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror = null; e.target.src = noscreen }} />
+            <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
+          </div>
           <div className="right infoBox">
             <div className="row">
-              <div>{ description }</div>
+              <div>{description}</div>
               <br />
               <div className="sideHeader">Additional Info</div>
-              <div><span>Version</span> { version }</div>
-              <div><span>Updated</span> { updated }</div>
-              <div><span>Size</span> { filesize } KB</div>
-              <div><span>Zip Size</span> { extracted } KB</div>
-              <div><span>License</span> { license }</div>
+              <div><span>Version</span> {version}</div>
+              <div><span>Updated</span> {updated}</div>
+              <div><span>Size</span> {filesize} KB</div>
+              <div><span>Zip Size</span> {extracted} KB</div>
+              <div><span>License</span> {license}</div>
               <br />
               <div className="sideHeader">Download Stats</div>
-              <div><span>Web DLs</span> { web_dls }</div>
-              <div><span>App DLs</span> { app_dls }</div>
+              <div><span>Web DLs</span> {web_dls}</div>
+              <div><span>App DLs</span> {app_dls}</div>
             </div>
             { dlButton }
             <button onClick={() => window.open(`${url}`)}>Source</button>
             <button id="mobileonly" onClick={mba}>More by Author</button>
           </div>
           <div className="left row">
-          <p className="sideHeader">App Details</p>
-              <div className="details" dangerouslySetInnerHTML={{ __html: details }}></div>
+            <p className="sideHeader">App Details</p>
+            <div className="details" dangerouslySetInnerHTML={{ __html: details }}></div>
             <div className="changelog">
-            <p className="sideHeader">Changelog</p>
-            <p className="details" dangerouslySetInnerHTML={{ __html: changelog }}></p>
+              <p className="sideHeader">Changelog</p>
+              <p className="details" dangerouslySetInnerHTML={{ __html: changelog }}></p>
             </div>
           </div>
         </div>

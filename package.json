@@ -11,6 +11,7 @@
     "react-adsense": "^0.1.0",
     "react-dom": "^16.8.3",
     "react-fontawesome": "^1.6.1",
+    "react-portal-tooltip": "^2.4.7",
     "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.5"
   },

@@ -415,6 +415,32 @@ button:hover {
   display: unset;
 }
 
+.tooltip {
+  background-color: #eee;
+  max-width : 400px;
+}
+.tooltip img {
+  width: 100%;
+}
+
+.tooltip button {
+  margin: 5px 0 5px 5px;
+}
+
+.tooltipButtons {
+  display: inline-block;
+}
+
+.tooltipButtons button {
+  float: left;
+}
+
+.tooltipButtons img {
+  float: right;
+  max-width: 20%;
+}
+
+
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
   .Header .right, .Footer .right {

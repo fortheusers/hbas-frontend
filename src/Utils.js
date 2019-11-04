@@ -9,10 +9,10 @@ const getParams = props => {
 
   // return inner url params, but also lowercase all values
   return Object.keys(content)
-  .reduce((destination, key) => {
-    destination[key] = (content[key] || "").toLowerCase();
-    return destination;
-  }, {});
+    .reduce((destination, key) => {
+      destination[key] = (content[key] || "").toLowerCase();
+      return destination;
+    }, {});
 };
 
 const platformIcons = {
@@ -58,7 +58,7 @@ class FullWidthAd extends Component {
 
 class Spacer extends Component {
   render() {
-    return <div style={{height: 400}}>
+    return <div style={{ height: 400 }}>
       &nbsp;
     </div>;
   }
@@ -85,33 +85,33 @@ class Mobile extends Component {
   }
   render() {
     return <div className="mobile">
-    <div className="categories">
-    <select className="menuselect" defaultValue="#" onChange={this.selectedcat}>
-    <option selected disabled hidden value="#">Categories</option>
-    <option value="/search">Search</option>
-    <option value="/">All apps</option>
-    <option value="/category/games">Games</option>
-    <option value="/category/emulators">Emulators</option>
-    <option value="/category/tools">Tools</option>
-    <option value="/category/advanced">Advanced</option>
-    <option value="/category/themes">Themes</option>
-    <option value="/category/concepts">Concepts</option>
-    <option value="/category/courses">Courses</option>
-    <option value="/category/misc">Misc</option>
-  </select>  
-  </div>
-  <div className="links">
-  <select className="menuselect" id="menu" defaultValue="#" onChange={this.choice}>
-    <option selected disabled hidden value="#">Menu</option>
-    <option value="https://fortheusers.org">About</option>
-    <option value="https://discord.gg/F2PKpEj">Discord</option>
-    <option value="https://twitter.com/wiiubru">Twitter</option>
-    <option value="https://www.switchbru.com/account/">Account</option>
-    <option value="https://www.switchbru.com/dns">DNS</option>
-    <option value="https://submit.fortheusers.org/">Submit</option>
-  </select>
-  </div>
-  </div>
+      <div className="categories">
+        <select className="menuselect" defaultValue="#" onChange={this.selectedcat}>
+          <option selected disabled hidden value="#">Categories</option>
+          <option value="/search">Search</option>
+          <option value="/">All apps</option>
+          <option value="/category/games">Games</option>
+          <option value="/category/emulators">Emulators</option>
+          <option value="/category/tools">Tools</option>
+          <option value="/category/advanced">Advanced</option>
+          <option value="/category/themes">Themes</option>
+          <option value="/category/concepts">Concepts</option>
+          <option value="/category/courses">Courses</option>
+          <option value="/category/misc">Misc</option>
+        </select>
+      </div>
+      <div className="links">
+        <select className="menuselect" id="menu" defaultValue="#" onChange={this.choice}>
+          <option selected disabled hidden value="#">Menu</option>
+          <option value="https://fortheusers.org">About</option>
+          <option value="https://discord.gg/F2PKpEj">Discord</option>
+          <option value="https://twitter.com/wiiubru">Twitter</option>
+          <option value="https://www.switchbru.com/account/">Account</option>
+          <option value="https://www.switchbru.com/dns">DNS</option>
+          <option value="https://submit.fortheusers.org/">Submit</option>
+        </select>
+      </div>
+    </div>
   }
 }
 
