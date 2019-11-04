@@ -25,11 +25,8 @@ class AppCard extends Component {
 
     const cardClass = `AppCard ${platform === "wiiu" ? "wiiu" : ""}`;
 
-    {/*Tooltip tweaks : */}
-    {/*Remove non alphanumeric characters from title so ID tag validates*/}
     let titleid = title.replace(/\W/g, '');
 
-    {/*Apps like 2048 that are numeric screw with id tags so convert numeric ids to letters*/}
     if (!isNaN(titleid)) {
       titleid = ( (titleid + '').replace(/\d/g, c => 'JABCDEFGHI'[c] ) );
     }
