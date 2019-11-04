@@ -42,19 +42,23 @@ class AppCard extends Component {
         <div className="left">
           <div>v. {version}</div>
         </div>
-        <div className="cardright">
-          <div className="AppCard__Title" id={`${titleid}`} onMouseEnter={this.showTooltip.bind(this)} onMouseLeave={this.hideTooltip.bind(this)}>{title}</div>
+        <div className="cardright"  id={`${titleid}`} onMouseEnter={this.showTooltip.bind(this)} onMouseLeave={this.hideTooltip.bind(this)}>
+          <div className="AppCard__Title">{title}</div>
           <div>{author}</div>
 
           <ToolTip active={this.state.isTooltipActive} position="top" arrow="right" parent={`#${titleid}`}>
            <div className="tooltip">
-            <img alt="screen" src={`${repo}/packages/${name}/screen.png`} onError={e => { e.target.onerror = null; e.target.src = noscreen }}/>
+            <a href={`/${platform}/${name}`}>
+              <img alt="screen" src={`${repo}/packages/${name}/screen.png`} onError={e => { e.target.onerror = null; e.target.src = noscreen }}/>
+            </a>
             <div><b>{ description }</b></div>
               <div className="tooltipButtons">
                 <button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
                 <button onClick={() => window.open(`${url}`)}>Source</button>
                 <button onClick={ mba }>More by author</button>
-                <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} />
+                <a href={`/${platform}/${name}`}>
+                  <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} />
+                </a>
               </div>
             </div>
           </ToolTip>

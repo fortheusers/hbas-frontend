@@ -440,6 +440,11 @@ button:hover {
   max-width: 20%;
 }
 
+.tooltip img:hover {
+  filter: saturate(2);
+  opacity: 0.7;
+}
+
 
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
