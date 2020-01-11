@@ -115,8 +115,8 @@ class AppDetails extends Component {
               <div className="sideHeader">Additional Info</div>
               <div><span>Version</span> {version}</div>
               <div><span>Updated</span> {updated}</div>
-              <div><span>Size</span> {filesize} KB</div>
-              <div><span>Zip Size</span> {extracted} KB</div>
+              <div><span>Size</span> {extracted} KB</div>
+              <div><span>Zip Size</span> {filesize} KB</div>
               <div><span>License</span> {license}</div>
               <br />
               <div className="sideHeader">Download Stats</div>
