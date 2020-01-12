@@ -3,9 +3,13 @@ import AppCard from './AppCard';
 import LibGet from './LibGet';
 import loader from './img/loader.gif';
 import Sidebar from './Sidebar';
-import { getParams, FullWidthAd, Spacer, Mobile } from './Utils';
+import { getParams, FullWidthAd, Spacer, Mobile, stringDateToTimestamp } from './Utils';
 
 let sorts = [{
+  flavor: "by most recent",
+  order: (b, a) => stringDateToTimestamp(a.updated) - stringDateToTimestamp(b.updated)
+},
+{
   flavor: "by download count",
   order: (b, a) => (a.web_dls + a.app_dls) - (b.web_dls + b.app_dls)
 },
