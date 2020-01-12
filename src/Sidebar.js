@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faRobot, faCubes, faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faRobot, faCubes, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { getParams } from './Utils';
 import './MainDisplay';
 
@@ -45,7 +45,11 @@ const categories = [
     short: "_misc",
     name: "Misc",
     icon: faCubes
-  },
+  }, {
+    short: "legacy",
+    name: "Legacy",
+    icon: faBriefcase
+  }
 ];
 
 let selected = "_all";

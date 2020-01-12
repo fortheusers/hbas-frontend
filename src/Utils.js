@@ -98,6 +98,7 @@ class Mobile extends Component {
           <option value="/category/concepts">Concepts</option>
           <option value="/category/courses">Courses</option>
           <option value="/category/misc">Misc</option>
+          <option value="/category/legacy">Legacy</option>
         </select>
       </div>
       <div className="links">
