@@ -82,7 +82,7 @@ class AppList extends Component {
     const { short } = me.category;
     // let through for all and search, and misc only if not in any others
     packages = packages.filter(pkg => {
-      return (pkg.category === short || short === "_all") ||
+      return (pkg.category === short || (short === "_all" && pkg.category !== "theme")) ||
         (short === "_misc" && !cats.has(pkg.category)) ||
         (short === "_search");
     });
