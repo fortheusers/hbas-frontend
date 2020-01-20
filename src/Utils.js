@@ -15,6 +15,13 @@ const getParams = props => {
     }, {});
 };
 
+const stringDateToTimestamp = incoming => {
+  if (!incoming) return 0;
+  const parts = incoming.split('/');
+  const [ day, month, year ] = parts;
+  return new Date(year, month - 1, day);
+}
+
 const platformIcons = {
   wiiu: wiiuIcon,
   switch: switchIcon,
@@ -116,4 +123,4 @@ class Mobile extends Component {
   }
 }
 
-export { getParams, platformIcons, FullWidthAd, Spacer, Mobile };
+export { getParams, stringDateToTimestamp, platformIcons, FullWidthAd, Spacer, Mobile };
