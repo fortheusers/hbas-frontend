@@ -25,11 +25,11 @@ class AppCard extends Component {
 
     const cardClass = `AppCard ${platform === "wiiu" ? "wiiu" : ""}`;
 
-    let titleid = title.replace(/\W/g, '');
+    let titleStripped = title.replace(/\W/g, '');
 
-    if (!isNaN(titleid)) {
-      titleid = ( (titleid + '').replace(/\d/g, c => 'JABCDEFGHI'[c] ) );
-    }
+    let conCat = "ttid";
+
+    let titleid = conCat.concat(titleStripped);
 
     let mba = () => {
       window.location.href = (`../search/${author}`);
