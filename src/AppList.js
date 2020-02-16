@@ -84,7 +84,7 @@ class AppList extends Component {
     packages = packages.filter(pkg => {
       return (pkg.category === short || (short === "_all" && pkg.category !== "theme")) ||
         (short === "_misc" && !cats.has(pkg.category)) ||
-        (short === "_search");
+        (me.query);
     });
 
     packages = packages.filter(pkg => me.doesSearchMatch(me.query, pkg));
