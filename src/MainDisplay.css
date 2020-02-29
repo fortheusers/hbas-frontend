@@ -337,13 +337,11 @@ button:hover {
 
 .AppDetails .banner {
   width: auto;
-  margin: 0 auto;
-  display: block;
   position: relative;
 }
 
 .details {
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   content: "";
 }
 
@@ -353,11 +351,7 @@ button:hover {
   margin-left: 5px;
   line-height: 1.2;
   min-height: 100px;
-}
-
-.changelog {
-  min-height: 700px;
-  padding-bottom: 100px;
+  max-width: 600px;
 }
 
 .AppDetails .catTitle {
@@ -494,6 +488,14 @@ button:hover {
   .AppDetails .details {
     width: 100%;
     margin-left: 0px;
+  }
+
+  .screen_container {
+    width: 100%;
+  }
+
+  .screen_thumb {
+    width: unset;
   }
 
 }

@@ -29,13 +29,15 @@ code {
 }
 
 .screen_container {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  height: 200px;
+  width: 600px;
 }
 
 .screen_thumb {
-  height: 200px;
-  margin: 10px;
+  width: 300px;
+}
+
+.screen_thumb {
+  padding: 5px;
+  box-sizing: border-box;
+  max-width: 100%;
 }

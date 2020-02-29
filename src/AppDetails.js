@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import loading from './img/loader.gif';
 import noicon from './img/noicon.png';
 import noscreen from './img/noscreen.png';
@@ -95,22 +95,32 @@ class AppDetails extends Component {
       );
     }
 
-    const screenShotContainer = screens > 0 ? (
-      // if we have screen shots, display in a horizontal scrolling div
+    const screenShotContainer = (<Fragment>
+      <p className="sideHeader">Screen Shots</p>
       <div className="screen_container">
         { [...Array(screens).keys()].map(screenIdx => {
           const imgURL = `${repo}/packages/${name}/screen${screenIdx+1}.png`;
           return (<a href={imgURL} target="_blank" rel="noopener noreferrer">
             <img className="screen_thumb" src={imgURL} alt="Screen shot" />
           </a>);
-        })}
-      </div>
-    ) : (
+        })}</div>
+        </Fragment>);
+
+    const bannerContainer = (
       // fallback to wider banner style (used by app)
       <div id="bannerWrapper">
-        <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner"
-        onError={e => { e.target.onerror = null; e.target.src = `${repo}/packages/${name}/icon.png` }}
-        onLoad={e => { document.getElementById("bannerWrapper").style.backgroundColor = getFirstPixelFromImage(e.target) }} />
+        <img className="banner" crossorigin="anonymous" src={`${repo}/packages/${name}/screen.png`} alt="banner"
+        onError={e => {
+          const img = e.target;
+          img.onerror = null;
+          img.style.margin = "0 auto";
+          img.style.display = "block";
+          img.crossOrigin = "anonymous";
+          img.src = `${repo}/packages/${name}/icon.png`
+        }}
+        onLoad={e => {
+          document.getElementById("bannerWrapper").style.backgroundColor = getFirstPixelFromImage(e.target);
+        }} />
       </div>
     );
 
@@ -126,7 +136,7 @@ class AppDetails extends Component {
             </div>
           </div>
           <div className="overlay">
-            { screenShotContainer }
+            { bannerContainer }
             <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
           </div>
           <div className="right infoBox">
@@ -151,11 +161,12 @@ class AppDetails extends Component {
           </div>
           <div className="left row">
             <p className="sideHeader">App Details</p>
-            <div className="details" dangerouslySetInnerHTML={{ __html: details }}></div>
-            <div className="changelog">
+            <div className="details">{details}</div>
+            { screens > 0 && screenShotContainer }
+            { changelog !== "n/a" && (<div className="changelog">
               <p className="sideHeader">Changelog</p>
-              <p className="details" dangerouslySetInnerHTML={{ __html: changelog }}></p>
-            </div>
+              <p className="details">{changelog}</p>
+            </div>) }
           </div>
         </div>
         <FullWidthAd />
