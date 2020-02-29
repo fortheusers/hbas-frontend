@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import loading from './img/loader.gif';
 import AppList from './AppList';
+import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
 import { getParams, FullWidthAd, Spacer, Mobile, getFirstPixelFromImage } from './Utils';
 
@@ -13,6 +14,7 @@ class AppDetails extends Component {
   constructor(props) {
     super(props);
     this.pkg = {};
+    window.counter = 0;
     const { package: pkg, platform } = getParams(props);
     this.curPkg = pkg;
 
@@ -110,12 +112,11 @@ class AppDetails extends Component {
         <img className="banner" crossorigin="anonymous" src={`${repo}/packages/${name}/screen.png`} alt="banner"
         onError={e => {
           const img = e.target;
-          img.onerror = null;
           img.style.margin = "0 auto";
           img.style.display = "block";
           img.crossOrigin = "anonymous";
-          img.src ='https://www.switchbru.com/appstore/images/noscreen.png'
-          //img.src = `${repo}/packages/${name}/icon.png`
+          img.src = (window.counter > 0) ? noscreen : `${repo}/packages/${name}/icon.png`;
+          window.counter ++;
         }}
         onLoad={e => {
           document.getElementById("bannerWrapper").style.backgroundColor = getFirstPixelFromImage(e.target);
@@ -164,7 +165,7 @@ class AppDetails extends Component {
             { screens > 0 && screenShotContainer }
             { changelog !== "n/a" && (<div className="changelog">
               <p className="sideHeader">Changelog</p>
-              <p className="details">{changelog}</p>
+              <p className="details" dangerouslySetInnerHTML={{ __html: changelog }}></p>
             </div>) }
           </div>
         </div>
