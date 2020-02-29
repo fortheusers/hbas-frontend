@@ -49,7 +49,7 @@ class AppDetails extends Component {
 
     if (!this.pkg || Object.keys(this.pkg).length === 0) {
       return (<div className="AppDetails">
-        There's no package named "{this.curPkg}" for the selected repos.
+        There is no package named "{this.curPkg}" for the selected repos.
       </div>);
     }
 
