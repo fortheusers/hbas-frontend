@@ -1,7 +1,5 @@
 import React, { Fragment, Component } from 'react';
 import loading from './img/loader.gif';
-import noicon from './img/noicon.png';
-import noscreen from './img/noscreen.png';
 import AppList from './AppList';
 import './MainDisplay.css';
 import { getParams, FullWidthAd, Spacer, Mobile, getFirstPixelFromImage } from './Utils';
