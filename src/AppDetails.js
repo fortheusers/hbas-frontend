@@ -114,7 +114,8 @@ class AppDetails extends Component {
           img.style.margin = "0 auto";
           img.style.display = "block";
           img.crossOrigin = "anonymous";
-          img.src = `${repo}/packages/${name}/icon.png`
+          img.src ='https://www.switchbru.com/appstore/images/noscreen.png'
+          //img.src = `${repo}/packages/${name}/icon.png`
         }}
         onLoad={e => {
           document.getElementById("bannerWrapper").style.backgroundColor = getFirstPixelFromImage(e.target);
