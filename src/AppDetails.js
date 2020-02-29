@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import loading from './img/loader.gif';
+import noicon from './img/noicon.png';
 import noscreen from './img/noscreen.png';
 import AppList from './AppList';
 import './MainDisplay.css';
-import { getParams, FullWidthAd, Spacer, Mobile } from './Utils';
+import { getParams, FullWidthAd, Spacer, Mobile, getFirstPixelFromImage } from './Utils';
 
 class AppDetails extends Component {
   state = {
@@ -24,7 +25,7 @@ class AppDetails extends Component {
 
     const packages = await AppList.fetchPackages();
     this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg && pkg.platform === this.state.platform);
-    console.log(packages);
+
     if (!this.pkg) return this.setState({ loading: false });
 
     const d = "details";
@@ -72,7 +73,8 @@ class AppDetails extends Component {
         license,
         updated,
         md5,
-        url
+        url,
+        screens
       } } = this.state;
 
     let mba = () => {
@@ -84,7 +86,7 @@ class AppDetails extends Component {
 
     let ua = navigator.userAgent;
     let dlButton;
-    console.log(ua);
+
     if (ua.includes("Switch" || "WiiU")) {
       dlButton = (<button onClick={() => alert(`We are sorry but Downloads are not available on this device.\n\nYou must install our Homebrew app to download from our Repo.\n\nIf you require more info on this please join us on Discord.`)}>Download</button>);
     }
@@ -93,6 +95,24 @@ class AppDetails extends Component {
       );
     }
 
+    const screenShotContainer = screens > 0 ? (
+      // if we have screen shots, display in a horizontal scrolling div
+      <div className="screen_container">
+        { [...Array(screens).keys()].map(screenIdx => {
+          const imgURL = `${repo}/packages/${name}/screen${screenIdx+1}.png`;
+          return (<a href={imgURL} target="_blank" rel="noopener noreferrer">
+            <img className="screen_thumb" src={imgURL} alt="Screen shot" />
+          </a>);
+        })}
+      </div>
+    ) : (
+      // fallback to wider banner style (used by app)
+      <div id="bannerWrapper">
+        <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner"
+        onError={e => { e.target.onerror = null; e.target.src = `${repo}/packages/${name}/icon.png` }}
+        onLoad={e => { document.getElementById("bannerWrapper").style.backgroundColor = getFirstPixelFromImage(e.target) }} />
+      </div>
+    );
 
     return (
       <div className="AppDetails">
@@ -106,7 +126,7 @@ class AppDetails extends Component {
             </div>
           </div>
           <div className="overlay">
-            <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror = null; e.target.src = noscreen }} />
+            { screenShotContainer }
             <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
           </div>
           <div className="right infoBox">

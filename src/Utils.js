@@ -123,4 +123,14 @@ class Mobile extends Component {
   }
 }
 
-export { getParams, stringDateToTimestamp, platformIcons, FullWidthAd, Spacer, Mobile };
+const getFirstPixelFromImage = (img) => {
+  img.crossOrigin = "Anonymous";
+  var canvas = document.createElement('canvas');
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const context = canvas.getContext('2d');
+  context.drawImage(img, 0, 0, img.width, img.height);
+  return context.getImageData(0, 0, 1, 1).data;
+}
+
+export { getParams, getFirstPixelFromImage, stringDateToTimestamp, platformIcons, FullWidthAd, Spacer, Mobile };

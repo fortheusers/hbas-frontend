@@ -336,8 +336,9 @@ button:hover {
 }
 
 .AppDetails .banner {
-  width: 848px;
-  height: 208px;
+  width: auto;
+  margin: 0 auto;
+  display: block;
   position: relative;
 }
 
