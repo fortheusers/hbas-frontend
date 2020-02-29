@@ -440,6 +440,9 @@ button:hover {
   opacity: 0.7;
 }
 
+#hbasmtitle {
+  display: none;
+}
 
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
@@ -498,6 +501,13 @@ button:hover {
     width: unset;
   }
 
+  #hbastitle {
+    display: none;
+  }
+
+  #hbasmtitle {
+    display: inline-block;
+  }
 }
 
 /*Remove Mobile Icons for Large Displays*/

@@ -161,7 +161,7 @@ class AppDetails extends Component {
           </div>
           <div className="left row">
             <p className="sideHeader">App Details</p>
-            <div className="details">{details}</div>
+            <div className="details" dangerouslySetInnerHTML={{ __html: details }}></div>
             { screens > 0 && screenShotContainer }
             { changelog !== "n/a" && (<div className="changelog">
               <p className="sideHeader">Changelog</p>
