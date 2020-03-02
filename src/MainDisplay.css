@@ -336,13 +336,12 @@ button:hover {
 }
 
 .AppDetails .banner {
-  width: 848px;
-  height: 208px;
+  width: auto;
   position: relative;
 }
 
 .details {
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   content: "";
 }
 
@@ -352,11 +351,7 @@ button:hover {
   margin-left: 5px;
   line-height: 1.2;
   min-height: 100px;
-}
-
-.changelog {
-  min-height: 700px;
-  padding-bottom: 100px;
+  max-width: 600px;
 }
 
 .AppDetails .catTitle {
@@ -445,6 +440,9 @@ button:hover {
   opacity: 0.7;
 }
 
+#hbasmtitle {
+  display: none;
+}
 
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
@@ -495,6 +493,21 @@ button:hover {
     margin-left: 0px;
   }
 
+  .screen_container {
+    width: 100%;
+  }
+
+  .screen_thumb {
+    width: unset;
+  }
+
+  #hbastitle {
+    display: none;
+  }
+
+  #hbasmtitle {
+    display: inline-block;
+  }
 }
 
 /*Remove Mobile Icons for Large Displays*/

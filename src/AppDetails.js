@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import loading from './img/loader.gif';
-import noscreen from './img/noscreen.png';
 import AppList from './AppList';
+import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
-import { getParams, FullWidthAd, Spacer, Mobile } from './Utils';
+import { getParams, FullWidthAd, Spacer, Mobile, getFirstPixelFromImage } from './Utils';
 
 class AppDetails extends Component {
   state = {
@@ -14,6 +14,7 @@ class AppDetails extends Component {
   constructor(props) {
     super(props);
     this.pkg = {};
+    window.counter = 0;
     const { package: pkg, platform } = getParams(props);
     this.curPkg = pkg;
 
@@ -24,7 +25,7 @@ class AppDetails extends Component {
 
     const packages = await AppList.fetchPackages();
     this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg && pkg.platform === this.state.platform);
-    console.log(packages);
+
     if (!this.pkg) return this.setState({ loading: false });
 
     const d = "details";
@@ -50,7 +51,7 @@ class AppDetails extends Component {
 
     if (!this.pkg || Object.keys(this.pkg).length === 0) {
       return (<div className="AppDetails">
-        There's no package named "{this.curPkg}" for the selected repos.
+        There is no package named "{this.curPkg}" for the selected repos.
       </div>);
     }
 
@@ -71,7 +72,9 @@ class AppDetails extends Component {
         filesize,
         license,
         updated,
-        url
+        md5,
+        url,
+        screens
       } } = this.state;
 
     let mba = () => {
@@ -83,7 +86,7 @@ class AppDetails extends Component {
 
     let ua = navigator.userAgent;
     let dlButton;
-    console.log(ua);
+
     if (ua.includes("Switch" || "WiiU")) {
       dlButton = (<button onClick={() => alert(`We are sorry but Downloads are not available on this device.\n\nYou must install our Homebrew app to download from our Repo.\n\nIf you require more info on this please join us on Discord.`)}>Download</button>);
     }
@@ -92,6 +95,34 @@ class AppDetails extends Component {
       );
     }
 
+    const screenShotContainer = (<Fragment>
+      <p className="sideHeader">Screen Shots</p>
+      <div className="screen_container">
+        { [...Array(screens).keys()].map(screenIdx => {
+          const imgURL = `${repo}/packages/${name}/screen${screenIdx+1}.png`;
+          return (<a href={imgURL} target="_blank" rel="noopener noreferrer">
+            <img className="screen_thumb" src={imgURL} alt="Screen shot" />
+          </a>);
+        })}</div>
+        </Fragment>);
+
+    const bannerContainer = (
+      // fallback to wider banner style (used by app)
+      <div id="bannerWrapper">
+        <img className="banner" crossorigin="anonymous" src={`${repo}/packages/${name}/screen.png`} alt="banner"
+        onError={e => {
+          const img = e.target;
+          img.style.margin = "0 auto";
+          img.style.display = "block";
+          img.crossOrigin = "anonymous";
+          img.src = (window.counter > 0) ? noscreen : `${repo}/packages/${name}/icon.png`;
+          window.counter ++;
+        }}
+        onLoad={e => {
+          document.getElementById("bannerWrapper").style.backgroundColor = getFirstPixelFromImage(e.target);
+        }} />
+      </div>
+    );
 
     return (
       <div className="AppDetails">
@@ -105,7 +136,7 @@ class AppDetails extends Component {
             </div>
           </div>
           <div className="overlay">
-            <img className="banner" src={`${repo}/packages/${name}/screen.png`} alt="banner" onError={e => { e.target.onerror = null; e.target.src = noscreen }} />
+            { bannerContainer }
             <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
           </div>
           <div className="right infoBox">
@@ -122,6 +153,7 @@ class AppDetails extends Component {
               <div className="sideHeader">Download Stats</div>
               <div><span>Web DLs</span> {web_dls}</div>
               <div><span>App DLs</span> {app_dls}</div>
+              <div><span>md5</span><input className="md5text" defaultValue={md5} type="text"></input></div>
             </div>
             { dlButton }
             <button onClick={() => window.open(`${url}`)}>Source</button>
@@ -130,10 +162,11 @@ class AppDetails extends Component {
           <div className="left row">
             <p className="sideHeader">App Details</p>
             <div className="details" dangerouslySetInnerHTML={{ __html: details }}></div>
-            <div className="changelog">
+            { screens > 0 && screenShotContainer }
+            { changelog !== "n/a" && (<div className="changelog">
               <p className="sideHeader">Changelog</p>
               <p className="details" dangerouslySetInnerHTML={{ __html: changelog }}></p>
-            </div>
+            </div>) }
           </div>
         </div>
         <FullWidthAd />

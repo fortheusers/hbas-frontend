@@ -12,3 +12,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.md5text {
+  margin-left: 5px;
+  font-size: 10px;
+  width: calc(100% - 45px);
+  text-overflow: ellipsis;
+  background-color: transparent;
+  border: 0px solid black;
+  padding: 0px;
+  font-family: monospace;
+}
+
+.md5text:hover {
+  background-color: white;
+}
+
+.screen_container {
+  width: 600px;
+}
+
+.screen_thumb {
+  width: 300px;
+}
+
+.screen_thumb {
+  padding: 5px;
+  box-sizing: border-box;
+  max-width: 100%;
+}

@@ -29,7 +29,9 @@ class Header extends Component {
       <div className="nav">
         <ul>
           <li id="title" className="title"><FontAwesomeIcon icon={faCube} />
-            &nbsp;&nbsp;Homebrew App Store <span className="platform">for </span>
+            <span id="hbastitle">&nbsp;&nbsp;Homebrew App Store</span>
+            <span id="hbasmtitle">&nbsp;&nbsp;HB App Store</span>
+            <span className="platform"> for </span>
             <select id="device" defaultValue={this.platform} onChange={this.sub}
                     style={{backgroundImage: `url(${platformIcons[this.platform]})`}}>
               <option value="switch">Switch</option>
