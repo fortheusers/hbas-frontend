@@ -4,11 +4,13 @@ import AppList from './AppList';
 import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
 import { getParams, FullWidthAd, Spacer, Mobile, getFirstPixelFromImage } from './Utils';
+import Modal from 'react-responsive-modal';
 
 class AppDetails extends Component {
   state = {
     pkg: {},
-    loading: true
+    loading: true,
+    open: ''
   }
 
   constructor(props) {
@@ -41,8 +43,16 @@ class AppDetails extends Component {
       loading: false
     });
   }
+  onOpenModal = (target) => {
+    this.setState({ open: target});
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: '' });
+  };
 
   render() {
+    const { open } = this.state;
     if (this.state.loading) {
       return (<div className="AppDetails">
         <img src={loading} alt="Loading" style={{ width: 270, height: 130 }} />
@@ -100,11 +110,16 @@ class AppDetails extends Component {
       <div className="screen_container">
         { [...Array(screens).keys()].map(screenIdx => {
           const imgURL = `${repo}/packages/${name}/screen${screenIdx+1}.png`;
-          return (<a href={imgURL} target="_blank" rel="noopener noreferrer">
-            <img className="screen_thumb" src={imgURL} alt="Screen shot" />
-          </a>);
+          return (<span>
+              <img onClick={() => this.onOpenModal(imgURL)} className="screen_thumb" src={imgURL} alt="Screen shot" />
+              <Modal open={open === imgURL} onClose={this.onCloseModal}>
+                <img onClick={this.onCloseModal} className="modal_screen" src={imgURL} alt="Screen shot" />
+              </Modal>
+            </span>);         
         })}</div>
         </Fragment>);
+
+
 
     const bannerContainer = (
       // fallback to wider banner style (used by app)

@@ -443,6 +443,13 @@ button:hover {
 #hbasmtitle {
   display: none;
 }
+.modal_screen {
+  width: 800px;
+  cursor:zoom-out;
+}
+.screen_thumb {
+  cursor:zoom-in;
+}
 
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
@@ -499,6 +506,9 @@ button:hover {
 
   .screen_thumb {
     width: unset;
+  }
+  .modal_screen {
+    width: 100%;
   }
 
   #hbastitle {
