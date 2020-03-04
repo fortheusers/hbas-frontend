@@ -26,7 +26,7 @@ const stringDateToTimestamp = incoming => {
 const platformIcons = {
   wiiu: wiiuIcon,
   switch: switchIcon,
-  threeds: threedsIcon,
+  '3ds': threedsIcon,
   all: allIcon
 }
 

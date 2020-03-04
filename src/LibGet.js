@@ -9,7 +9,7 @@ const repos = [
     },
     {
       url: "https://crafterpika.github.io/3ds-homebrew",
-      platform : "threeds"
+      platform : "3ds"
     }
     // {
     //   url: "https://4tu.gitlab.io/dragonite-test-repo",
