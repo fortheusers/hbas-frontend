@@ -3,7 +3,7 @@ import loading from './img/loader.gif';
 import AppList from './AppList';
 import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
-import { getParams, FullWidthAd, Spacer, Mobile, getFirstPixelFromImage } from './Utils';
+import { getParams, FullWidthAd, Spacer, Mobile, getFirstPixelFromImage, platformIcons } from './Utils';
 import Modal from 'react-responsive-modal';
 
 class AppDetails extends Component {
@@ -97,6 +97,7 @@ class AppDetails extends Component {
     let ua = navigator.userAgent;
     let dlButton;
 
+    //add 3ds UA
     if (ua.includes("Switch" || "WiiU")) {
       dlButton = (<button onClick={() => alert(`We are sorry but Downloads are not available on this device.\n\nYou must install our Homebrew app to download from our Repo.\n\nIf you require more info on this please join us on Discord.`)}>Download</button>);
     }
@@ -152,7 +153,7 @@ class AppDetails extends Component {
           </div>
           <div className="overlay">
             { bannerContainer }
-            <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
+            <img id="console" alt={platform} src={`${platformIcons[platform]}`} />
           </div>
           <div className="right infoBox">
             <div className="row">

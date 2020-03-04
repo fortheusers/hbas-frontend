@@ -8,20 +8,20 @@ import { getParams, platformIcons } from './Utils';
 class Header extends Component {
   constructor(props) {
     super();
-    this.platform = window.localStorage.getItem("platform") || "both";
+    this.platform = window.localStorage.getItem("platform") || "all";
 
     const { platform, package: pkg } = getParams(props);
 
     // if we don't have a package, (on a listing page) defer to the URL to get platform
     if (!pkg) {
-      this.platform = platform || "both";
+      this.platform = platform || "all";
     }
   }
   
   sub = (event) => {
     let repo = event.target.value;
     window.localStorage.setItem("platform", repo);
-    window.location.href = (repo && repo !== "both") ? `/${repo}` : '/';
+    window.location.href = (repo && repo !== "all") ? `/${repo}` : '/';
   }
 
   render() {
@@ -36,7 +36,8 @@ class Header extends Component {
                     style={{backgroundImage: `url(${platformIcons[this.platform]})`}}>
               <option value="switch">Switch</option>
               <option value="wiiu">Wii U</option>
-              <option value="both">Switch &amp; Wii U&nbsp;&nbsp;&nbsp;</option>
+              <option value="threeds">3DS</option>
+              <option value="all">All Consoles&nbsp;&nbsp;</option>
             </select>
           </li>
           <li id="ftu"><a href="https://fortheusers.org">About</a></li>

@@ -7,6 +7,10 @@ const repos = [
       url: "https://www.wiiubru.com/appstore",
       platform: "wiiu"
     },
+    {
+      url: "https://crafterpika.github.io/3ds-homebrew",
+      platform : "threeds"
+    }
     // {
     //   url: "https://4tu.gitlab.io/dragonite-test-repo",
     //   platform: "switch"
@@ -17,8 +21,8 @@ const repos = [
 const LibGet = {
   repos,
 
-  getRepos: (platform = "both") => {
-    return repos.filter(repo => platform === "both" || repo.platform === platform);
+  getRepos: (platform = "all") => {
+    return repos.filter(repo => platform === "all" || repo.platform === platform);
   },
 
   getApps: (myRepos = repos) => {

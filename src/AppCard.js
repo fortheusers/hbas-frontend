@@ -3,6 +3,7 @@ import noicon from './img/noicon.png';
 import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
 import ToolTip from 'react-portal-tooltip';
+import { platformIcons } from './Utils';
 
 class AppCard extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class AppCard extends Component {
     return (
       <div className={cardClass}>
         <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} />
-        <img id="console" alt={platform} src={`${repo}/packages/logo.png`} />
+        <img id="console" alt={platform} src={`${platformIcons[platform]}`} />
         <div className="left">
           <div>v. {version}</div>
         </div>

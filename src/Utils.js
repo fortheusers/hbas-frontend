@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import AdSense from 'react-adsense';
 import wiiuIcon from './img/wiiu.png';
 import switchIcon from './img/switch.png';
-import bothIcon from './img/both.png';
+import threedsIcon from './img/3ds.png';
+import allIcon from './img/all.png';
 
 const getParams = props => {
   const { match: { params: content } } = props;
@@ -25,7 +26,8 @@ const stringDateToTimestamp = incoming => {
 const platformIcons = {
   wiiu: wiiuIcon,
   switch: switchIcon,
-  both: bothIcon
+  threeds: threedsIcon,
+  all: allIcon
 }
 
 class FullWidthAd extends Component {
@@ -78,7 +80,7 @@ class Mobile extends Component {
     let e = document.getElementById("device");
     let repo = e.options[e.selectedIndex].value;
     let catselect = event.target.value;
-    if (repo === "both") {
+    if (repo === "all") {
       window.location.href = (`${catselect}`);
     }
     else {
