@@ -8,7 +8,7 @@ const repos = [
       platform: "wiiu"
     },
     {
-      url: "https://crafterpika.github.io/3ds-homebrew",
+      url: "http://3ds.apps.fortheusers.org",
       platform : "3ds"
     }
     // {
