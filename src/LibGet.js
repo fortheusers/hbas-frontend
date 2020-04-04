@@ -8,7 +8,7 @@ const repos = [
       platform: "wiiu"
     },
     {
-      url: "http://3ds.apps.fortheusers.org",
+      url: "https://3ds.apps.fortheusers.org",
       platform : "3ds"
     }
     // {
