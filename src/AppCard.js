@@ -24,7 +24,7 @@ class AppCard extends Component {
   render() {
     const { name, title, version, author, repo, platform, description, url } = this.props;
 
-    const cardClass = `AppCard ${platform === "wiiu" ? "wiiu" : ""}`;
+    const cardClass = `AppCard  AppCard_${platform}`;
 
     let titleStripped = title.replace(/\W/g, '');
 
@@ -50,7 +50,6 @@ class AppCard extends Component {
           <ToolTip active={this.state.isTooltipActive} position="top" arrow="right" parent={`#${titleid}`}>
            <div className="tooltip">
             <a href={`/${platform}/${name}`}>
-              <img alt="screen" src={`${repo}/packages/${name}/screen.png`} onError={e => { e.target.onerror = null; e.target.src = noscreen }}/>
             </a>
             <div><b>{ description }</b></div>
               <div className="tooltipButtons">
