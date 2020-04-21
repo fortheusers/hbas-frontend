@@ -402,7 +402,7 @@ button:hover {
   font-size: 25px;
 }
 .menu {
-  display:inline-block;
+  display:block;
   float: right;
   margin-right: 40px;
 }
