@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import noicon from './img/noicon.png';
-import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
 import ToolTip from 'react-portal-tooltip';
 import { platformIcons } from './Utils';
