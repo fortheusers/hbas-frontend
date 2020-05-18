@@ -169,7 +169,7 @@ class AppDetails extends Component {
               <div className="sideHeader">Download Stats</div>
               <div><span>Web DLs</span> {web_dls}</div>
               <div><span>App DLs</span> {app_dls}</div>
-              <div><span>md5</span><input className="md5text" defaultValue={md5} type="text"></input></div>
+              <div><span>md5</span><input className="md5text" defaultValue={md5} type="text" readonly></input></div>
             </div>
             { dlButton }
             <button onClick={() => window.open(`${url}`)}>Source</button>
