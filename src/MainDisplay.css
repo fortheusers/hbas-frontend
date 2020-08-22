@@ -151,6 +151,11 @@ select:focus {
   display: flex;
 }
 
+.infoBox a {
+  text-decoration: none;
+  text-align: center;
+}
+
 .title {
   float:left;
   padding: 10px 0 0 15px;
@@ -314,7 +319,7 @@ select:focus {
   padding-right: 40px;
 }
 
-button {
+button, .infoBox a {
   background-color: #555;
   color: #eee;
   border: none;
@@ -324,7 +329,7 @@ button {
   font-weight: 500;
   cursor: pointer;
 }
-button:hover {
+button:hover, .infoBox a:hover {
   background-color: #777;
 }
 
@@ -396,6 +401,9 @@ button:hover {
 
 .infoBox button {
   width: 100%;
+}
+
+.infoBox button, .infoBox a {
   margin-top: 10px;
   margin-left: 0px;
   display: block;
@@ -554,8 +562,8 @@ button:hover {
     margin:0 10px 0 10px;
   }
 
-  button {
-    margin-right:1px;
+  button, .infoBox a {
+    margin-right: 1px;
   }
 
   .menuspan, .mobilebr, #mobileonly{

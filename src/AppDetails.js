@@ -102,7 +102,7 @@ class AppDetails extends Component {
       dlButton = (<button onClick={() => alert(`We are sorry but Downloads are not available on this device.\n\nYou must install our Homebrew app to download from our Repo.\n\nIf you require more info on this please join us on Discord.`)}>Download</button>);
     }
     else {
-      dlButton = (<button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
+      dlButton = (<a target="_blank" rel="noopener noreferrer" href={`${repo}/zips/${name}.zip`}>Download</a>
       );
     }
 
@@ -172,7 +172,7 @@ class AppDetails extends Component {
               <div><span>md5</span><input className="md5text" defaultValue={md5} type="text" readonly></input></div>
             </div>
             { dlButton }
-            <button onClick={() => window.open(`${url}`)}>Source</button>
+            <a target="_blank" rel="noopener noreferrer" href={`${url}`}>Source</a>
             <button id="mobileonly" onClick={mba}>More by Author</button>
           </div>
           <div className="left row">
