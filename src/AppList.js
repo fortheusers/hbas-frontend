@@ -11,7 +11,7 @@ let sorts = [{
 },
 {
   flavor: "by download count",
-  order: (b, a) => (a.web_dls + a.app_dls) - (b.web_dls + b.app_dls)
+  order: (b, a) => a.app_dls - b.app_dls
 },
 {
   flavor: "randomly",
