@@ -76,7 +76,6 @@ class AppDetails extends Component {
         changelog,
         author,
         version,
-        web_dls,
         app_dls,
         extracted,
         filesize,
