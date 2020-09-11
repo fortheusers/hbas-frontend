@@ -99,6 +99,7 @@ class Mobile extends Component {
           <option selected disabled hidden value="#">Categories</option>
           <option value="/search">Search</option>
           <option value="/">All apps</option>
+          <option value="/stats">Statistics</option>
           <option value="/category/games">Games</option>
           <option value="/category/emulators">Emulators</option>
           <option value="/category/tools">Tools</option>

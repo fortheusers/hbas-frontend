@@ -25,6 +25,10 @@ const LibGet = {
     return repos.filter(repo => platform === "all" || repo.platform === platform);
   },
 
+  getStats: () => {
+    return fetch("https://wiiubru.com/history/output.json");
+  },
+
   getApps: (myRepos = repos) => {
     return Promise.all(myRepos.map(repo => fetch(`${repo.url}/repo.json`)));
   }
