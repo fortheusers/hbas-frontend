@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faRobot, faCubes, faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faRobot, faCubes, faLightbulb, faChartArea } from '@fortawesome/free-solid-svg-icons'
 import { getParams } from './Utils';
 import './MainDisplay';
 
@@ -13,6 +13,10 @@ const categories = [
     short: "_all",
     name: "All Apps",
     icon: faThLarge
+  }, {
+    short: "_stats",
+    name: "Statistics",
+    icon: faChartArea,
   }, {
     short: "game",
     name: "Games",
@@ -92,7 +96,7 @@ class Sidebar extends Component {
         {
           categories.map(cat => {
             let target = cat.short !== "_all" ? `${platInfo}/category/${cat.name.toLowerCase()}` : `${platInfo || "/"}`;
-            target = cat.short === "_search" ? `${platInfo}/search` : target;
+            target = cat.short === "_search" || cat.short === "_stats" ? `${platInfo}/${cat.short.substring(1)}` : target;
 
             console.log(target);
             return (<a

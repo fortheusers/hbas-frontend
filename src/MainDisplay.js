@@ -5,6 +5,7 @@ import AppDetails from './AppDetails';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
+import AppStatsChart from './AppStatsChart';
 import './MainDisplay.css';
 
 class MainDisplay extends Component {
@@ -36,6 +37,9 @@ class MainDisplay extends Component {
             <Route path='/search' component={Sidebar} />
             <Route path='/:platform/search' component={Sidebar} />
 
+            <Route path='/stats' component={Sidebar} />
+            <Route path='/:platform/stats' component={Sidebar} />
+
             <Route path='/category/:category' component={Sidebar} />
 
             <Route path='/:platform/:package' component={Sidebar} />
@@ -48,6 +52,9 @@ class MainDisplay extends Component {
             <Route path='/:platform/search' component={AppList} />
             <Route path='/search/:query' component={AppList} />
             <Route path='/search' component={AppList} />
+
+            <Route path='/:platform/stats' component={AppStatsChart} />
+            <Route path='/stats' component={AppStatsChart} />
 
             <Route path='/:platform/category/:category' component={AppList} />
             <Route path='/category/:category' component={AppList} />
