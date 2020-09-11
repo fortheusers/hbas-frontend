@@ -171,6 +171,7 @@ class AppDetails extends Component {
             </div>
             { dlButton }
             <a target="_blank" rel="noopener noreferrer" href={`${url}`}>Source</a>
+            <a target="_blank" rel="noopener noreferrer" href={`/stats?apps=${name}`}>View Stats</a>
             <button id="mobileonly" onClick={mba}>More by Author</button>
           </div>
           <div className="left row">
