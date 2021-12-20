@@ -1,16 +1,16 @@
 const repos = [
+    //{
+    //  url: "https://www.switchbru.com/appstore",
+    //  platform: "switch"
+    //},
     {
-      url: "https://www.switchbru.com/appstore",
-      platform: "switch"
-    },
-    {
-      url: "https://www.wiiubru.com/appstore",
+      url: "https://wiiubru.com/appstore",
       platform: "wiiu"
-    },
-    {
-      url: "https://3ds.apps.fortheusers.org",
-      platform : "3ds"
-    }
+    }//,
+    //{
+    //  url: "https://3ds.apps.fortheusers.org",
+    //  platform : "3ds"
+    //}
     // {
     //   url: "https://4tu.gitlab.io/dragonite-test-repo",
     //   platform: "switch"
