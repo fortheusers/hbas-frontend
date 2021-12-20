@@ -1,8 +1,8 @@
 const repos = [
-    //{
-    //  url: "https://www.switchbru.com/appstore",
-    //  platform: "switch"
-    //},
+    {
+      url: "http://switchbru.com/appstore",
+      platform: "switch"
+    },
     {
       url: "https://wiiubru.com/appstore",
       platform: "wiiu"
