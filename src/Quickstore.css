@@ -1,0 +1,112 @@
+.catItem {
+
+    margin: 0 0 10px 0;
+    padding: 10px;
+    display: block;
+    font-size: 25px;
+    font-weight: 300;
+    text-align: left;
+    width: 100%;
+    margin-left: 30px;
+    float: left;
+    display: none;
+}
+
+.quickstore-container > p {
+    text-align: left;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.dlButton {
+    margin-left: 40px;
+    background-color: darkred;
+    font-size: 20px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.quickItem {
+    border: 2px solid #ccc;
+    width: 270px;
+    height: 80px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin: 5px;
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.quickItem img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover; 
+    float: left;
+    /* vertical-align: middle; */
+
+}
+
+.quickItem > div {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.quickItem a {
+    text-decoration: none;
+    color: black;
+    margin-left: 5px;
+    /* vertical-align: middle; */
+}
+
+.quickItem .desc {
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.quickItem .url {
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.clearfix {
+    overflow: auto;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+h2 {
+    margin-left: 50px;
+    margin-right: 50px;
+    font-weight: 300;
+    cursor: pointer;
+    background-color: #eee;
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* height: 10px; */
+}
+
+button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.show.show {
+    display: block;
+}
+
+.quickItem.show {
+    background-color: greenyellow;
+    border: 2px solid green;
+}
+
+.nobg.nobg {
+    background-color: transparent;
+    border: 0px solid #ccc;
+}
