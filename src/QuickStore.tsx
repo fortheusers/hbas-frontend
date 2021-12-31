@@ -64,9 +64,9 @@ const QuickStore = (props: any) => {
             <p>
                 This page allows you to download multiple apps in a single zip file, that can then be extracted directly to the root of the SD card.
             </p>
-            <p>
+            <p className="disabled">
                 <input type="checkbox" id="experimental" />
-                <label htmlFor="experimental">Fetch releases directly from <FontAwesomeIcon icon={faPropIcon} /> Github where possible (Experimental)</label>
+                <label htmlFor="experimental">Fetch releases directly from <FontAwesomeIcon icon={faPropIcon} /> Github where possible (Coming Soon)</label>
             </p>
         </Fragment>);
 
@@ -143,6 +143,9 @@ const QuickStore = (props: any) => {
         )
     });
 
+    console.log("Thanks")
+    console.log(selectedPackages);
+
     const dlButton = <div>
         <button
             className="dlButton"
@@ -158,18 +161,20 @@ const QuickStore = (props: any) => {
                 });
                 const allZips = await Promise.all(allURLs.map(async (url: string, index: number) => {
                     const zip = new JSZip();
-                    zip.loadAsync(await urlToPromise(url), { createFolders: true });
+                    await zip.loadAsync(await urlToPromise(url), { createFolders: true });
                     return zip;
                 }));
                 // https://stackoverflow.com/questions/57513029/i-have-to-different-zip-files-created-using-jszip-is-is-possible-to-combile-the
                 let mergedZip = new JSZip();
                 for (let zipObject of allZips) {
+                    console.log("Zipping");
                     mergedZip = await mergedZip.loadAsync(
                         await zipObject.generateAsync({ type: "blob" }),
                         { createFolders: true }
                     );
                     console.log(mergedZip.files);
                 }
+                console.log(mergedZip.files)
                 saveAs(await mergedZip.generateAsync({ type: "blob" }), `quickstore-extracttosd.zip`);
             }}
         >

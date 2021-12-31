@@ -478,6 +478,10 @@ button:hover, .infoBox a:hover {
     display: none;
   }
 
+  .sidebar-item.selected {
+    padding-left: 20px;
+  }
+
   #dns,#account,#twitter,#discord,#ftu,#submit {
     display:none;
   }

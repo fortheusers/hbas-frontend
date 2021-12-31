@@ -95,6 +95,7 @@ class Mobile extends Component {
   render() {
     return <div className="mobile">
       <div className="categories">
+        {/* TODO: dynamically load from category list */}
         <select className="menuselect" defaultValue="#" onChange={this.selectedcat}>
           <option selected disabled hidden value="#">Categories</option>
           <option value="/search">Search</option>
@@ -105,9 +106,7 @@ class Mobile extends Component {
           <option value="/category/tools">Tools</option>
           <option value="/category/advanced">Advanced</option>
           <option value="/category/themes">Themes</option>
-          <option value="/category/concepts">Concepts</option>
-          <option value="/category/courses">Courses</option>
-          <option value="/category/misc">Misc</option>
+          <option value="/quickstore">QuickStore</option>
           <option value="/category/legacy">Legacy</option>
         </select>
       </div>

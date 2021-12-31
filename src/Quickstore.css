@@ -110,3 +110,9 @@ button[disabled] {
     background-color: transparent;
     border: 0px solid #ccc;
 }
+
+.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
