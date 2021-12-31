@@ -149,29 +149,26 @@ const QuickStore = (props: any) => {
             disabled={selectedPackages.length === 0}
             onClick={async () => {
                 let allURLs = selectedPackages.map((sp: string) => {
-                    const pkg = allApps.find((app: Package) => app.name == sp);
+                    const pkg = allApps.find((app: Package) => app.name == sp && app.platform == activePlat);
                     if (pkg === undefined) {
                         return "";
                     }
                     // TODO: fetch github releases if selected
                     return `${pkg['repo']}/zips/${pkg['name']}.zip`;
                 });
-                // const allData = await Promise.all(allURLS.map(async (zipURL: string) => {
-                    
-                // }));
                 const allZips = await Promise.all(allURLs.map(async (url: string, index: number) => {
-                    const filename = selectedPackages[index] + ".zip";
                     const zip = new JSZip();
-                    zip.file(filename, await urlToPromise(url), { binary:true });
+                    zip.loadAsync(await urlToPromise(url), { createFolders: true });
                     return zip;
                 }));
                 // https://stackoverflow.com/questions/57513029/i-have-to-different-zip-files-created-using-jszip-is-is-possible-to-combile-the
                 let mergedZip = new JSZip();
                 for (let zipObject of allZips) {
                     mergedZip = await mergedZip.loadAsync(
-                    await zipObject.generateAsync({ type: "blob" }),
-                    { createFolders: true }
+                        await zipObject.generateAsync({ type: "blob" }),
+                        { createFolders: true }
                     );
+                    console.log(mergedZip.files);
                 }
                 saveAs(await mergedZip.generateAsync({ type: "blob" }), `quickstore-extracttosd.zip`);
             }}
