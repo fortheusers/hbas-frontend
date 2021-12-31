@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import JSZip from 'jszip';
+import { urlToPromise, saveAs } from './LibGet';
 import AppList from './AppList';
 import loader from './img/loader.gif';
 import './Quickstore.css';
@@ -145,6 +147,34 @@ const QuickStore = (props: any) => {
         <button
             className="dlButton"
             disabled={selectedPackages.length === 0}
+            onClick={async () => {
+                let allURLs = selectedPackages.map((sp: string) => {
+                    const pkg = allApps.find((app: Package) => app.name == sp);
+                    if (pkg === undefined) {
+                        return "";
+                    }
+                    // TODO: fetch github releases if selected
+                    return `${pkg['repo']}/zips/${pkg['name']}.zip`;
+                });
+                // const allData = await Promise.all(allURLS.map(async (zipURL: string) => {
+                    
+                // }));
+                const allZips = await Promise.all(allURLs.map(async (url: string, index: number) => {
+                    const filename = selectedPackages[index] + ".zip";
+                    const zip = new JSZip();
+                    zip.file(filename, await urlToPromise(url), { binary:true });
+                    return zip;
+                }));
+                // https://stackoverflow.com/questions/57513029/i-have-to-different-zip-files-created-using-jszip-is-is-possible-to-combile-the
+                let mergedZip = new JSZip();
+                for (let zipObject of allZips) {
+                    mergedZip = await mergedZip.loadAsync(
+                    await zipObject.generateAsync({ type: "blob" }),
+                    { createFolders: true }
+                    );
+                }
+                saveAs(await mergedZip.generateAsync({ type: "blob" }), `quickstore-extracttosd.zip`);
+            }}
         >
             <FontAwesomeIcon icon={faDownload} />
             &nbsp;

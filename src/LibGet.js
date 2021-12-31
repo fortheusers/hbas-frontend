@@ -1,3 +1,6 @@
+import JSZipUtils from 'jszip-utils';
+import { saveAs } from 'filesaver.js';
+
 const repos = [
     {
       url: "https://switchbru.com/appstore",
@@ -34,4 +37,17 @@ const LibGet = {
   }
 }
 
+function urlToPromise(url) {
+    return new Promise(function(resolve, reject) {
+        JSZipUtils.getBinaryContent(url, function (err, data) {
+            if(err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+}    
+
 export default LibGet;
+export { urlToPromise, saveAs };
