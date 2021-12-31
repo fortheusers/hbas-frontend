@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faFastForward, faCubes, faLightbulb, faChartArea } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faFastForward, faCubes, faChartArea } from '@fortawesome/free-solid-svg-icons'
 import { getParams } from './Utils';
 import './MainDisplay';
 
@@ -92,7 +92,7 @@ class Sidebar extends Component {
       || window.location.pathname.endsWith("/quickstore")
     ) {
       const splitPart = window.location.pathname.split("/").pop();
-      choice = categories.find(cat => cat.short.substring(1) == splitPart);
+      choice = categories.find(cat => cat.short.substring(1) === splitPart);
     }
 
     this.platform = platform;
