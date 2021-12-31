@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faRobot, faCubes, faLightbulb, faChartArea } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faFastForward, faCubes, faLightbulb, faChartArea } from '@fortawesome/free-solid-svg-icons'
 import { getParams } from './Utils';
 import './MainDisplay';
 
@@ -37,26 +37,35 @@ const categories = [
     short: "theme",
     name: "Themes",
     icon: faSwatchbook
-  }, {
-    short: "concept",
-    name: "Concepts",
-    icon: faLightbulb
-  }, {
-    short: "_courses",
-    name: "Courses",
-    icon: faRobot
-  }, {
+  },
+  // {
+  //   short: "concept",
+  //   name: "Concepts",
+  //   icon: faLightbulb
+  // },
+  // {
+  //   short: "_courses",
+  //   name: "Courses",
+  //   icon: faRobot
+  // },
+  {
     short: "_misc",
     name: "Misc",
     icon: faCubes
   }, {
+    short: "_quickstore",
+    name: "QuickStore",
+    icon: faFastForward
+  },
+  {
     short: "legacy",
     name: "Legacy",
     icon: faBriefcase
-  }
+  },
 ];
 
 let selected = "_all";
+let choice = "_all";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -67,8 +76,6 @@ class Sidebar extends Component {
     const { category, package: pkg } = params;
     let { platform } = params;
 
-    console.log(params);
-
     // if we have local storage, and we _DO_ have a package, (aka _not_ on a listing page) respect local storage platform over the URL!
     if (pkg && window.localStorage.getItem("platform")) {
       platform = window.localStorage.getItem("platform");
@@ -77,6 +84,16 @@ class Sidebar extends Component {
     // check if our category from the URL is valid, else default to all
     const valid = categories.find(cat => cat.name.toLowerCase() === category || cat.short === category)
     selected = valid ? valid : categories[1];
+    choice = selected;
+
+    if (
+      window.location.pathname.endsWith("/search")
+      || window.location.pathname.endsWith("/stats")
+      || window.location.pathname.endsWith("/quickstore")
+    ) {
+      const splitPart = window.location.pathname.split("/").pop();
+      choice = categories.find(cat => cat.short.substring(1) == splitPart);
+    }
 
     this.platform = platform;
   }
@@ -96,12 +113,13 @@ class Sidebar extends Component {
         {
           categories.map(cat => {
             let target = cat.short !== "_all" ? `${platInfo}/category/${cat.name.toLowerCase()}` : `${platInfo || "/"}`;
-            target = cat.short === "_search" || cat.short === "_stats" ? `${platInfo}/${cat.short.substring(1)}` : target;
+            target = (cat.short === "_search" || cat.short === "_stats" || cat.short === "_quickstore") ? `${platInfo}/${cat.short.substring(1)}` : target;
 
             console.log(target);
             return (<a
                 href={target}
                 key={target}
+                className={`sidebar-item${choice.short === cat.short ? " selected" : ""}`}
               >
                 <div className="icon">
                   <FontAwesomeIcon icon={cat.icon} />

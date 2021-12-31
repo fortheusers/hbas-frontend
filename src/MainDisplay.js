@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
 import AppStatsChart from './AppStatsChart';
+import QuickStore from './QuickStore.tsx';
 import './MainDisplay.css';
 
 class MainDisplay extends Component {
@@ -16,7 +17,14 @@ class MainDisplay extends Component {
   render() {
     if (this.state.hasError) {
       return <h2 style={{padding: 10}}>
-        An error occurred, please check the console for details
+        An error occurred, please check the console for more details.
+        { this.state.errorContent == null ? "" : <pre style={{
+          whiteSpace: "pre-wrap",
+          color: "rgba(0,0,0,0.4)",
+        }}>
+          {this.state.errorContent.message}
+          {this.state.errorContent.trace}
+        </pre> }
       </h2>;
     }
 
@@ -40,6 +48,9 @@ class MainDisplay extends Component {
             <Route path='/stats' component={Sidebar} />
             <Route path='/:platform/stats' component={Sidebar} />
 
+            <Route path='/quickstore' component={Sidebar} />
+            <Route path='/:platform/quickstore' component={Sidebar} />
+
             <Route path='/category/:category' component={Sidebar} />
 
             <Route path='/:platform/:package' component={Sidebar} />
@@ -56,6 +67,9 @@ class MainDisplay extends Component {
             <Route path='/:platform/stats' component={AppStatsChart} />
             <Route path='/stats' component={AppStatsChart} />
 
+            <Route path='/quickstore' component={QuickStore} />
+            <Route path='/:platform/quickstore' component={QuickStore} />
+            
             <Route path='/:platform/category/:category' component={AppList} />
             <Route path='/category/:category' component={AppList} />
 
@@ -76,6 +90,16 @@ class MainDisplay extends Component {
   componentDidCatch(error, errorInfo) {
     console.log(error);
     console.log(errorInfo);
+    console.log({
+      message: error,
+      trace: errorInfo.componentStack
+    });
+    this.setState({
+      errorContent: {
+        message: error.message,
+        trace: errorInfo.componentStack
+      }
+    });
   }
 }
 
