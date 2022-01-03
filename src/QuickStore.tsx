@@ -8,7 +8,7 @@ import JSZip from 'jszip';
 import { urlToPromise, saveAs } from './LibGet';
 import AppList from './AppList';
 import loader from './img/loader.gif';
-import noicon from './img/noicon.png';
+//import noicon from './img/noicon.png';
 import './Quickstore.css';
 
 const plats = {
@@ -119,7 +119,7 @@ const QuickStore = (props: any) => {
                                     }
                                 }}
                             >
-                                <img src={`${app.repo}/packages/${app.name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} alt={app.title} />
+                                <img src={`${app.repo}/packages/${app.name}/icon.png`} alt={app.title} />
                                 <div>
                                     <a
                                         // href={`/${plat}/${app.name}`}
