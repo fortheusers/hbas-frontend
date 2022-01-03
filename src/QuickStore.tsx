@@ -119,7 +119,7 @@ const QuickStore = (props: any) => {
                                     }
                                 }}
                             >
-                                <img src={`${app.repo}/packages/${app.name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon } alt={app.title} />
+                                <img src={`${app.repo}/packages/${app.name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} alt={app.title} />
                                 <div>
                                     <a
                                         // href={`/${plat}/${app.name}`}
