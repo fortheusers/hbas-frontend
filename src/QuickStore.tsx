@@ -55,8 +55,11 @@ const QuickStore = (props: { platform: Platform }) => {
         fetchData();
     }, []);
 
+    // no appstore for 3ds
+    const initialPkgs = plat === "3ds" ? [] : ["appstore"];
+
     const [ isDownloading, setIsDownloading ] = useState(false);
-    const [ selectedPackages, setSelectedPackages ] = useState<string[]>([])
+    const [ selectedPackages, setSelectedPackages ] = useState<string[]>(initialPkgs)
 
     const faPropIcon = faGithub as IconProp;
 
