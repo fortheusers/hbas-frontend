@@ -54,6 +54,7 @@ const QuickStore = (props: { platform: Platform }) => {
         fetchData();
     }, []);
 
+    const [ isDownloading, setIsDownloading ] = useState(false);
     const [ selectedPackages, setSelectedPackages ] = useState<string[]>([])
 
     const faPropIcon = faGithub as IconProp;
@@ -146,11 +147,17 @@ const QuickStore = (props: { platform: Platform }) => {
         </Fragment>
     )
 
+    const progress = (<div>
+        <img src={loader} width={80} alt="Downloading..." />
+            Downloading {selectedPackages.length} packages...
+    </div>);
+
     const dlButton = <div>
         <button
             className="dlButton"
             disabled={selectedPackages.length === 0}
             onClick={async () => {
+                setIsDownloading(true);
                 let allURLs = selectedPackages.map((sp: string) => {
                     const pkg = allApps.find((app: Package) => app.name == sp && app.platform == plat);
                     if (pkg === undefined) {
@@ -167,15 +174,16 @@ const QuickStore = (props: { platform: Platform }) => {
                 // https://stackoverflow.com/questions/57513029/i-have-to-different-zip-files-created-using-jszip-is-is-possible-to-combile-the
                 let mergedZip = new JSZip();
                 for (let zipObject of allZips) {
-                    console.log("Zipping");
                     mergedZip = await mergedZip.loadAsync(
                         await zipObject.generateAsync({ type: "blob" }),
                         { createFolders: true }
                     );
-                    console.log(mergedZip.files);
+                    // console.log(mergedZip.files);
                 }
-                console.log(mergedZip.files)
+                const removeUs = [ "manifest.install", "info.json", "icon.png", "screen1.png", "screen2.png", "pkgbuild.json" ];
+                removeUs.forEach(file => mergedZip.remove(file));
                 saveAs(await mergedZip.generateAsync({ type: "blob" }), `quickstore-extracttosd.zip`);
+                setIsDownloading(false);
             }}
         >
             <FontAwesomeIcon icon={faDownload} />
@@ -190,7 +198,7 @@ const QuickStore = (props: { platform: Platform }) => {
         <div className="quickstore-container">
           <Mobile />
           { headerInfo }
-          { dlButton }
+          { isDownloading ? progress : dlButton }
           { appList }
           <FullWidthAd />
           <Spacer />
