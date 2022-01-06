@@ -8,6 +8,7 @@ import JSZip from 'jszip';
 import { urlToPromise, saveAs } from './LibGet';
 import AppList from './AppList';
 import loader from './img/loader.gif';
+//import noicon from './img/noicon.png';
 import './Quickstore.css';
 
 const plats = {
