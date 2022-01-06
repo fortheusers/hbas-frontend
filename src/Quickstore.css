@@ -85,11 +85,27 @@ h2 {
     margin-left: 50px;
     margin-right: 50px;
     font-weight: 300;
-    cursor: pointer;
     background-color: #eee;
     padding: 10px;
     border: 1px solid #ccc;
     /* height: 10px; */
+}
+
+a.platChooser {
+    width: 250px;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    font-size: 25px;
+    margin: 5px auto;
+    display: flex;
+}
+
+a.platChooser img {
+    object-fit: contain;
+    height: 100px;
+    width: 100px;
+    flex: 1;
 }
 
 button[disabled] {

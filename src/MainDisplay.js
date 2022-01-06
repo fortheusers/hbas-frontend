@@ -33,8 +33,12 @@ class MainDisplay extends Component {
         <Switch>
           <Route path='/:platform/category/:category' component={Header}></Route>
           <Route path='/category/:category' component={Header}></Route>
+          <Route path='/:platform/quickstore' component={Header} />
+          <Route path='/:platform/search' component={Header} />
           <Route path='/:platform/:package' component={Header}></Route>
           <Route path='/search' component={Header} />
+          <Route path='/stats' component={Header} />
+          <Route path='/quickstore' component={Header} />
           <Route path='/:platform' component={Header}></Route>
           <Route path='/' component={Header}></Route>
         </Switch>

@@ -21,7 +21,17 @@ class Header extends Component {
   sub = (event) => {
     let repo = event.target.value;
     window.localStorage.setItem("platform", repo);
-    window.location.href = (repo && repo !== "all") ? `/${repo}` : '/';
+    const plat = repo === "all" ? "" : repo;
+    const platSlash = plat === "" ? `` : `${plat}/`;
+    if (window.location.href.endsWith("/quickstore")) {
+      window.location.href = `/${platSlash}quickstore`;
+    }
+    else if (window.location.href.endsWith("/search")) {
+      window.location.href = `/${platSlash}search`;
+    }
+    else {
+      window.location.href = `/${plat}`;
+    }
   }
 
   render() {

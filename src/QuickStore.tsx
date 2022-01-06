@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { FullWidthAd, Spacer, Mobile } from './Utils';
+import { platformIcons, FullWidthAd, Spacer, Mobile, getParams } from './Utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +13,7 @@ import './Quickstore.css';
 const plats = {
     "wiiu": "Wii U",
     "switch": "Switch",
+    "3ds": "3DS",
 };
 
 type Package = {
@@ -38,9 +39,12 @@ const formatGH = (url: string) => {
     return parts[0] + "/" + parts[1];
 }
 
-const QuickStore = (props: any) => {
+type Platform = "wiiu" | "switch" | "3ds";
+
+const QuickStore = (props: { platform: Platform }) => {
 
     const [ allApps, setAllApps ] = useState([]);
+    const { platform: plat } = getParams(props) as {platform?: Platform};
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,8 +55,6 @@ const QuickStore = (props: any) => {
     }, []);
 
     const [ selectedPackages, setSelectedPackages ] = useState<string[]>([])
-    const [ activePlat, setActivePlat ] = useState<string>("")
-
 
     const faPropIcon = faGithub as IconProp;
 
@@ -78,73 +80,71 @@ const QuickStore = (props: any) => {
       </div>);
     }
 
-    // todo: cross refernce with url platform (should be in props.params)
-    const targets = (Object.keys(plats) as Array<keyof typeof plats>).map((plat) => {
-        let curApps = allApps.filter((app: Package) => app.platform === plat);
-        curApps.sort((a: Package, b: Package) => {
-            return (b.app_dls - a.app_dls < 0) ? -1 : 1;
+    if (plat === undefined) {
+        const platformSelect = (Object.keys(plats) as Array<keyof typeof plats>).map(plat => {
+            return (
+                <a href={`/${plat}/quickstore`} className="platChooser">
+                    <img style={{width: 150}} src={platformIcons[plat]} alt={plats[plat]} />
+                </a>
+            );
         });
-        return (
-            <Fragment>
-                <h2 onClick={() => {
-                    if (selectedPackages.length === 0) {
-                        setSelectedPackages(["appstore"])
-                    }
-                    if (activePlat === plat) {
-                        setActivePlat("");
-                        setSelectedPackages([])
-                        return
-                    }
-                    setActivePlat(plat);
-                }}
-                className={activePlat === "" ? "" : "nobg"}>
-                    {plats[plat]}
-                </h2>
-                <div className="clearfix" />
-                <div key={plat} className={`catItem${activePlat == plat ? " show" : ""}`}>
-                    {curApps.map((app: Package) => {
-                        const thisSelected = selectedPackages.find(sp => sp == app.name);
-                        return (
-                            <div
-                                key={app.name}
-                                className={`quickItem${thisSelected ? " show" : ""}`}
-                                onClick={() => {
-                                    if (thisSelected) {
-                                        // console.log(selectedPackages)
-                                        // console.log(selectedPackages.filter(sp => sp !== app.name))
-                                        setSelectedPackages(selectedPackages.filter(sp => sp !== app.name));
-                                    } else {
-                                        setSelectedPackages([...selectedPackages, app.name]);
-                                    }
-                                }}
-                            >
-                                <img src={`${app.repo}/packages/${app.name}/icon.png`} alt={app.title} />
-                                <div>
-                                    <a
-                                        // href={`/${plat}/${app.name}`}
-                                    >
-                                        {app.title}
-                                    </a>
-                                    <div className="desc">
-                                        &nbsp;{app.description}
-                                    </div>
-                                    { isGithubUrl(app.url) && (<a
-                                        className="url"
-                                        // href={app.url}
-                                    >
-                                        <FontAwesomeIcon icon={faPropIcon} />&nbsp;{formatGH(app.url)}
-                                    </a>) }
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-            </Fragment>
-        )
-    });
+        return (<div className="quickstore-container">
+            <Mobile />
+            { headerInfo }
+            <h2>Choose a Platform</h2>
+            <div style={{display: "flex"}}>{ platformSelect }</div>
+            <FullWidthAd />
+            <Spacer />
+        </div>);
+    }
 
-    console.log("Thanks")
-    console.log(selectedPackages);
+    // todo: cross reference with url platform (should be in props.params)
+    let curApps = allApps.filter((app: Package) => app.platform === plat);
+    curApps.sort((a: Package, b: Package) => {
+        return (b.app_dls - a.app_dls < 0) ? -1 : 1;
+    });
+    const appList = (
+        <Fragment>
+            <div key={plat} className={`catItem show`}>
+                {curApps.map((app: Package) => {
+                    const thisSelected = selectedPackages.find(sp => sp == app.name);
+                    return (
+                        <div
+                            key={app.name}
+                            className={`quickItem${thisSelected ? " show" : ""}`}
+                            onClick={() => {
+                                if (thisSelected) {
+                                    // console.log(selectedPackages)
+                                    // console.log(selectedPackages.filter(sp => sp !== app.name))
+                                    setSelectedPackages(selectedPackages.filter(sp => sp !== app.name));
+                                } else {
+                                    setSelectedPackages([...selectedPackages, app.name]);
+                                }
+                            }}
+                        >
+                            <img src={`${app.repo}/packages/${app.name}/icon.png`} alt={app.title} />
+                            <div>
+                                <a
+                                    // href={`/${plat}/${app.name}`}
+                                >
+                                    {app.title}
+                                </a>
+                                <div className="desc">
+                                    &nbsp;{app.description}
+                                </div>
+                                { isGithubUrl(app.url) && (<a
+                                    className="url"
+                                    // href={app.url}
+                                >
+                                    <FontAwesomeIcon icon={faPropIcon} />&nbsp;{formatGH(app.url)}
+                                </a>) }
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        </Fragment>
+    )
 
     const dlButton = <div>
         <button
@@ -152,7 +152,7 @@ const QuickStore = (props: any) => {
             disabled={selectedPackages.length === 0}
             onClick={async () => {
                 let allURLs = selectedPackages.map((sp: string) => {
-                    const pkg = allApps.find((app: Package) => app.name == sp && app.platform == activePlat);
+                    const pkg = allApps.find((app: Package) => app.name == sp && app.platform == plat);
                     if (pkg === undefined) {
                         return "";
                     }
@@ -191,7 +191,7 @@ const QuickStore = (props: any) => {
           <Mobile />
           { headerInfo }
           { dlButton }
-          { targets }
+          { appList }
           <FullWidthAd />
           <Spacer />
         </div>
