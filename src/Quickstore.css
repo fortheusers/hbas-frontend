@@ -24,6 +24,7 @@
     font-size: 20px;
     border-radius: 7px;
     cursor: pointer;
+    width: 20%;
 }
 
 .quickItem {
@@ -118,7 +119,7 @@ button[disabled] {
 }
 
 .quickItem.show {
-    background-color: greenyellow;
+    background-color: rgb(201, 252, 125);
     border: 2px solid green;
 }
 
@@ -132,3 +133,25 @@ button[disabled] {
     cursor: not-allowed;
     text-decoration: line-through;
 }
+
+.progress {
+    width:20%;
+}
+
+.progress .progressBar {
+  color: white;
+  margin-left: 40px;
+  font-size: 20px;
+  border-radius: 7px;   
+  width: calc(113px * 4); 
+  background-color: #555;
+  background-image: repeating-linear-gradient(60deg, transparent, transparent 20px, darkred 20px, darkred 40px);
+  animation: slide 2s linear infinite;
+  will-change: background-position;
+}
+@keyframes slide {
+  from { background-position-x: 0; }
+    to { background-position-x: 113px;}
+  }
+
+  

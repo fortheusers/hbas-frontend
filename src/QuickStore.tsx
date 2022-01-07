@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { platformIcons, FullWidthAd, Spacer, Mobile, getParams } from './Utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faCircleNotch, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import JSZip from 'jszip';
 import { urlToPromise, saveAs } from './LibGet';
@@ -72,7 +72,7 @@ const QuickStore = (props: { platform: Platform }) => {
                 This page allows you to download multiple apps in a single zip file, that can then be extracted directly to the root of the SD card.
             </p>
             <p className="disabled">
-                <input type="checkbox" id="experimental" />
+                <input type="checkbox" id="experimental" disabled/>
                 <label htmlFor="experimental">Fetch releases directly from <FontAwesomeIcon icon={faPropIcon} /> Github where possible (Coming Soon)</label>
             </p>
         </Fragment>);
@@ -155,10 +155,11 @@ const QuickStore = (props: { platform: Platform }) => {
         </Fragment>
     )
 
-    const progress = (<div>
-        <img src={loader} width={80} alt="Downloading..." />
+    const progress = (<div className='progress'><button className="progressBar"> 
+            <FontAwesomeIcon icon={faCircleNotch} className={"fa-spin"} /> 
+            &nbsp;  
             Downloading {selectedPackages.length} packages...
-    </div>);
+    </button></div>);
 
     const dlButton = <div>
         <button
@@ -196,10 +197,8 @@ const QuickStore = (props: { platform: Platform }) => {
         >
             <FontAwesomeIcon icon={faDownload} />
             &nbsp;
-            Download Selected
+            Download&nbsp;{selectedPackages.length}&nbsp;Selected
         </button>
-        &nbsp;
-        {selectedPackages.length} Packages Selected
     </div>;
 
     return (
