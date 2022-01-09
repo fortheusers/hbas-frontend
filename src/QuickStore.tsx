@@ -189,7 +189,8 @@ const QuickStore = (props: { platform: Platform }) => {
                     );
                     // console.log(mergedZip.files);
                 }
-                const removeUs = [ "manifest.install", "info.json", "icon.png", "screen1.png", "screen2.png", "pkgbuild.json" ];
+                const screenNames = Array.from(new Array(9), (x, i) => `screen${i+1}.png`);
+                const removeUs = [ "manifest.install", "info.json", "icon.png", "pkgbuild.json" ].concat(screenNames);
                 removeUs.forEach(file => mergedZip.remove(file));
                 saveAs(await mergedZip.generateAsync({ type: "blob" }), `quickstore-extracttosd.zip`);
                 setIsDownloading(false);
