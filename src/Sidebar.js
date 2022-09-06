@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faFastForward, faCubes, faChartArea } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faFastForward, faCubes, faChartArea, faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { getParams } from './Utils';
 import './MainDisplay';
 
@@ -38,11 +38,11 @@ const categories = [
     name: "Themes",
     icon: faSwatchbook
   },
-  // {
-  //   short: "concept",
-  //   name: "Concepts",
-  //   icon: faLightbulb
-  // },
+  {
+    short: "aroma",
+    name: "Aroma-Ready",
+    icon: faCoffee
+  },
   // {
   //   short: "_courses",
   //   name: "Courses",
