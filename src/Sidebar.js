@@ -108,8 +108,9 @@ class Sidebar extends Component {
 
   render() {
     const platInfo = (this.platform && this.platform !== "all") ? `/${this.platform}` : "";
+    
     return (
-      <div className="Sidebar">
+      <div className={`Sidebar ${this.platform}_only`}>
         {
           categories.map(cat => {
             let target = cat.short !== "_all" ? `${platInfo}/category/${cat.name.toLowerCase()}` : `${platInfo || "/"}`;

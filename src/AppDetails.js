@@ -154,7 +154,7 @@ class AppDetails extends Component {
             { bannerContainer }
             <img id="console" alt={platform} src={`${platformIcons[platform]}`} />
           </div>
-          <div className="right infoBox">
+          <div className={`right infoBox ${platform}_only`}>
             <div className="row">
               <div>{description}</div>
               <br />

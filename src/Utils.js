@@ -126,6 +126,7 @@ class Mobile extends Component {
 }
 
 const getFirstPixelFromImage = (img) => {
+  img.crossOrigin="anonymous";
   var canvas = document.createElement('canvas');
   canvas.width = img.width;
   canvas.height = img.height;
@@ -133,7 +134,6 @@ const getFirstPixelFromImage = (img) => {
   context.drawImage(img, 0, 0, img.width, img.height);
   const buf8 = context.getImageData(1, 1, 1, 1).data;
   var data = new Uint32Array(buf8);
-  console.log(data);
   return `rgb(${data[0]}, ${data[1]}, ${data[2]})`;
 }
 
