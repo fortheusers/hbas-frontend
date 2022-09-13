@@ -8,6 +8,7 @@ body, html, #root, .main {
   max-width:256px;
   word-wrap:break-word;
 }
+
 .copyright {
   text-decoration: none;
 }

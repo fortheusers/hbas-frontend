@@ -45,7 +45,7 @@ const categories = [
     short: "theme",
     name: "Themes",
     icon: faSwatchbook,
-    hover: "  Themeing tools"
+    hover: "  Theming tools"
   },
   {
     short: "aroma",

@@ -68,7 +68,7 @@ class AppCard extends Component {
               <div className="tooltipButtons">
                 <button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
                 <button onClick={() => window.open(`${url}`)}>Source</button>
-                <button onClick={ mba }>More by author</button>
+                <button onClick={ mba }>More by Author</button>
                 
               </div>
             </div>
