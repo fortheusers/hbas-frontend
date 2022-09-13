@@ -2,46 +2,56 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faFastForward, faCubes, faChartArea, faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { getParams } from './Utils';
+import ToolTip from 'react-portal-tooltip';
 import './MainDisplay';
 
 const categories = [
   {
     short: "_search",
     name: "Search",
-    icon: faSearch
+    icon: faSearch,
+    hover: "  Search by App title or developer"
   }, {
     short: "_all",
     name: "All Apps",
-    icon: faThLarge
+    icon: faThLarge,
+    hover: "All Apps"
   }, {
     short: "_stats",
     name: "Statistics",
     icon: faChartArea,
+    hover: "  View and compare download stats"
   }, {
     short: "game",
     name: "Games",
-    icon: faPlay
+    icon: faPlay,
+    hover: "  Homebrew games and ports"
   }, {
     short: "emu",
     name: "Emulators",
-    icon: faGamepad
+    icon: faGamepad,
+    hover: "  Games console emulators"
   }, {
     short: "tool",
     name: "Tools",
-    icon: faCog
+    icon: faCog,
+    hover: "  Practical applications"
   }, {
     short: "advanced",
     name: "Advanced",
-    icon: faPuzzlePiece
+    icon: faPuzzlePiece,
+    hover: "  System tools that usually require other apps to run"
   }, {
     short: "theme",
     name: "Themes",
-    icon: faSwatchbook
+    icon: faSwatchbook,
+    hover: "  Themeing tools"
   },
   {
     short: "aroma",
     name: "Aroma-Ready",
-    icon: faCoffee
+    icon: faCoffee,
+    hover: "  Applications that have been ported or written specifically for the aroma enviroment"
   },
   // {
   //   short: "_courses",
@@ -51,16 +61,19 @@ const categories = [
   {
     short: "_misc",
     name: "Misc",
-    icon: faCubes
+    icon: faCubes,
+    hover: "  Apps that have no specific category"
   }, {
     short: "_quickstore",
     name: "QuickStore",
-    icon: faFastForward
+    icon: faFastForward,
+    hover: "  Quickly compile a bundle off apps to download in one zipfile"
   },
   {
     short: "legacy",
     name: "Legacy",
-    icon: faBriefcase
+    icon: faBriefcase,
+    hover: "  Apps that now have limited functionality and are limited by OS version or CFW version"
   },
 ];
 
@@ -96,6 +109,11 @@ class Sidebar extends Component {
     }
 
     this.platform = platform;
+
+  }
+
+  state = {
+    isTooltipActive: false
   }
 
   static getCurrentCategory() {
@@ -122,17 +140,44 @@ class Sidebar extends Component {
                 key={target}
                 className={`sidebar-item${choice.short === cat.short ? " selected" : ""}`}
               >
-                <div className="icon">
+
+                <div 
+                  className="icon">
                   <FontAwesomeIcon icon={cat.icon} />
                 </div>
-                <span className="text">
+                <span
+                className="text"
+                id={`${cat.name}`}
+                onMouseEnter={e => this.setState({toolTipCat: cat.short})}
+                onMouseLeave={e => this.setState({toolTipCat: null})}
+
+                >
                   {cat.name || "All Apps"}
                 </span>
+
+                <ToolTip
+                  active={this.state.toolTipCat === cat.short}
+                  position="right"
+                  arrow="center"
+                  parent={`#${cat.name}`}
+                >
+                  <div className="tooltip">
+                  <FontAwesomeIcon icon={cat.icon} />&nbsp;&nbsp;
+                  <div className='tootipWidth right'>{ cat.hover }</div>
+                    
+                  </div>
+                </ToolTip>
+
               </a>);
+  
+
           })
         }
+
       </div>
+
     );
+
   }
 }
 

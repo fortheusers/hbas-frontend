@@ -4,6 +4,10 @@ body, html, #root, .main {
   height: 100%;
   width: 100%;
 }
+.tootipWidth {
+  max-width:256px;
+  word-wrap:break-word;
+}
 .copyright {
   text-decoration: none;
 }
@@ -647,4 +651,5 @@ button:hover, .infoBox a:hover {
   .AppDetails {
     padding: 5px 10px 20px 10px;
   }
+
 }

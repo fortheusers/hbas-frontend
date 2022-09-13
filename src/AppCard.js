@@ -37,9 +37,9 @@ class AppCard extends Component {
 
     const cardKey = `icon-${name}-${version}-${platform}`;
     return (
-      <div className={cardClass}>
+      <div className={cardClass} id={`${titleid}`}>
         <div className={`icon_wrapper ${cardKey}`}>
-          <img
+          <img    
             alt="icon"
             src={`${repo}/packages/${name}/icon.png`}
             onLoad={e => {
@@ -53,22 +53,23 @@ class AppCard extends Component {
         <div className="left">
           <div>v{version}</div>
         </div>
-        <div className="cardright"  id={`${titleid}`} onMouseEnter={this.showTooltip.bind(this)} onMouseLeave={this.hideTooltip.bind(this)}>
+        <div className="cardright"  onMouseEnter={this.showTooltip.bind(this)} onMouseLeave={this.hideTooltip.bind(this)}>
           <div className="AppCard__Title">{title}</div>
           <div>{author}</div>
 
-          <ToolTip active={this.state.isTooltipActive} position="top" arrow="right" parent={`#${titleid}`}>
+          <ToolTip active={this.state.isTooltipActive} position="bottom" arrow=" center" parent={`#${titleid}`}>
            <div className="tooltip">
             <a href={`/${platform}/${name}`}>
             </a>
-            <div><b>{ description }</b></div>
+            <a href={`/${platform}/${name}`}>
+                  
+                </a>
+            <div className="tootipWidth"><b>{ description }</b></div>
               <div className="tooltipButtons">
                 <button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
                 <button onClick={() => window.open(`${url}`)}>Source</button>
                 <button onClick={ mba }>More by author</button>
-                <a href={`/${platform}/${name}`}>
-                  <img alt="icon" src={`${repo}/packages/${name}/icon.png`} onError={e => { e.target.onerror = null; e.target.src = noicon }} />
-                </a>
+                
               </div>
             </div>
           </ToolTip>
