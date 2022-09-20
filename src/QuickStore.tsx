@@ -62,6 +62,8 @@ const QuickStore = (props: { platform: Platform }) => {
     const [ selectedPackages, setSelectedPackages ] = useState<string[]>(initialPkgs)
 
     const faPropIcon = faGithub as IconProp;
+    const faDLPropIcon = faDownload as IconProp;
+    const faCirclePropIcon = faCircleNotch as IconProp;
 
     const headerInfo = (
         <Fragment>
@@ -156,7 +158,7 @@ const QuickStore = (props: { platform: Platform }) => {
     )
 
     const progress = (<div className='progress'><button className="progressBar"> 
-            <FontAwesomeIcon icon={faCircleNotch} className={"fa-spin"} /> 
+            <FontAwesomeIcon icon={faCirclePropIcon} className={"fa-spin"} /> 
             &nbsp;  
             Downloading {selectedPackages.length} packages...
     </button></div>);
@@ -196,7 +198,7 @@ const QuickStore = (props: { platform: Platform }) => {
                 setIsDownloading(false);
             }}
         >
-            <FontAwesomeIcon icon={faDownload} />
+            <FontAwesomeIcon icon={faDLPropIcon} />
             &nbsp;
             Download&nbsp;{selectedPackages.length}&nbsp;Selected
         </button>
