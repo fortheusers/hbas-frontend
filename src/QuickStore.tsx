@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { platformIcons, FullWidthAd, Spacer, Mobile, getParams } from './Utils';
+import { platformIcons, Spacer, Mobile, getParams } from './Utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faCircleNotch, faDownload } from '@fortawesome/free-solid-svg-icons';
@@ -98,7 +98,7 @@ const QuickStore = (props: { platform: Platform }) => {
             { headerInfo }
             <h2>Choose a Platform</h2>
             <div style={{display: "flex"}}>{ platformSelect }</div>
-            <FullWidthAd />
+            {/* <FullWidthAd /> */}
             <Spacer />
         </div>);
     }
@@ -208,7 +208,7 @@ const QuickStore = (props: { platform: Platform }) => {
           { headerInfo }
           { isDownloading ? progress : dlButton }
           { appList }
-          <FullWidthAd />
+          {/* <FullWidthAd /> */}
           <Spacer />
         </div>
       );

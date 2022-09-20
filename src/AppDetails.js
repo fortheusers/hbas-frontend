@@ -3,7 +3,7 @@ import loading from './img/loader.gif';
 import AppList from './AppList';
 import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
-import { getParams, FullWidthAd, Spacer, Mobile, getFirstPixelFromImage, platformIcons } from './Utils';
+import { getParams, Spacer, Mobile, getFirstPixelFromImage, platformIcons } from './Utils';
 import Modal from 'react-responsive-modal';
 
 class AppDetails extends Component {
@@ -184,7 +184,7 @@ class AppDetails extends Component {
             </div>) }
           </div>
         </div>
-        <FullWidthAd />
+        {/* <FullWidthAd /> */}
         <Spacer />
       </div>
     );

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
-import { FullWidthAd, Spacer, Mobile } from './Utils';
+import { Spacer, Mobile } from './Utils';
 import LibGet from './LibGet';
 import loader from './img/loader.gif';
 import moment from 'moment';
@@ -291,7 +291,7 @@ export default class AppStatsChart extends PureComponent {
         { pkgSelector }
         { chartInfo }
         { dayPicker }
-        <FullWidthAd />
+        {/* <FullWidthAd /> */}
         <Spacer />
       </div>
     );

@@ -172,7 +172,8 @@ select:focus {
 }
 
 .Sidebar {
-  background-color: rgb(30, 30, 30);
+  /* background-color: rgb(30, 30, 30); */
+  background-color: #2d2649;
   color: white;
   font-size: 20px;
   padding-top: 15px;
@@ -203,19 +204,20 @@ select:focus {
 }
 
 .Sidebar a:hover, .Sidebar a.active {
-  background-color: rgb(67, 67, 67);
+  /* background-color: rgb(67, 67, 67); */
+  background-color: #524B6E;
 }
 
 /* wiiu coloring */
-.Sidebar.wiiu_only {
+.Sidebar._wiiu_only {
   background-color: #108AB7;
 }
 
-.Sidebar.wiiu_only a:hover, .Sidebar.wiiu_only a.active {
+.Sidebar._wiiu_only a:hover, .Sidebar._wiiu_only a.active {
   background-color: #35AFDC;
 }
 
-.Sidebar.wiiu_only .sidebar-item.selected {
+.Sidebar._wiiu_only .sidebar-item.selected {
   border-left: 5px solid white;
   padding-left: 45px;
   background-color: #35AFDC;
@@ -228,15 +230,15 @@ button:hover, .infoBox.wiiu_only a:hover {
   background-color: #35AFDC;
 } */
 
-.Sidebar.switch_only {
+.Sidebar._switch_only {
   background-color: #d62032;
 }
 
-.Sidebar.switch_only a:hover, .Sidebar.switch_only a.active {
+.Sidebar._switch_only a:hover, .Sidebar._switch_only a.active {
   background-color: #fb4557;
 }
 
-.Sidebar.switch_only .sidebar-item.selected {
+.Sidebar._switch_only .sidebar-item.selected {
   border-left: 5px solid white;
   padding-left: 45px;
   background-color: #fb4557;
@@ -248,6 +250,23 @@ button:hover, .infoBox.wiiu_only a:hover {
 button:hover, .infoBox.switch_only a:hover {
   background-color: #fb4557;
 } */
+
+
+.Sidebar._3ds_only {
+  background-color: rgb(30, 30, 30);
+}
+
+.Sidebar._3ds_only a:hover, .Sidebar._3ds_only a.active {
+  /* background-color: #d62032; */
+  background-color: rgb(67, 67, 67);
+}
+
+.Sidebar._3ds_only .sidebar-item.selected {
+  border-left: 5px solid white;
+  padding-left: 45px;
+  /* background-color: #d62032; */
+  background-color: rgb(67, 67, 67);
+}
 
 .icon_wrapper {
   height: 150px;
@@ -525,7 +544,8 @@ button:hover, .infoBox a:hover {
 .sidebar-item.selected {
   border-left: 5px solid white;
   padding-left: 45px;
-  background-color: #666;
+  /* background-color: #666; */
+  background-color: #524B6E;
 }
 
 /*Mobile Display and Landscape display*/

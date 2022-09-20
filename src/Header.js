@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { faCube, faPlus, faServer, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import './MainDisplay.css';
+import icon from './img/icon.png';
 import { getParams, platformIcons } from './Utils';
 
 class Header extends Component {
@@ -38,7 +39,9 @@ class Header extends Component {
     return (
       <div className="nav">
         <ul>
-          <li id="title" className="title"><FontAwesomeIcon icon={faCube} />
+          <li id="title" className="title">
+            {/* <FontAwesomeIcon icon={faCube} /> */}
+            <img id="store_icon" src={icon} alt="AppStore Logo" style={{ width: 16 }} />
             <span id="hbastitle">&nbsp;&nbsp;Homebrew App Store</span>
             <span id="hbasmtitle">&nbsp;&nbsp;HB App Store</span>
             <span className="platform"> for </span>

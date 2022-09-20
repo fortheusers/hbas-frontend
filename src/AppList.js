@@ -3,7 +3,7 @@ import AppCard from './AppCard';
 import LibGet from './LibGet';
 import loader from './img/loader.gif';
 import Sidebar from './Sidebar';
-import { getParams, FullWidthAd, Spacer, Mobile, stringDateToTimestamp } from './Utils';
+import { getParams, Spacer, Mobile, stringDateToTimestamp } from './Utils';
 
 let sorts = [{
   flavor: "by most recent",
@@ -163,7 +163,7 @@ class AppList extends Component {
             ;
           })
         }
-        <FullWidthAd />
+        {/* <FullWidthAd /> */}
         <Spacer />
       </div>
     );
