@@ -112,7 +112,7 @@ const QuickStore = (props: { platform: Platform }) => {
         <Fragment>
             <div key={plat} className={`catItem show`}>
                 {curApps.map((app: Package) => {
-                    const thisSelected = selectedPackages.find(sp => sp == app.name);
+                    const thisSelected = selectedPackages.find(sp => sp === app.name);
                     return (
                         <div
                             key={app.name}
@@ -134,7 +134,7 @@ const QuickStore = (props: { platform: Platform }) => {
                             />
                             <div>
                                 <a
-                                    // href={`/${plat}/${app.name}`}
+                                    href={`/${plat}/${app.name}`}
                                 >
                                     {app.title}
                                 </a>
@@ -143,7 +143,7 @@ const QuickStore = (props: { platform: Platform }) => {
                                 </div>
                                 { isGithubUrl(app.url) && (<a
                                     className="url"
-                                    // href={app.url}
+                                    href={app.url}
                                 >
                                     <FontAwesomeIcon icon={faPropIcon} />&nbsp;{formatGH(app.url)}
                                 </a>) }
@@ -168,7 +168,7 @@ const QuickStore = (props: { platform: Platform }) => {
             onClick={async () => {
                 setIsDownloading(true);
                 let allURLs = selectedPackages.map((sp: string) => {
-                    const pkg = allApps.find((app: Package) => app.name == sp && app.platform == plat);
+                    const pkg = allApps.find((app: Package) => app.name === sp && app.platform === plat);
                     if (pkg === undefined) {
                         return "";
                     }

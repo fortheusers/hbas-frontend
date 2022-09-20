@@ -119,6 +119,10 @@ button[disabled] {
     display: block;
 }
 
+.quickItem a {
+    pointer-events: none;
+}
+
 .quickItem.show {
     background-color: rgb(201, 252, 125);
     border: 2px solid green;

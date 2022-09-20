@@ -116,8 +116,8 @@ class Mobile extends Component {
           <option value="https://fortheusers.org">About</option>
           <option value="https://discord.gg/F2PKpEj">Discord</option>
           <option value="https://twitter.com/wiiubru">Twitter</option>
-          <option value="https://www.switchbru.com/account/">Account</option>
-          <option value="https://www.switchbru.com/dns">DNS</option>
+          <option value="https://switchbru.com/appman/">Login</option>
+          <option value="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#repos">API</option>
           <option value="https://submit.fortheusers.org/">Submit</option>
         </select>
       </div>
