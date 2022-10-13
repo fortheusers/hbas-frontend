@@ -3,11 +3,11 @@ import { saveAs } from 'filesaver.js';
 
 const repos = [
     {
-      url: "https://switchbru.com/appstore",
+      url: "https://switch.cdn.fortheusers.org",
       platform: "switch"
     },
     {
-      url: "https://wiiubru.com/appstore",
+      url: "https://wiiu.cdn.fortheusers.org",
       platform: "wiiu"
     },
     {
