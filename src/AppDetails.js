@@ -133,7 +133,7 @@ class AppDetails extends Component {
 
     const changeLogMoreContainer = (
       <button
-        className="readMore"
+        className="readMore2"
         onClick={() => this.setState({
           pkg: { ...this.state.pkg, changelogExpanded: true }
         })}>
@@ -196,12 +196,12 @@ class AppDetails extends Component {
           </div>
           <div className="left row">
             <p className="sideHeader">App Details</p>
-            <div className="details" dangerouslySetInnerHTML={{ __html: readMoreExpanded ? details : (details.substring(0, 250) + "...") }}></div>
+            <div className="details" dangerouslySetInnerHTML={{ __html: (readMoreExpanded || details.length < 250) ? details : (details.substring(0, 250) + "...") }}></div>
             {!readMoreExpanded && details.length >= 250 && readMoreContainer}
             {screens > 0 && screenShotContainer}
             {changelog !== "n/a" && (<div className="changelog">
               <p className="sideHeader">Changelog</p>
-              <p className="details" dangerouslySetInnerHTML={{ __html: changelogExpanded ? changelog : (changelog.substring(0, 250) + "...") }}></p>
+              <p className="details" dangerouslySetInnerHTML={{ __html: (changelogExpanded || changelog.length < 250) ? changelog : (changelog.substring(0, 250) + "...") }}></p>
               {!changelogExpanded && changelog.length >= 250 && changeLogMoreContainer}
             </div>)}
             <Spacer />
