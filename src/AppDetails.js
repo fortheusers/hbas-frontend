@@ -44,7 +44,7 @@ class AppDetails extends Component {
     });
   }
   onOpenModal = (target) => {
-    this.setState({ open: target});
+    this.setState({ open: target });
   };
 
   onCloseModal = () => {
@@ -72,7 +72,7 @@ class AppDetails extends Component {
         name,
         title,
         description,
-        details,
+        details = "",
         changelog,
         author,
         version,
@@ -83,7 +83,8 @@ class AppDetails extends Component {
         updated,
         md5,
         url,
-        screens
+        screens,
+        readMoreExpanded = false
       } } = this.state;
 
     let mba = () => {
@@ -108,34 +109,42 @@ class AppDetails extends Component {
     const screenShotContainer = (<Fragment>
       <p className="sideHeader">Screen Shots</p>
       <div className="screen_container">
-        { [...Array(screens).keys()].map(screenIdx => {
-          const imgURL = `${repo}/packages/${name}/screen${screenIdx+1}.png`;
+        {[...Array(screens).keys()].map(screenIdx => {
+          const imgURL = `${repo}/packages/${name}/screen${screenIdx + 1}.png`;
           return (<span>
-              <img onClick={() => this.onOpenModal(imgURL)} className="screen_thumb" src={imgURL} alt="Screen shot" />
-              <Modal open={open === imgURL} onClose={this.onCloseModal}>
-                <img onClick={this.onCloseModal} className="modal_screen" src={imgURL} alt="Screen shot" />
-              </Modal>
-            </span>);         
+            <img onClick={() => this.onOpenModal(imgURL)} className="screen_thumb" src={imgURL} alt="Screen shot" />
+            <Modal open={open === imgURL} onClose={this.onCloseModal}>
+              <img onClick={this.onCloseModal} className="modal_screen" src={imgURL} alt="Screen shot" />
+            </Modal>
+          </span>);
         })}</div>
-        </Fragment>);
+    </Fragment>);
 
-
+    const readMoreContainer = (
+      <button
+        className="readMore"
+        onClick={() => this.setState({
+          pkg: { ...this.state.pkg, readMoreExpanded: true }
+        })}>
+        Read More
+      </button>
+    );
 
     const bannerContainer = (
       // fallback to wider banner style (used by app)
       <div id="bannerWrapper">
         <img className="banner" crossorigin="anonymous" src={`${repo}/packages/${name}/screen.png`} alt="banner"
-        onError={e => {
-          const img = e.target;
-          img.style.margin = "0 auto";
-          img.style.display = "block";
-          img.crossOrigin = "anonymous";
-          img.src = (window.counter > 0) ? noscreen : `${repo}/packages/${name}/icon.png`;
-          window.counter ++;
-        }}
-        onLoad={e => {
-          document.getElementById("bannerWrapper").style.backgroundColor = getFirstPixelFromImage(e.target);
-        }} />
+          onError={e => {
+            const img = e.target;
+            img.style.margin = "0 auto";
+            img.style.display = "block";
+            img.crossOrigin = "anonymous";
+            img.src = (window.counter > 0) ? noscreen : `${repo}/packages/${name}/icon.png`;
+            window.counter++;
+          }}
+          onLoad={e => {
+            document.getElementById("bannerWrapper").style.backgroundColor = getFirstPixelFromImage(e.target);
+          }} />
       </div>
     );
 
@@ -151,7 +160,7 @@ class AppDetails extends Component {
             </div>
           </div>
           <div className="overlay">
-            { bannerContainer }
+            {bannerContainer}
             <img id="console" alt={platform} src={`${platformIcons[platform]}`} />
           </div>
           <div className={`right infoBox ${platform}_only`}>
@@ -169,19 +178,20 @@ class AppDetails extends Component {
               <div><span>Count</span> {app_dls}</div>
               <div><span>md5</span><input className="md5text" defaultValue={md5} type="text" readonly></input></div>
             </div>
-            { dlButton }
+            {dlButton}
             <a target="_blank" rel="noopener noreferrer" href={`${url}`}>Source</a>
             <a target="_blank" rel="noopener noreferrer" href={`/stats?apps=${platform}/${name.toLowerCase()}`}>View Stats</a>
             <button id="mobileonly" onClick={mba}>More by Author</button>
           </div>
           <div className="left row">
             <p className="sideHeader">App Details</p>
-            <div className="details" dangerouslySetInnerHTML={{ __html: details }}></div>
-            { screens > 0 && screenShotContainer }
-            { changelog !== "n/a" && (<div className="changelog">
+            <div className="details" dangerouslySetInnerHTML={{ __html: readMoreExpanded ? details : (details.substring(0, 350) + "...") }}></div>
+            {!readMoreExpanded && details.length >= 350 && readMoreContainer}
+            {screens > 0 && screenShotContainer}
+            {changelog !== "n/a" && (<div className="changelog">
               <p className="sideHeader">Changelog</p>
               <p className="details" dangerouslySetInnerHTML={{ __html: changelog }}></p>
-            </div>) }
+            </div>)}
           </div>
         </div>
         {/* <FullWidthAd /> */}
