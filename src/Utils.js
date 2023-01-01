@@ -19,7 +19,7 @@ const getParams = props => {
 const stringDateToTimestamp = incoming => {
   if (!incoming) return 0;
   const parts = incoming.split('/');
-  const [ day, month, year ] = parts;
+  const [day, month, year] = parts;
   return new Date(year, month - 1, day);
 }
 
@@ -67,7 +67,10 @@ class FullWidthAd extends Component {
 
 class Spacer extends Component {
   render() {
-    return <div style={{ height: 400 }}>
+    return <div style={{
+      height: 400,
+      width: 20
+    }}>
       &nbsp;
     </div>;
   }
@@ -126,7 +129,7 @@ class Mobile extends Component {
 }
 
 const getFirstPixelFromImage = (img) => {
-  img.crossOrigin="anonymous";
+  img.crossOrigin = "anonymous";
   var canvas = document.createElement('canvas');
   canvas.width = img.width;
   canvas.height = img.height;
