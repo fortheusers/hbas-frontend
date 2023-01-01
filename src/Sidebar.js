@@ -45,13 +45,15 @@ const categories = [
     short: "theme",
     name: "Themes",
     icon: faSwatchbook,
-    hover: "  Theming tools"
+    hover: "  Theming tools",
+    platform: "switch"
   },
   {
     short: "aroma",
     name: "Aroma-Ready",
     icon: faCoffee,
-    hover: "  Applications that have been ported or written specifically for the aroma enviroment"
+    hover: "  Applications that have been ported or written specifically for the aroma enviroment",
+    platform: "wiiu"
   },
   // {
   //   short: "_courses",
@@ -126,7 +128,7 @@ class Sidebar extends Component {
 
   render() {
     const platInfo = (this.platform && this.platform !== "all") ? `/${this.platform}` : "";
-    
+
     return (
       <div className={`Sidebar _${this.platform}_only`}>
         {
@@ -134,42 +136,46 @@ class Sidebar extends Component {
             let target = cat.short !== "_all" ? `${platInfo}/category/${cat.name.toLowerCase()}` : `${platInfo || "/"}`;
             target = (cat.short === "_search" || cat.short === "_stats" || cat.short === "_quickstore") ? `${platInfo}/${cat.short.substring(1)}` : target;
 
-            console.log(target);
-            return (<a
-                href={target}
-                key={target}
-                className={`sidebar-item${choice.short === cat.short ? " selected" : ""}`}
-              >
+            // hide the category if it doesn't apply to the current platform
+            if (this.platform && this.platform !== "all" && cat.platform && cat.platform !== this.platform) {
+              return null;
+            }
 
-                <div 
-                  className="icon">
-                  <FontAwesomeIcon icon={cat.icon} />
-                </div>
-                <span
+            return (<a
+              href={target}
+              key={target}
+              className={`sidebar-item${choice.short === cat.short ? " selected" : ""}`}
+            >
+
+              <div
+                className="icon">
+                <FontAwesomeIcon icon={cat.icon} />
+              </div>
+              <span
                 className="text"
                 id={`${cat.name}`}
-                onMouseEnter={e => this.setState({toolTipCat: cat.short})}
-                onMouseLeave={e => this.setState({toolTipCat: null})}
+                onMouseEnter={e => this.setState({ toolTipCat: cat.short })}
+                onMouseLeave={e => this.setState({ toolTipCat: null })}
 
-                >
-                  {cat.name || "All Apps"}
-                </span>
+              >
+                {cat.name || "All Apps"}
+              </span>
 
-                <ToolTip
-                  active={this.state.toolTipCat === cat.short}
-                  position="right"
-                  arrow="center"
-                  parent={`#${cat.name}`}
-                >
-                  <div className="tooltip">
+              <ToolTip
+                active={this.state.toolTipCat === cat.short}
+                position="right"
+                arrow="center"
+                parent={`#${cat.name}`}
+              >
+                <div className="tooltip">
                   <FontAwesomeIcon icon={cat.icon} />&nbsp;&nbsp;
-                  <div className='tootipWidth right'>{ cat.hover }</div>
-                    
-                  </div>
-                </ToolTip>
+                  <div className='tootipWidth right'>{cat.hover}</div>
 
-              </a>);
-  
+                </div>
+              </ToolTip>
+
+            </a>);
+
 
           })
         }

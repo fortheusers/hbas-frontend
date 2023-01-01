@@ -185,7 +185,7 @@ class AppDetails extends Component {
           </div>
           <div className="left row">
             <p className="sideHeader">App Details</p>
-            <div className="details" dangerouslySetInnerHTML={{ __html: readMoreExpanded ? details : (details.substring(0, 350) + "...") }}></div>
+            <div className="details" dangerouslySetInnerHTML={{ __html: readMoreExpanded ? details : (details.substring(0, 250) + "...") }}></div>
             {!readMoreExpanded && details.length >= 350 && readMoreContainer}
             {screens > 0 && screenShotContainer}
             {changelog !== "n/a" && (<div className="changelog">
