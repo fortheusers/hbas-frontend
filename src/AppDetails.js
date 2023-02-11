@@ -85,7 +85,9 @@ class AppDetails extends Component {
         url,
         screens,
         readMoreExpanded = false,
-        changelogExpanded = false
+        changelogExpanded = false,
+        isShowingInstalledFiles = false,
+        installedFiles = ""
       } } = this.state;
 
     let mba = () => {
@@ -138,6 +140,24 @@ class AppDetails extends Component {
           pkg: { ...this.state.pkg, changelogExpanded: true }
         })}>
         Read More
+      </button>
+    );
+
+    const showFilesButton = (
+      <button onClick={async () => {
+        // pull the installed files list from manifest
+        const manifest_url = `${repo}/packages/${name}/manifest.install`;
+        const results = await fetch(manifest_url);
+        const manifestData = (await results.text()).replaceAll("\n", "<br />");
+        this.setState({
+          pkg: {
+            ...this.state.pkg,
+            isShowingInstalledFiles: true,
+          installedFiles: manifestData
+          }
+        });
+      }}>
+        Show Installed Files List
       </button>
     );
 
@@ -204,6 +224,14 @@ class AppDetails extends Component {
               <p className="details" dangerouslySetInnerHTML={{ __html: (changelogExpanded || changelog.length < 250) ? changelog : (changelog.substring(0, 250) + "...") }}></p>
               {!changelogExpanded && changelog.length >= 250 && changeLogMoreContainer}
             </div>)}
+            <div className="filesArea">
+              { isShowingInstalledFiles ? (
+                <Fragment>
+                <p className="sideHeader">Installed Files List</p>
+                  <p className="installedFiles" dangerouslySetInnerHTML={{ __html: installedFiles }}></p>
+                </Fragment>
+                ): showFilesButton }
+            </div>
             <Spacer />
           </div>
         </div>

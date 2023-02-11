@@ -665,3 +665,7 @@ button:hover, .infoBox a:hover {
 #bannerWrapper {
   text-align: center;
 }
+
+.filesArea {
+  margin-top: 20px;
+}
