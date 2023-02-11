@@ -129,7 +129,7 @@ class AppDetails extends Component {
         onClick={() => this.setState({
           pkg: { ...this.state.pkg, readMoreExpanded: true }
         })}>
-        Read More
+        Show More Details
       </button>
     );
 
@@ -139,7 +139,7 @@ class AppDetails extends Component {
         onClick={() => this.setState({
           pkg: { ...this.state.pkg, changelogExpanded: true }
         })}>
-        Read More
+        Show Full Changelog
       </button>
     );
 
