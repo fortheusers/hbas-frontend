@@ -10,6 +10,8 @@ import Select from 'react-select';
 import AppList from './AppList';
 import { TinyColor } from '@ctrl/tinycolor';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import 'react-day-picker/lib/style.css';
 import {
   formatDate,
@@ -283,10 +285,19 @@ export default class AppStatsChart extends PureComponent {
         <label for="alltime">Show data for All Time (automatically sets time range)</label>
       </div>
     </div>;
+
+    const warningNotice = <div className="warningNotice">
+      <FontAwesomeIcon icon={faExclamationTriangle} className={"fa-warn"} />
+      <div>
+        <p>Since the 2.3 hb-appstore update (in March 2023), app download stats on this page will appear to drop off, and be <strong>significantly lower</strong> than their actual values. This is a result of console users updating and switching to our new CDN servers.</p>
+        <p>Accurate download data is still being collected and stored! However, it is not yet surfaced on this Statistics page. <strong>All historical data will be viewable after this is addressed!</strong> Thank you for understanding.</p>
+      </div>
+    </div>;
   
     return (
       <div className="AppList">
         <Mobile />
+        { warningNotice }
         { headerInfo }
         { pkgSelector }
         { chartInfo }
