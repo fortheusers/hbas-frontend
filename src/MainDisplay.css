@@ -412,6 +412,7 @@ button:hover, .infoBox a:hover {
 .AppDetails .banner {
   width: auto;
   position: relative;
+  display: block;
 }
 
 .details {
