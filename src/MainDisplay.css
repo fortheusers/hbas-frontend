@@ -9,6 +9,18 @@ body, html, #root, .main {
   word-wrap:break-word;
 }
 
+#searchBox {
+  width: 60%;
+  color: darkslategray;
+  font-size: 20px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px;
+}
+
 .copyright {
   text-decoration: none;
 }

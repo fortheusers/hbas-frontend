@@ -135,7 +135,7 @@ class AppList extends Component {
     if (window.location.href.indexOf("/search") >= 0) {
       headerText = (
         <div className="catTitle">
-          Search: <input type="text" onChange={updateURL} defaultValue={this.query}>
+          Search: <input id="searchBox" type="text" onChange={updateURL} defaultValue={this.query}>
           </input>
         </div>
       )
