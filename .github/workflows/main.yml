@@ -1,0 +1,40 @@
+name: Deploy site to BunnyCDN
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container: node:18.9.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: CI=true npm run build
+      - name: Deploy to BunnyCDN
+        uses: ayeressian/bunnycdn-storage-deploy@v2.2.0
+        with:
+          source: "dist"
+          destination: "www"
+          storageZoneName: "hbas-frontend"
+          storageEndpoint: "uk.storage.bunnycdn.com"
+          storagePassword: "${{ secrets.STORAGE_PASSWORD }}"
+          accessKey: "${{ secrets.STORAGE_KEY }}"
+          pullZoneId: "hbas-frontend"
+          upload: "true"
+          remove: "true"
+          purgePullZone: "true"
