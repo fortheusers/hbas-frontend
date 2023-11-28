@@ -28,13 +28,13 @@ jobs:
       - name: Deploy to BunnyCDN
         uses: ayeressian/bunnycdn-storage-deploy@v2.2.0
         with:
-          source: "dist"
+          source: "build"
           destination: "www"
-          storageZoneName: "hbas-frontend"
+          storageZoneName: "${{ secrets.STORAGE_ZONE_NAME }}"
           storageEndpoint: "uk.storage.bunnycdn.com"
           storagePassword: "${{ secrets.STORAGE_PASSWORD }}"
           accessKey: "${{ secrets.STORAGE_KEY }}"
-          pullZoneId: "hbas-frontend"
+          pullZoneId: "${{ secrets.PULL_ZONE_ID }}"
           upload: "true"
           remove: "true"
           purgePullZone: "true"
