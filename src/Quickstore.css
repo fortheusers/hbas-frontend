@@ -1,5 +1,4 @@
 .catItem {
-
     margin: 0 0 10px 0;
     padding: 10px;
     display: block;
@@ -21,6 +20,7 @@
 .dlButton {
     margin-left: 40px;
     background-color: darkred;
+    color: white;
     font-size: 20px;
     border-radius: 7px;
     cursor: pointer;
@@ -58,7 +58,7 @@
 
 .quickItem a {
     text-decoration: none;
-    color: black;
+    color: unset;
     margin-left: 5px;
     /* vertical-align: middle; */
 }
@@ -124,7 +124,7 @@ button[disabled] {
 }
 
 .quickItem.show {
-    background-color: rgb(201, 252, 125);
+    background-color: rgb(142, 224, 20);
     border: 2px solid green;
 }
 

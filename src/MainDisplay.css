@@ -1,3 +1,32 @@
+:root {
+  color-scheme: light dark;
+  --searchColor: darkslategray;
+  --footerTextColor: #111;
+  --menuColor: #333;
+  --dropDownColor: #555;
+  --buttonColor: #777;
+  --buttonBgColor: #112;
+  --footerBackgroundColor: #eee;
+  --dropDownBgColor: #ddd;
+  --secondaryButtonColor: #ccc;
+  --dlButtonColor: darkred;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --searchColor: #eee;
+    --footerTextColor: #eef;
+    --menuColor: #ddd;
+    --dropDownColor: #ddd;
+    --buttonColor: #ccc;
+    --buttonBgColor: #eee;
+    --footerBackgroundColor: #112;
+    --dropDownBgColor: #555;
+    --secondaryButtonColor: #777;
+    --dlButtonColor: rgb(239, 72, 72);
+  }
+}
+
 body, html, #root, .main {
   margin: 0;
   padding: 0;
@@ -11,7 +40,7 @@ body, html, #root, .main {
 
 #searchBox {
   width: 60%;
-  color: darkslategray;
+  color: var(--searchColor);
   font-size: 20px;
   padding: 10px;
   padding-left: 20px;
@@ -25,7 +54,7 @@ body, html, #root, .main {
   text-decoration: none;
 }
 .copyright:link, .copyright:hover, .copyright:active, .copyright:visited {
-  color:#111;
+  color:var(--footerTextColor);
 }
 
 .copyleft {
@@ -35,7 +64,7 @@ body, html, #root, .main {
 
 .Footer {
   padding: 10px;
-  background-color: #eee;
+  background-color: var(--footerBackgroundColor);
   height: 20px;
   padding-left: 40px;
   padding-right: 40px;
@@ -56,7 +85,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #eee;
+  background-color: var(--footerBackgroundColor);
   padding-bottom: 5px;
 }
 
@@ -70,15 +99,15 @@ li:nth-child(2) {
 
 li a {
   display: block;
-  color:#111;
+  color:var(--footerTextColor);
   text-align: center;
   padding: 7px 7px;
   text-decoration: none;
-  border: 2px solid #eee;
+  border: 2px solid var(--footerBackgroundColor);
 }
 
 li a:hover {
-  border-bottom-color: #111;
+  border-bottom-color: var(--footerTextColor);
 }
 
 select {
@@ -90,8 +119,8 @@ select {
   -moz-padding-end: 20px;
   -webkit-padding-start: 2px;
   -moz-padding-start: 2px;
-  background-color: #eee; 
-  color: #111;
+  background-color: var(--footerBackgroundColor); 
+  color: var(--footerTextColor);
   font-size: inherit;
   margin: 0;
   overflow: hidden;
@@ -109,7 +138,7 @@ select {
 
 select:focus {
   border-color: #aaa;
-  box-shadow: 0 0 1px 1px #555;
+  box-shadow: 0 0 1px 1px var(--dropDownColor);
   box-shadow: 0 0 0 2px -moz-mac-focusring;
   color: #222; 
   outline: none;
@@ -120,8 +149,8 @@ select:focus {
   }
 
   select option {
-    background-color: #555;
-    color: #eee;
+    background-color: var(--dropDownColor);
+    color: var(--footerBackgroundColor);
   }
 
   .menuselect {
@@ -134,8 +163,8 @@ select:focus {
     -moz-padding-end: 20px;
     -webkit-padding-start: 2px;
     -moz-padding-start: 2px;
-    background-color: #eee; 
-    color: #333;
+    background-color: var(--footerBackgroundColor); 
+    color: var(--menuColor);
     font-size: 13px;
     margin: 0;
     overflow: hidden;
@@ -152,8 +181,8 @@ select:focus {
   }
   
     .menuselect option {
-      background-color: #555;
-      color: #eee;
+      background-color: var(--dropDownColor);
+      color: var(--footerBackgroundColor);
     }
 
 .left {
@@ -324,7 +353,7 @@ button:hover, .infoBox.switch_only a:hover {
   width: 256px;
   flex-direction: row;
   flex-grow: 1;
-  color: #333;
+  color: var(--menuColor);
   margin: 5px;
   margin-bottom: 50px;
   position: relative;
@@ -394,8 +423,8 @@ button:hover, .infoBox.switch_only a:hover {
 }
 
 button, .infoBox a {
-  background-color: #555;
-  color: #eee;
+  background-color: var(--dropDownBgColor);
+  color: var(--buttonBgColor);
   border: none;
   padding: 10px;
   font-size: 13px;
@@ -404,12 +433,12 @@ button, .infoBox a {
   cursor: pointer;
 }
 button:hover, .infoBox a:hover {
-  background-color: #777;
+  background-color: var(--secondaryButtonColor);
 }
 
 .catTitle .sort, .catTitle .lesser {
   font-size: 15px;
-  color: #777;
+  color: var(--buttonColor);
 }
 
 .AppDetailsInner {
@@ -450,7 +479,7 @@ button:hover, .infoBox a:hover {
 }
 
 .sideHeader {
-  color: darkred;
+  color: var(--dlButtonColor);
   font-weight: 500;
 }
 
@@ -461,7 +490,7 @@ button:hover, .infoBox a:hover {
 }
 
 .infoBox .row {
-  background-color: #eee;
+  background-color: var(--footerBackgroundColor);
   padding: 10px 10px 10px 10px;
   width: 100%;
   box-sizing: border-box;
@@ -501,7 +530,7 @@ button:hover, .infoBox a:hover {
 }
 
 .tooltip {
-  background-color: #eee;
+  background-color: var(--footerBackgroundColor);
   max-width : 400px;
 }
 .tooltip img {
