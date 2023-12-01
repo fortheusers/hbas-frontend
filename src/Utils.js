@@ -137,6 +137,12 @@ const getFirstPixelFromImage = (img) => {
   context.drawImage(img, 0, 0, img.width, img.height);
   const buf8 = context.getImageData(1, 1, 1, 1).data;
   var data = new Uint32Array(buf8);
+
+  // if the pixel is transparent, return white
+  if ((data[3] || 0) === 0) {
+    return 'rgb(255, 255, 255)';
+  }
+
   return `rgb(${data[0]}, ${data[1]}, ${data[2]})`;
 }
 
