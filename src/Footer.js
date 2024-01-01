@@ -8,6 +8,7 @@ class Footer extends Component {
         <div className="left">
           <a className="copyright" href="https://gitlab.com/4TU/hbas-frontend/blob/master/LICENSE">
             <span className="copyleft">&copy;</span> GPLv3 License</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a className="copyright" href="/dmca-request">DMCA Form</a>
         </div>
         <div className="right">
           <a className="copyright" href="https://fortheusers.org/">ForTheUsers </a>

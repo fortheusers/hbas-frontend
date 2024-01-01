@@ -111,7 +111,9 @@ class Sidebar extends Component {
       choice = categories.find(cat => cat.short.substring(1) === splitPart);
     }
 
-    this.platform = platform;
+    // make sure platform is valid, else default to all
+    const validPlatform = categories.find(cat => cat.platform === platform);
+    this.platform = validPlatform ? platform : "all";
 
   }
 
