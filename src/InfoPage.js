@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Spacer, Mobile } from './Utils';
 import AppList from './AppList';
 import twitterImg from './img/twitter.png';
@@ -9,6 +9,8 @@ import discordImg from './img/discord.png';
 import youtubeImg from './img/youtube.png';
 import urlImg from './img/url.png';
 import bskyImg from './img/bsky.png';
+import switchImg from './img/switch.png';
+import wiiuImg from './img/wiiu.png';
 
 class InfoPage extends Component {
 
@@ -34,6 +36,82 @@ class InfoPage extends Component {
     const location = window.location.pathname;
 
     if (location === "/about") {
+
+      let authorSet = new Set(); // unique list of all lowercase authors
+      let authorGithubMap = {}; // lowercased author name -> github url
+      let authorNameMap = {}; // lowercased author name -> proper caps author name
+      let hbasPageMap = {}; // lowercased author name -> array of hbas page urls
+      for (let pkg of this.state.allPackages) {
+        if (pkg.author) {
+          let authorLower = pkg.author.toLowerCase().replaceAll("_", "-");
+          authorSet.add(authorLower);
+          if (pkg.url && pkg.url.startsWith("https://github.com")) {
+            let github = pkg.url.split("/").slice(0, 4).join("/");
+            authorGithubMap[authorLower] = github;
+          }
+          authorNameMap[authorLower] = pkg.author;
+          if (!hbasPageMap[authorLower]) {
+            hbasPageMap[authorLower] = [];
+          }
+          hbasPageMap[authorLower].push({
+            url: `/${pkg.platform}/${pkg.name}`,
+            name: pkg.title,
+            platform: pkg.platform
+          });
+        }
+      }
+
+      // go through our author list and split out names that are actually multiple authors
+      // this is a bit of a hack, but it's better than not doing it
+      for (let author of authorSet) {
+        let authors = [];
+        if (author.includes(" & ")) {
+          authors.push(...author.split(" & "));
+        }
+        else if (author.includes(" and ")) {
+          authors.push(...author.split(" and "));
+        }
+        else if (author.includes(", ")) {
+          authors.push(...author.split(", "));
+        } else if (author.includes(" / ")) {
+          authors.push(...author.split(" / "));
+        } else {
+          // no splitting needed
+          continue;
+        }
+        // remove the original author
+        authorSet.delete(author);
+        // add each new author
+        for (let newAuthor of authors) {
+          authorSet.add(newAuthor);
+          // if we don't have a github url for this author, but we do for the original author, copy it over
+          if (!authorGithubMap[newAuthor]) {
+            authorGithubMap[newAuthor] = authorGithubMap[author];
+          }
+          authorNameMap[newAuthor] = newAuthor;
+          if (!hbasPageMap[newAuthor]) {
+            hbasPageMap[newAuthor] = [];
+          }
+          hbasPageMap[newAuthor].push(...hbasPageMap[author]);
+        }
+      }
+
+      // remove everyone that we are already crediting
+      let hbasCreditsHTML = genHBASCreditsHTML();
+      const platImgLookup = {
+        "switch": switchImg,
+        "wiiu": wiiuImg
+      }
+
+      let authorList = <table className="appAuthorList">
+        {Array.from(authorSet).sort().map(author => (
+          <tr>
+            <td><a href={authorGithubMap[author]}>{authorNameMap[author] || author}</a></td>
+            <td>{(hbasPageMap[author] || []).map(pageInfo => <Fragment><a href={pageInfo.url}><img src={platImgLookup[pageInfo.platform]} />{pageInfo.name}</a>{" "}</Fragment>)}</td>
+          </tr>
+        ))}
+      </table>;
+
       pageText = <div>
         <h1>About hb-appstore</h1>
         <p style={{width: 700}}>
@@ -57,23 +135,34 @@ class InfoPage extends Component {
         </p>
         <p style={{width: 700}}>
           Otherwise, we can recommend that you consider donating to one of the following causes:
-          <br/>
-          <br/> - <a href="https://donate.wikimedia.org/">Wikipedia / Wikimedia</a>
-          <br/> - <a href="https://www.eff.org">Electronic Frontier Foundation</a>
-          <br/> - <a href="https://www.savethechildren.org">Save the Children</a>
-          <br/> - <a href="https://www.pih.org">Partners in Health</a>
-          <br/> - <a href="https://gfi.org">Good Food Institute</a>
-          <br/> - <a href="https://mercyforanimals.org">Mercy for Animals</a>
-          <br/> - <a href="https://fandomforward.org">Fandom Forward</a>
-          <br/> - <a href="https://nanowrimo.org">NaNoWriMo</a>
+          <br/><br/>
+          <table className="donationList">
+            <tr>
+              <td><a href="https://donate.wikimedia.org/">Wikipedia / Wikimedia</a></td>
+              <td><a href="https://www.eff.org">Electronic Frontier Foundation</a></td>
+              <td><a href="https://www.savethechildren.org">Save the Children</a></td>
+              <td><a href="https://www.pih.org">Partners in Health</a></td>
+            </tr><tr>
+              <td><a href="https://gfi.org">Good Food Institute</a></td>
+              <td><a href="https://mercyforanimals.org">Mercy for Animals</a></td>
+              <td><a href="https://fandomforward.org">Fandom Forward</a></td>
+              <td><a href="https://nanowrimo.org">NaNoWriMo</a></td>
+            </tr>
+          </table>
         </p>
         <h3>Credits</h3>
         <p style={{width: 700}}>
           This website is maintained by <a href="https://fortheusers.org">ForTheUsers</a>, and is made possible by the following open-source developers:
           <br/>
-          <div className="creditsContainer" dangerouslySetInnerHTML={{__html: genHBASCreditsHTML()}}>
-
+          <div className="creditsContainer" dangerouslySetInnerHTML={{__html: hbasCreditsHTML}}>
           </div>
+          <br/>
+          <h4>App Authors</h4>
+          <p style={{width: 700}}>
+            Of course, this project wouldn't exist without the developers of the apps themselves.  Thank you to all of the developers who have contributed to the homebrew community!
+            <br/><br/>
+            {authorList}
+          </p>
 
         </p>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/>

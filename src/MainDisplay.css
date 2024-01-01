@@ -211,6 +211,60 @@ select:focus {
   outline: none;
 }
 
+table.donationList {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.donationList td, table.donationList th {
+  border: 1px solid var(--footerBackgroundColor);
+  padding: 8px;
+}
+
+/* table.donationList tr:nth-of-type(odd) td:nth-of-type(odd){
+  background-color: var(--footerBackgroundColor);
+}
+
+table.donationList tr:nth-of-type(even) td:nth-of-type(even){
+  background-color: var(--footerBackgroundColor);
+} */
+
+table.donationList a {
+  text-decoration: none;
+  color: var(--footerTextColor);
+}
+
+table.appAuthorList {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.appAuthorList img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+  table.appAuthorList td, table.appAuthorList th {
+    border: 1px solid var(--footerBackgroundColor);
+    padding: 8px;
+  }
+
+  table.appAuthorList tr:nth-child(even){
+    background-color: var(--footerBackgroundColor);
+  }
+
+  table.appAuthorList td:first-child {
+    font-weight: 600;
+  }
+  
+  table.appAuthorList a {
+    text-decoration: none;
+    color: var(--footerTextColor);
+  }
+
   select:hover {
     border-color: #888;
   }
