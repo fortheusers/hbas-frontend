@@ -12,6 +12,11 @@
   --dlButtonColor: darkred;
 }
 
+:root {
+  --main-background: white;
+  --text-color: black;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --searchColor: #eee;
@@ -25,6 +30,16 @@
     --secondaryButtonColor: #777;
     --dlButtonColor: rgb(239, 72, 72);
   }
+
+  :root {
+    --main-background: black;
+    --text-color: white;
+  }
+}
+
+body {
+  background-color: var(--main-background);
+  color: var(--text-color);
 }
 
 body, html, #root, .main {
@@ -214,7 +229,12 @@ select:focus {
 table.donationList {
   border-collapse: collapse;
   width: 100%;
+  font-weight: 600;
 }
+/* 
+table.donationList a:hover {
+  color: var(--dropDownBgColor);
+} */
 
 table.donationList td, table.donationList th {
   border: 1px solid var(--footerBackgroundColor);
@@ -694,6 +714,10 @@ button:hover, .infoBox a:hover {
   padding-left: 45px;
   /* background-color: #666; */
   background-color: #524B6E;
+}
+
+.Sidebar .text, .sidebar-item {
+  color: white;
 }
 
 /*Mobile Display and Landscape display*/
