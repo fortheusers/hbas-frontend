@@ -6,7 +6,7 @@ import { faCircleNotch, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import JSZip from 'jszip';
 import { urlToPromise, saveAs } from './LibGet';
-import PlatformPicker, { plats } from './PlatformPicker';
+import PlatformPicker from './PlatformPicker';
 import AppList from './AppList';
 import loader from './img/loader.gif';
 import noicon from './img/noicon.png';

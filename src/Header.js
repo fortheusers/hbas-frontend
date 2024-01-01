@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
-import { faCube, faPlus, faServer, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
+// import { faCube, faPlus, faServer, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import './MainDisplay.css';
 import icon from './img/icon.png';
 import { getParams, platformIcons } from './Utils';
