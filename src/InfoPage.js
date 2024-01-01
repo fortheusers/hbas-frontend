@@ -41,6 +41,9 @@ class InfoPage extends Component {
       let authorGithubMap = {}; // lowercased author name -> github url
       let authorNameMap = {}; // lowercased author name -> proper caps author name
       let hbasPageMap = {}; // lowercased author name -> array of hbas page urls
+
+      let githubUrlToAuthorsMap = {}; // github urls -> array of lowercased author names
+                                      // used to prevent author GH pages from being misattributed
       for (let pkg of this.state.allPackages) {
         if (pkg.author) {
           let authorLower = pkg.author.toLowerCase().replaceAll("_", "-");
@@ -48,6 +51,10 @@ class InfoPage extends Component {
           if (pkg.url && pkg.url.startsWith("https://github.com")) {
             let github = pkg.url.split("/").slice(0, 4).join("/");
             authorGithubMap[authorLower] = github;
+            if (!githubUrlToAuthorsMap[github]) {
+              githubUrlToAuthorsMap[github] = [];
+            }
+            githubUrlToAuthorsMap[github].push(authorLower);
           }
           authorNameMap[authorLower] = pkg.author;
           if (!hbasPageMap[authorLower]) {
@@ -61,9 +68,10 @@ class InfoPage extends Component {
         }
       }
 
-      // go through our author list and split out names that are actually multiple authors
-      // this is a bit of a hack, but it's better than not doing it
-      for (let author of authorSet) {
+      // // go through our author list and split out names that are actually multiple authors
+      // // this is a bit of a hack, but it's better than not doing it
+      for (let authorLowercased of authorSet) {
+        let author = authorNameMap[authorLowercased];
         let authors = [];
         if (author.includes(" & ")) {
           authors.push(...author.split(" & "));
@@ -80,23 +88,68 @@ class InfoPage extends Component {
           continue;
         }
         // remove the original author
-        authorSet.delete(author);
+        authorSet.delete(authorLowercased);
         // add each new author
-        for (let newAuthor of authors) {
+        for (let newAuthorOrig of authors) {
+          const newAuthor = newAuthorOrig.toLowerCase().replaceAll("_", "-");
           authorSet.add(newAuthor);
           // if we don't have a github url for this author, but we do for the original author, copy it over
           if (!authorGithubMap[newAuthor]) {
-            authorGithubMap[newAuthor] = authorGithubMap[author];
+            authorGithubMap[newAuthor] = authorGithubMap[authorLowercased];
           }
-          authorNameMap[newAuthor] = newAuthor;
+
+          // if we DO have a github url, update our githubUrlToAuthorsMap
+          if (authorGithubMap[newAuthor]) {
+            let github = authorGithubMap[newAuthor];
+            if (!githubUrlToAuthorsMap[github]) {
+              githubUrlToAuthorsMap[github] = [];
+            }
+            githubUrlToAuthorsMap[github].push(newAuthor);
+          }
+
+          // copy over hbas page info for the new author name
+          authorNameMap[newAuthor] = newAuthorOrig;
           if (!hbasPageMap[newAuthor]) {
             hbasPageMap[newAuthor] = [];
           }
-          hbasPageMap[newAuthor].push(...hbasPageMap[author]);
+          hbasPageMap[newAuthor].push(...hbasPageMap[authorLowercased]);
         }
       }
 
-      // remove everyone that we are already crediting
+      // // go through the githubUrlToAuthorsMap and remove any github urls that are shared by multiple authors
+      // // using the levenshtein distance algorithm to guess which author is the best fit
+      // // TODO: actually track author github urls in the backend, so we don't have to do this
+      for (let github in githubUrlToAuthorsMap) {
+        let authors = githubUrlToAuthorsMap[github];
+
+        // extract author name from the github url
+        let githubAuthor = github.split("/")[3].toLowerCase();
+
+        // if the author name is already in the list, just use that
+        let bestAuthor = authors.find(author => author === githubAuthor);
+
+        if (!bestAuthor) {
+          // otherwise, try to find the best fit
+          let bestDistance = Infinity;
+          console.log(authors);
+          for (let author of authors) {
+            let distance = levenshtein(author, githubAuthor);
+            if (distance < bestDistance) {
+              bestDistance = distance;
+              bestAuthor = author;
+            }
+          }
+          // console.log(`best fit for ${github} is ${bestAuthor}`)
+        }
+
+        // remove all authors except the best fit (and only delete if they have the mismatched github url)
+        for (let author of authors) {
+          if (author !== bestAuthor && authorGithubMap[author] === github) {
+            delete authorGithubMap[author];
+          }
+        }
+      }
+
       let hbasCreditsHTML = genHBASCreditsHTML();
       const platImgLookup = {
         "switch": switchImg,
@@ -323,3 +376,24 @@ function genHBASCreditsHTML() {
 }
 
 export default InfoPage;
+
+// https://www.30secondsofcode.org/js/s/levenshtein-distance/
+const levenshtein = (s, t) => {
+  if (!s.length) return t.length;
+  if (!t.length) return s.length;
+  const arr = [];
+  for (let i = 0; i <= t.length; i++) {
+    arr[i] = [i];
+    for (let j = 1; j <= s.length; j++) {
+      arr[i][j] =
+        i === 0
+          ? j
+          : Math.min(
+              arr[i - 1][j] + 1,
+              arr[i][j - 1] + 1,
+              arr[i - 1][j - 1] + (s[j - 1] === t[i - 1] ? 0 : 1)
+            );
+    }
+  }
+  return arr[t.length][s.length];
+};

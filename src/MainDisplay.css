@@ -256,7 +256,7 @@ table.appAuthorList img {
     background-color: var(--footerBackgroundColor);
   }
 
-  table.appAuthorList td:first-child {
+  table.appAuthorList td:first-child a[href] {
     font-weight: 600;
   }
   
