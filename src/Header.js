@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { faCube, faPlus, faServer, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
@@ -22,8 +22,8 @@ class Header extends Component {
   sub = (event) => {
     let repo = event.target.value;
     window.localStorage.setItem("platform", repo);
-    const plat = repo === "all" ? "" : repo;
-    const platSlash = plat === "" ? `` : `${plat}/`;
+    const plat = repo === "all" ? "all" : repo;
+    const platSlash = plat === "" ? `/all` : `${plat}/`;
     if (window.location.href.endsWith("/quickstore")) {
       window.location.href = `/${platSlash}quickstore`;
     }
@@ -36,35 +36,40 @@ class Header extends Component {
   }
 
   render() {
+    // hide the subtitle if we're on the home page, and we don't have a platform selected
+    const hidePlatformSubtitle = (window.location.pathname === "" || window.location.pathname === "/");
+
+    const platformName = hidePlatformSubtitle ? (<Fragment>
+        <span className="platform"> by </span>
+        <a id="title" href="https://fortheusers.org">ForTheUsers</a>
+      </Fragment>) : (<Fragment>
+      <span className="platform"> for </span>
+      <select id="device" defaultValue={this.platform} onChange={this.sub}
+        style={{backgroundImage: `url(${platformIcons[this.platform]})`}}>
+          <option value="switch">Switch&nbsp;&nbsp;</option>
+          <option value="wiiu">Wii U&nbsp;&nbsp;</option>
+          <option value="all">Both&nbsp;&nbsp;</option>
+      </select>
+    </Fragment>);
+
     return (
       <div className="nav">
         <ul>
           <li id="title" className="title">
             {/* <FontAwesomeIcon icon={faCube} /> */}
-            <img id="store_icon" src={icon} alt="AppStore Logo" style={{ width: 16 }} />
-            <span id="hbastitle">&nbsp;&nbsp;Homebrew App Store</span>
-            <span id="hbasmtitle">&nbsp;&nbsp;HB App Store</span>
-            <span className="platform"> for </span>
-            <select id="device" defaultValue={this.platform} onChange={this.sub}
-                    style={{backgroundImage: `url(${platformIcons[this.platform]})`}}>
-              <option value="switch">Switch</option>
-              <option value="wiiu">Wii U</option>
-              <option value="3ds">3DS</option>
-              <option value="all">All Consoles&nbsp;&nbsp;</option>
-            </select>
+            <a id="title" href="/">
+              <img id="store_icon" src={icon} alt="AppStore Logo" style={{ width: 16 }} />
+              <span id="hbastitle">&nbsp;&nbsp;Homebrew App Store</span>
+            </a>
+            {platformName}
           </li>
-          <li id="ftu"><a href="https://fortheusers.org">About</a></li>
+
+          {/* Desktop Links */}
           <li id="discord"><a href="https://discord.gg/F2PKpEj">Discord</a></li>
-          <li id="twitter"><a href="https://twitter.com/wiiubru">Twitter</a></li>
-          <li id="account"><a href="https://opencollective.com/fortheusers">Donate</a></li>
-          <li id="dns"><a href="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#repos">API</a></li>
-          <li id="submit"><a href="https://submit.fortheusers.org/">Submit</a></li>
-          <li id="m_ftu"><a href="https://fortheusers.org"><FontAwesomeIcon icon={faCube} /></a></li>
-          <li id="m_discord"><a href="https://discord.gg/F2PKpEj"><FontAwesomeIcon icon={faDiscord} /></a></li>
-          <li id="m_twitter"><a href="https://twitter.com/wiiubru"><FontAwesomeIcon icon={faTwitter} /></a></li>
-          <li id="m_account"><a href="https://opencollective.com/fortheusers"><FontAwesomeIcon icon={faSignInAlt} /></a></li>
-          <li id="m_dns"><a href="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#repos"><FontAwesomeIcon icon={faServer} /></a></li>
-          <li id="m_submit"><a href="https://submit.fortheusers.org/"><FontAwesomeIcon icon={faPlus} /></a></li>
+          <li id="account"><a href="https://github.com/fortheusers">Github</a></li>
+          <li id="dns"><a href="/api-info">API</a></li>
+          <li id="submit"><a href="/submit-or-request">Submit</a></li>
+          <li id="ftu"><a href="/about">About</a></li>
         </ul>
       </div>
     );

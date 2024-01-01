@@ -1,21 +1,16 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { platformIcons, Spacer, Mobile, getParams } from './Utils';
+import { Spacer, Mobile, getParams } from './Utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faCircleNotch, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import JSZip from 'jszip';
 import { urlToPromise, saveAs } from './LibGet';
+import PlatformPicker, { plats } from './PlatformPicker';
 import AppList from './AppList';
 import loader from './img/loader.gif';
 import noicon from './img/noicon.png';
 import './Quickstore.css';
-
-const plats = {
-    "wiiu": "Wii U",
-    "switch": "Switch",
-    "3ds": "3DS",
-};
 
 type Package = {
     name: string,
@@ -88,19 +83,10 @@ const QuickStore = (props: { platform: Platform }) => {
     }
 
     if (plat === undefined) {
-        const platformSelect = (Object.keys(plats) as Array<keyof typeof plats>).map(plat => {
-            return (
-                <a href={`/${plat}/quickstore`} className="platChooser">
-                    <img style={{width: 150}} src={platformIcons[plat]} alt={plats[plat]} />
-                </a>
-            );
-        });
         return (<div className="quickstore-container">
             <Mobile />
             { headerInfo }
-            <h2>Choose a Platform</h2>
-            <div style={{display: "flex"}}>{ platformSelect }</div>
-            {/* <FullWidthAd /> */}
+            <PlatformPicker path="/quickstore" />
             <Spacer />
         </div>);
     }

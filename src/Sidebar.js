@@ -92,7 +92,8 @@ class Sidebar extends Component {
     let { platform } = params;
 
     // if we have local storage, and we _DO_ have a package, (aka _not_ on a listing page) respect local storage platform over the URL!
-    if (pkg && window.localStorage.getItem("platform")) {
+    // OR if we have local storage, and no explicit platform is set in the URL, use local storage
+    if ((pkg || !platform) && window.localStorage.getItem("platform")) {
       platform = window.localStorage.getItem("platform");
     }
 
@@ -133,7 +134,7 @@ class Sidebar extends Component {
       <div className={`Sidebar _${this.platform}_only`}>
         {
           categories.map(cat => {
-            let target = cat.short !== "_all" ? `${platInfo}/category/${cat.name.toLowerCase()}` : `${platInfo || "/"}`;
+            let target = cat.short !== "_all" ? `${platInfo}/category/${cat.name.toLowerCase()}` : `${platInfo || "/all"}`;
             target = (cat.short === "_search" || cat.short === "_stats" || cat.short === "_quickstore") ? `${platInfo}/${cat.short.substring(1)}` : target;
 
             // hide the category if it doesn't apply to the current platform

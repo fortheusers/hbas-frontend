@@ -94,11 +94,11 @@ h2 {
 }
 
 a.platChooser {
-    width: 250px;
+    width: 110px;
     text-decoration: none;
-    color: black;
+    /* color: black; */
     text-align: center;
-    font-size: 25px;
+    font-size: 18px;
     margin: 5px auto;
     display: flex;
 }

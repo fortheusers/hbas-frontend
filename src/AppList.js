@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import AppCard from './AppCard';
 import LibGet from './LibGet';
 import loader from './img/loader.gif';
 import Sidebar from './Sidebar';
 import { getParams, Spacer, Mobile, stringDateToTimestamp } from './Utils';
+import PlatformPicker from './PlatformPicker';
+import icon from './img/icon.png';
 
 let sorts = [{
   flavor: "by most recent",
@@ -107,24 +109,43 @@ class AppList extends Component {
     let fdbk = () => {
       window.location.href = ("mailto:fight@fortheusers.org?subject=[HBAS] App Store Feedback"); // temp link
     }
-    let help = () => {
-      window.location.href = (`https://discord.gg/F2PKpEj`); // temp link 
-    }
 
     let { flavor: sortFlavor } = sorts[curSort];
 
-    let headerText = (
+    const isOnHome = window.location.pathname === "" || window.location.pathname === "/";
+
+    const platformPicker = isOnHome ? <div id="homeBlurb" style={{
+      marginBottom: 10,
+      marginLeft: 50,
+      marginRight: 50,
+      marginTop: 10,
+      maxWidth: 1100}}>
+      <div style={{padding: 10, textAlign: "center"}}>
+        <img src={icon} alt="AppStore Logo" style={{ width: 64, verticalAlign: "middle" }} />
+        <span style={{
+          fontSize: 40,
+          verticalAlign: "middle",
+          padding: 10
+          }}>Homebrew App Store</span>
+      </div>
+      <p>Homebrew App Store is a free and open-source repository of <a href="https://en.wikipedia.org/wiki/Homebrew_(video_games)">homebrew apps</a> for the Wii U and Switch consoles. The apps, tools, and games distributed here are all made by independent software developers within the community.</p>
+      <p>If you would like to list your own open-source app here, or request an existing one to add to this index, please see the <a href="/submit-or-request">Submit</a> page. For other info about the team and project, see our <a href="/about">About</a> page.</p>
+      <PlatformPicker />
+    </div> : null;
+
+    let headerText = (<Fragment>
+      {platformPicker}
       <div className="catTitle">
         <div className="menuspan">
         {name} <br className="mobilebr"></br><span className="sort">{sortFlavor}</span>
         </div>
         <div className="menu">
               <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
-              <button id="feedback" onClick={fdbk}>Feedback</button>
-              <button onClick={help}>Help!</button>  
+              <button id="feedback" onClick={fdbk}>Leave Feedback</button>
+              {/* <button onClick={help}>Help!</button>   */}
         </div>
         </div>
-      );
+      </Fragment>);
 
     const updateURL = async (event) => {
       this.query = event.target.value;

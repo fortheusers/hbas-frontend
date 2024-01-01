@@ -116,12 +116,11 @@ class Mobile extends Component {
       <div className="links">
         <select className="menuselect" id="menu" defaultValue="#" onChange={this.choice}>
           <option selected disabled hidden value="#">Menu</option>
-          <option value="https://fortheusers.org">About</option>
+          <option value="/about">About</option>
           <option value="https://discord.gg/F2PKpEj">Discord</option>
-          <option value="https://twitter.com/wiiubru">Twitter</option>
-          <option value="https://opencollective.com/fortheusers">Donate</option>
-          <option value="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#repos">API</option>
-          <option value="https://submit.fortheusers.org/">Submit</option>
+          <option value="/api-info">API</option>
+          <option value="/submit-or-request">Submit</option>
+          <option value="/dmca-request">DMCA</option>
         </select>
       </div>
     </div>

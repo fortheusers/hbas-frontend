@@ -97,13 +97,18 @@ li:nth-child(2) {
   padding: 0 40px 0 0;
 }
 
-li a {
+li a:not(#title) {
   display: block;
   color:var(--footerTextColor);
   text-align: center;
   padding: 7px 7px;
   text-decoration: none;
   border: 2px solid var(--footerBackgroundColor);
+}
+
+#title {
+  text-decoration: none;
+  color: var(--footerTextColor);
 }
 
 li a:hover {
@@ -559,9 +564,7 @@ button:hover, .infoBox a:hover {
   opacity: 0.7;
 }
 
-#hbasmtitle {
-  display: none;
-}
+
 .modal_screen {
   width: 800px;
   cursor:zoom-out;
@@ -585,10 +588,6 @@ button:hover, .infoBox a:hover {
 
   .sidebar-item.selected {
     padding-left: 20px;
-  }
-
-  #dns,#account,#twitter,#discord,#ftu,#submit {
-    display:none;
   }
 
   li:nth-child(2) {
@@ -641,30 +640,16 @@ button:hover, .infoBox a:hover {
     width: 100%;
   }
 
-  #hbastitle {
-    display: none;
-  }
-
-  #hbasmtitle {
-    display: inline-block;
-  }
-}
-
-/*Remove Mobile Icons for Large Displays*/
-@media only screen and (min-width: 800px) {
-  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit { 
-    display:none;
-  }
 }
 
 /*Filters for Mobile Portrait*/
 @media only screen and (max-width: 600px) {
-  #m_dns,#m_account,#m_twitter,#m_discord,#m_ftu,#m_submit,#feedback,#full { 
-    display:none;
-  }
-
   .Sidebar {
     width:0;
+  }
+
+  #dns,#account,#twitter,#discord,#ftu,#submit {
+    display:none;
   }
 
   .Sidebar ~ div {

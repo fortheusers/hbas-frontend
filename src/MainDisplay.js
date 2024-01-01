@@ -5,6 +5,7 @@ import AppDetails from './AppDetails';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
+import InfoPage from './InfoPage';
 import AppStatsChart from './AppStatsChart';
 import QuickStore from './QuickStore.tsx';
 import './MainDisplay.css';
@@ -36,9 +37,16 @@ class MainDisplay extends Component {
           <Route path='/:platform/quickstore' component={Header} />
           <Route path='/:platform/search' component={Header} />
           <Route path='/:platform/:package' component={Header}></Route>
+          
           <Route path='/search' component={Header} />
           <Route path='/stats' component={Header} />
           <Route path='/quickstore' component={Header} />
+          
+          <Route path='/about' component={Header} />
+          <Route path='/api-info' component={Header} />
+          <Route path='/submit-or-request' component={Header} />
+          <Route path='/dmca-request' component={Header} />
+
           <Route path='/:platform' component={Header}></Route>
           <Route path='/' component={Header}></Route>
         </Switch>
@@ -76,6 +84,11 @@ class MainDisplay extends Component {
             
             <Route path='/:platform/category/:category' component={AppList} />
             <Route path='/category/:category' component={AppList} />
+
+            <Route path='/about' component={InfoPage} />
+            <Route path='/api-info' component={InfoPage} />
+            <Route path='/submit-or-request' component={InfoPage} />
+            <Route path='/dmca-request' component={InfoPage} />
 
             <Route path='/:platform/:package' component={AppDetails} />
             <Route path='/:platform' component={AppList} />
