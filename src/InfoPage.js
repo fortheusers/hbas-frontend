@@ -167,26 +167,26 @@ class InfoPage extends Component {
 
       pageText = <div>
         <h1>About hb-appstore</h1>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
           Homebrew App Store is a free and open-source repository of <a href="https://en.wikipedia.org/wiki/Homebrew_(video_games)">homebrew apps</a> for the Wii U and Switch consoles. The apps, tools, and games distributed here are all made by independent software developers within the community.
-        </p><p style={{width: 700}}>
+        </p><p className="pNormalWidth">
           If you would like to list your own open-source app here, or request an existing one to add to this index, please see the <a href="/submit-or-request">Submit</a> page.
         </p>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
           If you are a copyright holder and are concerned some of your work is being infringed upon, please fill out this <a href="/dmca-request">DMCA Form</a> to submit a takedown request. This also applies if you are an open-source developer and don't wish us to distribute your project here.
         </p>
         <h3>Our Packages</h3>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
           The packages hosted in this repository are updated regularly with new apps and updates to existing apps. This is accomplished by our maintainers, who are ForTheUsers staff and volunteers from the community. If you would like to help or report and outdated package, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>.
         </p>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
          The source code for this website is available <a href="https://github.com/fortheusers/hbas-frontend">on Github</a>. To learn more about the repositories that power this site, please see the <a href="/api-info">API Info</a> page.
         </p>
         <h3>Donations</h3>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
           Thank you for your interest in supporting this project!  We are not currently accepting donations, but if you would like to support the developers of the apps listed here, please visit their respective Github pages or websites.
         </p>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
           Otherwise, we can recommend that you consider donating to one of the following causes:
           <br/><br/>
           <table className="donationList">
@@ -204,14 +204,14 @@ class InfoPage extends Component {
           </table>
         </p>
         <h3>Credits</h3>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
           This website is maintained by <a href="https://fortheusers.org">ForTheUsers</a>, and is made possible by the following open-source developers:
           <br/>
           <div className="creditsContainer" dangerouslySetInnerHTML={{__html: hbasCreditsHTML}}>
           </div>
           <br/>
           <h4>App Authors</h4>
-          <p style={{width: 700}}>
+          <p className="pNormalWidth">
             Of course, this project wouldn't exist without the developers of the apps themselves.  Thank you to all of the developers who have contributed to the homebrew community!
             <br/><br/>
             {authorList}
@@ -227,12 +227,12 @@ class InfoPage extends Component {
     } else if (location === "/dmca-request") {
       const allPackages = this.state.allPackages;
 
-      pageText = <div>
+      pageText = <div style={{maxWidth: "100%"}}>
         <h1>Removal / DMCA Request</h1>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
           If you are the author of an app within our repositories, or represent a copyright holder and have concerns that your work or rights are infringed upon, please submit a removal or DMCA request below.  Our goal is to honor all rights related to intellectual property, and we strive to respond swiftly to any related concerns.
         </p>
-        <p style={{width: 700}}>
+        <p className="pNormalWidth">
           The packages that are provided for download on this website are by homebrew developers in the community, are submitted by volunteer users or the developers themselves, and are intended to be distributed under their respective open-source licenses.
         </p>
         <br/>
@@ -242,7 +242,7 @@ class InfoPage extends Component {
         >
           <label>
             <p>Package name:</p>
-            <select name="package">
+            <select name="package" style={{maxWidth: "100%"}}>
               <option>Select a package...</option>
               {allPackages.map(pkg => (<option value={pkg.name}>{pkg.title} - ({pkg.platform}/{pkg.name})</option>))}
               <option value="other">Other / Multiple / Explained in Reason</option>
@@ -263,7 +263,8 @@ class InfoPage extends Component {
             <p>Explanation and Relevant Information:</p>
             <textarea name="reason" style={{
               width: 600,
-              height: "200px"
+              height: "200px",
+              maxWidth: "100%"
             }} />
           </label>
           <br/><br/>
@@ -298,7 +299,7 @@ function genHBASCreditsHTML() {
   }
 
   const credit = (name, githubId, twitter, github, gitlab, patreon, url, discord, directAvatarURL, youtube, bsky) => {
-    out += `<div class="singleCredit"><img class="avatar" style="width:75px; height:75px; border-radius: 10px" src="${directAvatarURL || `https://avatars.githubusercontent.com/u/${githubId}?v=4`}"/><div class="socials"><span class="name">${name}</span>`;
+    out += `<div class="singleCredit"><a href="https://github.com/${github}"><img class="avatar" style="width:75px; height:75px; border-radius: 10px" src="${directAvatarURL || `https://avatars.githubusercontent.com/u/${githubId}?v=4`}"/></a><div class="socials"><span class="name">${name}</span>`;
     if (twitter) out += `<a href="https://twitter.com/${twitter}"><img src="${twitterImg}" />${twitter}</a>`;
     if (github) out += `<a href="https://github.com/${github}"><img src="${githubImg}" />${github}</a>`;
     if (gitlab) out += `<a href="https://gitlab.com/${gitlab}"><img src="${gitlabImg}" />${gitlab}</a>`;
@@ -315,7 +316,7 @@ function genHBASCreditsHTML() {
 	credit("VGMoose", "2467473", null, "vgmoose", null, null, null, null, null, null, "vgmoose.dev");
 	credit("Nightkingale", "63483138", "Nightkingale", "nightkingale");
 	credit("rw-r-r_0644", "18355947", "rw_r_r_0644", "rw-r-r-0644");
-	credit("crc32", "7893269", "crc32_", "crc-32");
+	credit("crc32", "7893269", null, "crc-32");
 	credit("CompuCat", "12215288", null, null, "compucat", null, "compucat.me");
 	credit("Quarky", "8533313", null, null, "quarktheawesome", null, "heyquark.com");
 

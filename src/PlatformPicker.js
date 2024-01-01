@@ -18,9 +18,9 @@ const PlatformPicker = ({path = ""}) => {
             </a>
         );
     });
-    return (<div style={{width: 500, margin: "0 auto", marginTop: 40}}>
+    return (<div style={{width: 500, maxWidth: "100%", margin: "0 auto", marginTop: 40}}>
         <h2 style={{fontSize: 18, padding: 5, backgroundColor: "unset", textAlign: "center"}}>Choose a Platform</h2>
-        <div style={{display: "flex"}}>{ platformSelect }</div>
+        <div style={{display: "flex"}} id="platChooserList">{ platformSelect }</div>
     </div>);
 };
 

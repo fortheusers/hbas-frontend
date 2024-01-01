@@ -118,13 +118,10 @@ class AppList extends Component {
       marginBottom: 10,
       marginLeft: 50,
       marginRight: 50,
-      marginTop: 10,
-      maxWidth: 1100}}>
+      marginTop: 10}}>
       <div style={{padding: 10, textAlign: "center"}}>
-        <img src={icon} alt="AppStore Logo" style={{ width: 64, verticalAlign: "middle" }} />
+        <img src={icon} alt="AppStore Logo" />
         <span style={{
-          fontSize: 40,
-          verticalAlign: "middle",
           padding: 10
           }}>Homebrew App Store</span>
       </div>

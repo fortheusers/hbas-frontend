@@ -17,6 +17,11 @@
   --text-color: black;
 }
 
+p a {
+  font-weight: 600;
+  color: var(--footerTextColor);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --searchColor: #eee;
@@ -132,6 +137,7 @@ body, html, #root, .main {
 .socials a {
   text-decoration: none;
   color: var(--footerTextColor);
+  font-weight: unset;
 }
 
 .copyleft {
@@ -283,6 +289,7 @@ table.appAuthorList img {
   table.appAuthorList a {
     text-decoration: none;
     color: var(--footerTextColor);
+    font-weight: unset;
   }
 
   select:hover {
@@ -347,6 +354,13 @@ table.appAuthorList img {
   float:left;
   padding: 10px 0 0 15px;
   font-weight: 600;
+}
+
+a.platChooser, a.platChooser h3 {
+  text-decoration: none;
+  color: var(--footerTextColor);
+  font-weight: unset;
+  margin-top: 15px;
 }
 
 .platform {
@@ -782,10 +796,62 @@ button:hover, .infoBox a:hover {
 
 }
 
+#homeBlurb {
+  max-width: 1100px;
+}
+
+#homeBlurb img {
+  vertical-align: middle;
+  width: 64px;
+}
+
+#homeBlurb span {
+  vertical-align: middle;
+  font-size: 40px;
+}
+
+.pNormalWidth {
+  width: 700px;
+}
+
 /*Filters for Mobile Portrait*/
 @media only screen and (max-width: 600px) {
   .Sidebar {
     width:0;
+  }
+
+  #platChooserList {
+    flex-direction: column;
+  }
+
+  p, #homeBlurb {
+    max-width: 100%;
+    margin: 20px;
+  }
+
+  .pNormalWidth {
+    width: 300px;
+    margin: 20px;
+  }
+
+  table.donationList {
+    font-size: 10px;
+  }
+
+  table:not(.donationList) {
+    margin-left: -45px; /* offsets margin for full width table on mobile */
+    width: 100%;
+  }
+  table:not(.donationList) td {
+    border: none;
+  }
+
+  #homeBlurb img {
+    width: 32px;
+  }
+
+  #homeBlurb span {
+    font-size: 20px;
   }
 
   #dns,#account,#twitter,#discord,#ftu,#submit {
