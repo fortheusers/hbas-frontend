@@ -107,7 +107,7 @@ class InfoPage extends Component {
         {Array.from(authorSet).sort().map(author => (
           <tr>
             <td><a href={authorGithubMap[author]}>{authorNameMap[author] || author}</a></td>
-            <td>{(hbasPageMap[author] || []).map(pageInfo => <Fragment><a href={pageInfo.url}><img src={platImgLookup[pageInfo.platform]} />{pageInfo.name}</a>{" "}</Fragment>)}</td>
+            <td>{(hbasPageMap[author] || []).map(pageInfo => <Fragment><a href={pageInfo.url}><img src={platImgLookup[pageInfo.platform]} alt={pageInfo.platform} />{pageInfo.name}</a>{" "}</Fragment>)}</td>
           </tr>
         ))}
       </table>;
@@ -295,7 +295,7 @@ function genHBASCreditsHTML() {
 	credit("Wintermute", "101194", null, "wintermute", null, null, "devkitPro.org");
 	credit("Fincs", "581494", "fincsdev", "fincs");
 	credit("yellows8", "585494", "yellows8");
-	credit("ReSwitched", "26338222", null, "reswitched", null, null, "reswitched.team");
+	credit("ReSwitched", "26338222", null, "reswitched", null, null, "reswitched.github.io");
 	credit("exjam", "1302758", null, "exjam");
 	credit("brett19", "1621627", null, "brett19");
 
