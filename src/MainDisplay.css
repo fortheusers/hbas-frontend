@@ -160,7 +160,7 @@ body, html, #root, .main {
   z-index: 999;
 }
 
-ul {
+.nav ul {
   position: fixed;
   top: 0;
   width: calc(100%);
@@ -172,15 +172,15 @@ ul {
   padding-bottom: 5px;
 }
 
-li {
+.nav li:not(#title) {
   float: right;
 }
 
-li:nth-child(2) {
+.nav li:nth-child(2) {
   padding: 0 40px 0 0;
 }
 
-li a:not(#title) {
+.nav li a:not(#title) {
   display: block;
   color:var(--footerTextColor);
   text-align: center;

@@ -25,7 +25,7 @@ class AppDetails extends Component {
 
   async componentDidMount() {
 
-    const packages = await AppList.fetchPackages();
+    const packages = await AppList.fetchPackages(this.state.platform);
     this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg && pkg.platform === this.state.platform);
 
     if (!this.pkg) return this.setState({ loading: false });

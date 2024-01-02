@@ -30,7 +30,7 @@ class InfoPage extends Component {
 
   render() {
     let pageText = <div>
-      This page intentionally left blank.
+      You are (probably) being redirected.
     </div>;
 
     const location = window.location.pathname;
@@ -168,26 +168,35 @@ class InfoPage extends Component {
       pageText = <div>
         <h1>About hb-appstore</h1>
         <p className="pNormalWidth">
-          Homebrew App Store is a free and open-source repository of <a href="https://en.wikipedia.org/wiki/Homebrew_(video_games)">homebrew apps</a> for the Wii U and Switch consoles. The apps, tools, and games distributed here are all made by independent software developers within the community.
+          Homebrew App Store is a free and open-source repository of <a href="https://en.wikipedia.org/wiki/Homebrew_(video_games)">homebrew apps</a> for the Wii U and Switch consoles. This listing is maintained by the <a href="https://fortheusers.org">ForTheUsers team</a>, with the goal of making accessible and preserving the efforts of independent developers and hobbyists to end users.
         </p><p className="pNormalWidth">
-          If you would like to list your own open-source app here, or request an existing one to add to this index, please see the <a href="/submit-or-request">Submit</a> page.
+          If you would like to list your own open-source app here, or request an existing one to add to this index, please see the <a href="/submit-or-request">Submit</a> page. For already listed apps, an <a href="/api-info">API</a> is available.
         </p>
         <p className="pNormalWidth">
-          If you are a copyright holder and are concerned some of your work is being infringed upon, please fill out this <a href="/dmca-request">DMCA Form</a> to submit a takedown request. This also applies if you are an open-source developer and don't wish us to distribute your project here.
+          If you are a copyright holder and are concerned some of your work is being infringed upon, please fill out this <a href="/dmca-request">DMCA Form</a> to submit a takedown request. This also applies if you are an open-source developer and don't want us to distribute your project here.
         </p>
-        <h3>Our Packages</h3>
+        <h3>How It Works</h3>
         <p className="pNormalWidth">
-          The packages hosted in this repository are updated regularly with new apps and updates to existing apps. This is accomplished by our maintainers, who are ForTheUsers staff and volunteers from the community. If you would like to help or report and outdated package, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>.
+         The content in our repositories is available both as a website and as a <a href="https://github.com/fortheusers/hb-appstore">native homebrew app</a> for the Wii U and Switch consoles. These console apps try to provide a similar experience to using a web browser, and can be downloaded <a href="https://github.com/fortheusers/hb-appstore/releases">here</a>.
         </p>
         <p className="pNormalWidth">
-         The source code for this website is available <a href="https://github.com/fortheusers/hbas-frontend">on Github</a>. To learn more about the repositories that power this site, please see the <a href="/api-info">API Info</a> page.
+          The individual hosted packages are updated regularly with new apps and updates. These are maintained by ForTheUsers staff and volunteers from the community. If you would like to help or report and outdated package, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>.
         </p>
+        <p style={{marginTop: -40}} className="pNormalWidth creditsContainer" dangerouslySetInnerHTML={{__html: hbasCreditsHTML}}>
+        </p>
+        <h3>App Authors</h3>
+        <p className="pNormalWidth">
+          Of course, this project wouldn't exist without the developers of the apps themselves.  Thank you to all of the developers who have contributed to the homebrew community!
+          <br/><br/>
+          {authorList}
+        </p>
+
         <h3>Donations</h3>
         <p className="pNormalWidth">
-          Thank you for your interest in supporting this project!  We are not currently accepting donations, but if you would like to support the developers of the apps listed here, please visit their respective Github pages or websites.
+          Thank you for your interest in supporting this project!  We are not accepting donations, but if you would like to support the developers of the apps listed here, please visit their respective Github pages or websites as listed above.
         </p>
         <p className="pNormalWidth">
-          Otherwise, we can recommend that you consider donating to one of the following causes:
+          Otherwise, if you are still interested in supporting the project directly, we can recommend that you consider looking into and donating to one of the following causes instead:
           <br/><br/>
           <table className="donationList">
             <tr>
@@ -203,27 +212,70 @@ class InfoPage extends Component {
             </tr>
           </table>
         </p>
-        <h3>Credits</h3>
+        <h3>Licensing Info</h3>
         <p className="pNormalWidth">
-          This website is maintained by <a href="https://fortheusers.org">ForTheUsers</a>, and is made possible by the following open-source developers:
-          <br/>
-          <div className="creditsContainer" dangerouslySetInnerHTML={{__html: hbasCreditsHTML}}>
-          </div>
-          <br/>
-          <h4>App Authors</h4>
-          <p className="pNormalWidth">
-            Of course, this project wouldn't exist without the developers of the apps themselves.  Thank you to all of the developers who have contributed to the homebrew community!
-            <br/><br/>
-            {authorList}
-          </p>
-
+          This website and the console clients are licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>. The content on the repositories we host is also available to use under a <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC-BY-SA license</a>.
+        </p>
+        <p className="pNormalWidth">
+          That's pretty much everything! For other questions, reach out to one of the developers listed above, or join our <a href="https://discord.gg/F2PKpEj">Discord</a> server.
         </p>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/>
       </div>;
     } else if (location === "/api-info") {
       window.location.href = "https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#repos";
     } else if (location === "/submit-or-request") {
-      window.location.href = "https://submit.fortheusers.org/";
+      pageText = <div style={{maxWidth: "100%"}}>
+        <h1>Submit or Request an App</h1>
+        <p className="pNormalWidth">
+          The packages distributed in our repositories are sent in either by homebrew developers themselves or by volunteer users in the community. Please check the guidelines on this page before submitting an app for review.
+        </p>
+        <p className="pNormalWidth">
+          When you are ready to submit, the actual form is located at <a href="https://submit.fortheusers.org">submit.fortheusers.org</a>. For specific info on how these repos are maintained, see the <a href="/api-info">API</a> page.
+        </p>
+        <p className="pNormalWidth">
+          <strong>Please Note:</strong> The term "app" is being used for simplicity here, but a package can consist of any relevant files, such as games, mods, or configs. (Or even public domain <a href="/switch/ebooks">eBooks</a>).
+        </p>
+        <h3>Guidelines</h3>
+        <p className="pNormalWidth">
+          We try to keep the requirements for apps to be listed here as minimal as possible, but there are a few things considered when reviewing submissions:
+          <ul>
+            <li><strong>Open Source</strong> - Listed apps must have source code publicly available, and ideally be licensed under a permissive license such as MIT, GPL, BSD, etc.</li>
+            <li><strong>No Piracy</strong> - Homebrew is a hobbyist endeavor, and as such, we do not accept apps that are intended to be used primarily for <a href="https://en.wikipedia.org/wiki/Video_game_piracy">video game piracy</a>.</li>
+            <li><strong>Permission</strong> - Authors of apps should be contacted to verify that they are aware of and approve of their app being listed here.</li>
+            <li><strong>Don't Break Stuff</strong> - Apps should not be malicious, or cause damage to the user's device.  This includes apps that are known to be unstable or cause crashes.</li>
+          </ul>
+        </p>
+        <h3>Suggestions</h3>
+        <p className="pNormalWidth">
+          The following concerns are not strictly required, but are recommended for a better user experience:
+          <ul>
+            <li><strong>Stability™</strong> - Apps should be reasonably reliable, tested, and functional. Beta or in-development apps are okay, but should be clearly marked as such.</li>
+            <li><strong>Usability</strong> - Likewise, apps should be relatively easy for the average user to understand, and not require extensive technical knowledge to operate.</li>
+            <li><strong>Purposeful</strong> - Your app should serve a clear purpose, and try to not be redundant with other apps already listed here.</li>
+            <li><strong>Appropriate</strong> - Apps should not contain excessive profanity or other offensive content. However, we also recognize that some apps may be intended for mature audiences, and will be reviewed on a case-by-case basis.</li>
+          </ul>
+        </p>
+        <h3>Asset Info</h3>
+        <p className="pNormalWidth">
+          If a good icon is not provided, our staff or volunteer designers on Discord may create one. The banner and screenshots fields are more optional, but recommended.
+          <ul>
+            <li><strong>Icon</strong> - A square or square-ish image that represents your app.</li>
+            <li><strong>Screenshots</strong> - Multiple fullscreen captures of what your app looks while running</li>
+            <li><strong>Banner</strong> - A wide rectangle to be displayed on your app details page</li>
+          </ul>
+        </p>
+        <h3>Final Notes</h3>
+        <p className="pNormalWidth">
+          Not all apps on our repositories have equal importance: Some are simple homebrew games, some are utilities, some are ports of existing software, and some are just silly. We try to be as inclusive as possible, but may reject a submission for any reason.
+        </p>
+        <p className="pNormalWidth">
+          If you have any questions about the submission process, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>.  Otherwise, when you are ready to submit, the form is located at <a href="https://submit.fortheusers.org">submit.fortheusers.org</a>.
+        </p>
+        <p className="pNormalWidth">
+          <strong>Thank you for your interest in contributing to our repositories!</strong>
+        </p>
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+      </div>;
     } else if (location === "/dmca-request") {
       const allPackages = this.state.allPackages;
 

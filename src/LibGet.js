@@ -10,14 +10,6 @@ const repos = [
       url: "https://wiiu.cdn.fortheusers.org",
       platform: "wiiu"
     }
-    // {
-    //   url: "https://3ds.apps.fortheusers.org",
-    //   platform : "3ds"
-    // }
-    // {
-    //   url: "https://4tu.gitlab.io/dragonite-test-repo",
-    //   platform: "switch"
-    // }
   ];
 
 
@@ -25,6 +17,12 @@ const LibGet = {
   repos,
 
   getRepos: (platform = "all") => {
+    if (platform === "3ds") {
+      return [{
+        url: "https://3ds.apps.fortheusers.org",
+        platform : "3ds"
+      }];
+    }
     return repos.filter(repo => platform === "all" || repo.platform === platform);
   },
 
