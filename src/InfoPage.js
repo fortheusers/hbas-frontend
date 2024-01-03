@@ -9,28 +9,47 @@ import discordImg from './img/discord.png';
 import youtubeImg from './img/youtube.png';
 import urlImg from './img/url.png';
 import bskyImg from './img/bsky.png';
+import mastodonImg from './img/mastodon.png';
 import switchImg from './img/switch.png';
 import wiiuImg from './img/wiiu.png';
+import dropDownCarat from './img/dropDownCarat.png';
+
+const WIIU_CDN = "https://wiiu.cdn.fortheusers.org/repo.json";
+const SWITCH_CDN = "https://switch.cdn.fortheusers.org/repo.json";
 
 class InfoPage extends Component {
-
+  
   state = {
-    allPackages: []
+    allPackages: [],
+    credits: [],
+    curRepo: WIIU_CDN,
+    curPackage: "vgedit"
   }
 
   async componentDidMount() {
     const location = window.location.pathname;
 
-    if (location === "/about" || location === '/dmca-request') {
+    if (location === "/about") {
+      let credits = await AppList.fetchCredits();
+      this.setState({ credits });
+    }
+
+    if (location !== "/submit-or-request") {
       let allPackages = await AppList.fetchPackages();
       allPackages.sort((a, b) => a.title.localeCompare(b.title));
       this.setState({ allPackages })
+
+      // on the api page, we need to update one dropdown
+      if (location === "/api-info") {
+        document.getElementById("packageSelect").value = this.state.curPackage;
+      }
     }
+
   }
 
   render() {
     let pageText = <div>
-      You are (probably) being redirected.
+      This page intentionally left blank.
     </div>;
 
     const location = window.location.pathname;
@@ -77,7 +96,7 @@ class InfoPage extends Component {
           authors.push(...author.split(" & "));
         }
         else if (author.includes(" and ")) {
-          authors.push(...author.split(" and "));
+          authors.push(...author.split(" and ").map(a => a.replaceAll(",", "")));
         }
         else if (author.includes(", ")) {
           authors.push(...author.split(", "));
@@ -150,7 +169,14 @@ class InfoPage extends Component {
         }
       }
 
-      let hbasCreditsHTML = genHBASCreditsHTML();
+      // remove some common non-authors
+      const commonNonAuthors = ["and", "more", "others", "various authors"];
+      for (let nonAuthor of commonNonAuthors) {
+        if (authorSet.has(nonAuthor))
+          authorSet.delete(nonAuthor);
+      }
+
+      let hbasCreditsHTML = genHBASCreditsHTML(this.state.credits);
       const platImgLookup = {
         "switch": switchImg,
         "wiiu": wiiuImg
@@ -222,7 +248,162 @@ class InfoPage extends Component {
         <br/><br/><br/><br/><br/><br/><br/><br/><br/>
       </div>;
     } else if (location === "/api-info") {
-      window.location.href = "https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#repos";
+      const { curRepo, curPackage } = this.state;
+
+      // deep clone, so we can modify the internal already-fetched packages to resemble the API output
+      let packages = JSON.parse(JSON.stringify(this.state.allPackages));
+      packages = packages.filter(pkg => pkg.platform === (curRepo.includes("switch") ? "switch" : "wiiu"));
+      for (let pkg of packages) {
+        // these aren't part of the API
+        delete pkg.repo;
+        delete pkg.platform;
+      }
+
+      const repoBase = curRepo.replaceAll("/repo.json", "");
+
+      // for the screenshot queries, later
+      const screensCount = (packages.find(pkg => pkg.name === `${curPackage}`) || {}).screens || 0;
+      const screensArray = [...Array(screensCount).keys()]
+
+      pageText = <div style={{maxWidth: "100%"}}>
+        <h1>API Info</h1>
+        <p className="pNormalWidth">
+          This website (<a href="https://hb-app.store">hb-app.store</a>) is a web frontend to access the packages in our repositories. Both the <a href="https://github.com/fortheusers/hb-appstore">console app</a> and <a href="https://gitlab.com/4TU/hbas-frontend/">this site</a> are open-source clients that access these repos using our API.
+        </p>
+        <p className="pNormalWidth">
+          The two main repositories used by this project are:
+          <ul>
+            <li><img src={wiiuImg} style={{width: 24, verticalAlign: "middle", marginRight: 10 }} alt="Wii U" /><a href="https://wiiu.cdn.fortheusers.org/repo.json">wiiu.cdn.fortheusers.org/repo.json</a></li>
+            <li><img src={switchImg} style={{width: 24, verticalAlign: "middle", marginRight: 10 }} alt="Switch" /><a href="https://switch.cdn.fortheusers.org/repo.json">switch.cdn.fortheusers.org/repo.json</a></li>
+          </ul>
+        </p>
+        <p className="pNormalWidth">
+          A repository is a JSON file that contains a list of all the packages in the repository, along with their metadata. The repo content is updated by our build script whenever 4TU staff adds or updates the contents of a package.
+        </p><p className="pNormalWidth">When changes are made to the repos, a message is posted in <code>#hbas-updates</code> on our <a href="https://discord.gg/F2PKpEj">Discord</a>. The build script used to accomplish this is <a href="https://github.com/fortheusers/libget/wiki/Using-repogen.py">libget's repogen.py</a>, which turns a locally maintained directory of files for each package into compressed zip files and a <code>repo.json</code> file.
+        </p>
+        <p className="pNormalWidth">
+          The below commands use <a href="https://curl.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to parse the JSON output. If you don't have these installed, you can any HTTP client and JSON parser of your choice.
+        </p>
+        Target Repo for Examples:&nbsp;&nbsp;
+        <select
+          onChange={event => this.setState({curRepo: event.target.value})}
+          style={{backgroundImage: `url(${dropDownCarat})`, color: "unset"}}>
+          <option value={WIIU_CDN}>Wii U</option>
+          <option value={SWITCH_CDN}>Switch</option>
+        </select>
+        <details className="pNormalWidth">
+          <summary><h3>Listing all packages</h3></summary>
+          Package metadata is stored in an array underneath the root-level <code>packages</code> key.
+          <pre class="promptSnippet">
+            curl <strong>{curRepo}</strong> | jq <strong>'.packages'</strong>
+          </pre>
+          Response:
+          <pre class="responseSnippet">
+            {JSON.stringify(packages, null, 2)}
+          </pre>
+        </details>
+        <details className="pNormalWidth">
+          <summary><h3>Listing packages from a specific author</h3></summary>
+          The <code>packages</code> array can be filtered by any of its attributes. The below example uses <code>jq</code> to filter the array by <code>author</code>.
+          <pre class="promptSnippet">
+            curl <strong>{curRepo}</strong> | jq '.packages | map(select(<strong>.author == "vgmoose"</strong>))'
+          </pre>
+          Response:
+          <pre class="responseSnippet">
+            {JSON.stringify(packages.filter(pkg => pkg.author === "vgmoose"), null, 2)}
+          </pre>
+        </details>
+        <details className="pNormalWidth">
+          <summary><h3>Listing all packages in a category</h3></summary>
+          Likewise, a category can be used to filter the array. The below example uses <code>jq</code> to filter the array by <code>category</code>.
+          <pre class="promptSnippet">
+            curl <strong>{curRepo}</strong> | jq '.packages | map(select(<strong>.category == "game"</strong>))'
+          </pre>
+          Response:
+          <pre class="responseSnippet">
+            {JSON.stringify(packages.filter(pkg => pkg.category === "game"), null, 2)}
+          </pre>
+        </details>
+        Target Package for Examples:&nbsp;&nbsp;
+        <select
+          onChange={event => this.setState({curPackage: event.target.value})}
+          style={{backgroundImage: `url(${dropDownCarat})`, color: "unset"}}
+          id="packageSelect"
+          >
+            {[...packages].sort((a, b) => a.title.localeCompare(b.title)).map(pkg => <option value={pkg.name}>{pkg.title}</option>)}
+        </select>
+        <details className="pNormalWidth">
+          <summary><h3>Getting info on a single package</h3></summary>
+          Every package in the array has a unique <code>name</code> attribute that identifies it. This short <code>name</code> is used to track updates to the package, and will not change even if the package's <code>title</code> or other metadata changes.
+          <br/><br/>
+          There's no specific API endpoint to get a single package, so the array needs to be searched for the package with the matching <code>name</code>.
+          <pre class="promptSnippet">
+            curl {curRepo} | jq '.packages | map(select(<strong>.name == "{curPackage}"</strong>))<strong>[0]</strong>'
+          </pre>
+          Response:
+          <pre class="responseSnippet">
+            {JSON.stringify(packages.find(pkg => pkg.name === `${curPackage}`) || {}, null, 2)}
+          </pre>
+        </details>
+        <details className="pNormalWidth">
+          <summary><h3>Downloading a specific package</h3></summary>
+          From inspecting the metadata, once you know the <code>name</code> of a package, you can download it at <code>/zips/<strong>[name]</strong>.zip</code>.
+          <br/><br/>
+          This URL can also be directly visited in a browser to download the package.
+          <pre class="promptSnippet">
+            curl -O {repoBase}<strong>/zips/{curPackage}.zip</strong>
+          </pre>
+          Response: <a href={`${repoBase}/zips/${curPackage}.zip`}>{curPackage}.zip</a> in the current directory.
+          <br/><br/>
+          There are no restrictions on how often a package can be downloaded, but please be considerate of our bandwidth. If the service is abused, we may implement rate limiting.
+        </details>
+        <details className="pNormalWidth">
+          <summary><h3>Getting package image assets</h3></summary>
+          Using the package <code>name</code> again, URLs for the package's icon and banner can be constructed, and viewed or downloaded.
+          <pre class="promptSnippet">
+            curl -O {repoBase}<strong>/packages/{curPackage}/icon.png</strong>
+          </pre>
+          Response:<br/>
+          <a href={`${repoBase}/packages/${curPackage}/icon.png`}><img alt="example icon" src={`${repoBase}/packages/${curPackage}/icon.png`} /></a>
+          <br/><br/>
+          The banner is a wide image that is displayed on the package's details page, but for historical reasons it's named <code>screen.png</code>.
+          <br/>
+          <pre class="promptSnippet">
+            curl -O {repoBase}<strong>/packages/{curPackage}/screen.png</strong>
+          </pre>
+          Response:<br/>
+          <a href={`${repoBase}/packages/${curPackage}/screen.png`}><img style={{maxHeight: 200}} alt="example banner" width="100%" src={`${repoBase}/packages/${curPackage}/screen.png`} /></a>
+          <br/><br/>
+          </details>
+        <details className="pNormalWidth">
+          <summary><h3>Downloading all screenshots for a package</h3></summary>
+          The total number of available screenshots is listed in the package metadata under the <code>screens</code> attribute. First we'll get this count and store it in an env variable:
+          <pre class="promptSnippet">
+          export SCREENS_COUNT=$(curl {curRepo} | jq '.packages | map(select(.name == "{curPackage}"))[0].screens')
+          </pre>
+          Then we can use a bash expansion to download all the screenshots at once:
+          <pre class="promptSnippet">
+          curl --remote-name-all {repoBase}<strong>/packages/{curPackage}/screen{`{1..$SCREENS_COUNT}`}.png</strong>
+          </pre>
+          Response: {
+            screensArray.map(screenIdx => {
+              const imgURL = `${repoBase}/packages/${curPackage}/screen${screenIdx + 1}.png`;
+              return <div><a href={imgURL}><img width="100%" src={imgURL} alt={`screen${screenIdx + 1}`} /></a></div>;
+            })
+          }
+        </details>
+        <p className="pNormalWidth">
+          If you have any questions about these responses or the usage of this API, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>. If you are using our repos for a project, we would love to hear about it!
+        </p>
+        <p className="pNormalWidth">
+          For additional information on the structure of the packages, see the <a href="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary">libget wiki</a>. The info there lines up with the above, but it also details <a href="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#manifests">Manifests</a>, which are used by some packages to instruct the console app on how to handle certain files within a package during an update.
+        </p>
+        <p className="pNormalWidth">
+          The libget wiki also <a href="https://github.com/fortheusers/libget/wiki/Packages-and-Package-Structure">goes over an easy way</a> to generate and maintain your a repo, using <code>pkgbuild.json</code> files and <a href="https://gitlab.com/4TU/spinarak">Spinarak</a>. This can be convenient for self-hosting your own packages and managing updates directly to users. However, this use case is uncommon and most hb-appstore users don't add and track external repos at this time.
+        </p>
+        
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+      </div>;
     } else if (location === "/submit-or-request") {
       pageText = <div style={{maxWidth: "100%"}}>
         <h1>Submit or Request an App</h1>
@@ -336,7 +517,7 @@ class InfoPage extends Component {
   }
 }
 
-function genHBASCreditsHTML() {
+function genHBASCreditsHTML(credits) {
   // copy-pasta'd from https://github.com/fortheusers/hb-appstore/blob/main/gui/AboutScreen.cpp
   // TODO: have a single end point that serves this info over JSON, for both web and app clients
 
@@ -350,80 +531,40 @@ function genHBASCreditsHTML() {
     out += `<br/><h4>${title}</h4><p>${desc}</p>`;
   }
 
-  const credit = (name, githubId, twitter, github, gitlab, patreon, url, discord, directAvatarURL, youtube, bsky) => {
+  const parseMastodonUrl = (url) => {
+    const mastodonUrl = "https://mastodon.social/";
+    if (!url) return mastodonUrl;
+    let parts = url.split("@");
+    if (parts && parts[0] === "") parts = parts.slice(1);
+    if (parts.length !== 2) return mastodonUrl;
+    return `https://${parts[1]}/@${parts[0]}`;
+  }
+
+  const createCredit = ({name, githubId, twitter, github, gitlab, patreon, url, discord, directAvatarURL, youtube, bsky, mastodon}) => {
     out += `<div class="singleCredit"><a href="https://github.com/${github}"><img class="avatar" style="width:75px; height:75px; border-radius: 10px" src="${directAvatarURL || `https://avatars.githubusercontent.com/u/${githubId}?v=4`}"/></a><div class="socials"><span class="name">${name}</span>`;
-    if (twitter) out += `<a href="https://twitter.com/${twitter}"><img src="${twitterImg}" />${twitter}</a>`;
-    if (github) out += `<a href="https://github.com/${github}"><img src="${githubImg}" />${github}</a>`;
-    if (gitlab) out += `<a href="https://gitlab.com/${gitlab}"><img src="${gitlabImg}" />${gitlab}</a>`;
-    if (patreon) out += `<a href="https://patreon.com/${patreon}"><img src="${patreonImg}" />${patreon}</a>`;
-    if (discord) out += `<a href="https://discord.com"><img src="${discordImg}" />${discord}</a>`;
-    if (url) out += `<a href="https://${url}"><img src="${urlImg}" />${url}</a>`;
-    if (youtube) out += `<a href="${youtube}"><img src="${youtubeImg}" />${youtube}</a>`;
-    if (bsky) out += `<a href="https://bsky.app/profile/${bsky}"><img src="${bskyImg}" />${bsky}</a>`;
+    let socials = [];
+    if (patreon) socials.push(`<a href="https://patreon.com/${patreon}"><img src="${patreonImg}" />${patreon}</a>`);
+    if (github) socials.push(`<a href="https://github.com/${github}"><img src="${githubImg}" />${github}</a>`);
+    if (gitlab) socials.push(`<a href="https://gitlab.com/${gitlab}"><img src="${gitlabImg}" />${gitlab}</a>`);
+    if (url) socials.push(`<a href="https://${url}"><img src="${urlImg}" />${url}</a>`);
+    if (bsky) socials.push(`<a href="https://bsky.app/profile/${bsky}"><img src="${bskyImg}" />${bsky}</a>`);
+    if (mastodon) socials.push(`<a href="${parseMastodonUrl(mastodon)}"><img src="${mastodonImg}" />${mastodon}</a>`);
+    if (twitter) socials.push(`<a href="https://twitter.com/${twitter}"><img src="${twitterImg}" />${twitter}</a>`);
+    if (youtube) socials.push(`<a href="https://youtube.com/@${youtube}"><img src="${youtubeImg}" />${youtube}</a>`);
+    if (discord) socials.push(`<a href="https://discord.com"><img src="${discordImg}" />${discord}</a>`);
+    socials = socials.slice(0, 2); // only use the first two
+    out += socials.join("");
     out += `</div></div>`;
   }
 
-	credHead("Repo Maintenance and Development", "These are the primary people responsible for actively maintaining and developing the Homebrew App Store. If there's a problem, these are the ones to get in touch with!");
-	credit("pwsincd", "20027105", null, "pwsincd", null, null, null, "pwsincd");
-	credit("VGMoose", "2467473", null, "vgmoose", null, null, null, null, null, null, "vgmoose.dev");
-	credit("Nightkingale", "63483138", "Nightkingale", "nightkingale");
-	credit("rw-r-r_0644", "18355947", "rw_r_r_0644", "rw-r-r-0644");
-	credit("crc32", "7893269", null, "crc-32");
-	credit("CompuCat", "12215288", null, null, "compucat", null, "compucat.me");
-	credit("Quarky", "8533313", null, null, "quarktheawesome", null, "heyquark.com");
-
-	credHead("Library Development and Support", "Without the contributions to open-source libraries and projects by these people, much of the functionality within this program wouldn't be possible.");
-	credit("Maschell", "8582508", "maschelldev", "maschell");
-	credit("brienj", "17801294", "xhp_creations", "xhp-creations");
-	credit("Dimok", "15055714", null, "dimok789");
-	credit("GaryOderNichts", "12049776", "GaryOderNichts", "GaryOderNichts");
-	credit("FIX94", "12349638", null, "FIX94", null, null, null, "FIX94#3446");
-	credit("Zarklord", "1622280", "zarklore", "zarklord");
-	credit("CreeperMario", "15356475", "CreeperMario258", "CreeperMario");
-	credit("Ep8Script", "27195853", "ep8script", "ep8script");
-
-	credHead("Music and Sound", "In the Wii U and Switch releases, these guys provide the chiptune melodies that play in the background. They make the app feel more alive, and are all-around awesome!");
-	credit("(T-T)b", "40721862", "ttbchiptunes", null, null, null, "t-tb.bandcamp.com", null, "https://f4.bcbits.com/img/a2723574369_16.jpg");
-	credit("drewinator4", "40721862", null, null, null, null, null, null, "https://i.ytimg.com/vi/Tb02CNlhkPA/hqdefault.jpg", "drewinator4");
-
-	credHead("Interface Development and Design", "In one way or another, everyone in this category provided information regarding core functionality, quality-of-life changes, or the design of the user interface.");
-	credit("exelix", "13405476", "exelix11", "exelix11");
-	credit("Xortroll", "33005497", null, "xortroll", null, "xortroll");
-	credit("Ave", "584369", null, null, "a", null, "ave.zone", null, "https://gitlab.com/uploads/-/system/user/avatar/584369/avatar.png");
-	credit("LyfeOnEdge", "26140376", null, "lyfeonedge", null, null, null, "Lyfe#1555");
-	credit("Román", "57878194", null, null, null, null, null, "Román#6630");
-	credit("Jaames", "9112876", "rakujira", "jaames");
-	credit("Jacob", "12831497", null, "jacquesCedric");
-	credit("iTotalJustice", "47043333", null, "iTotalJustice");
-
-	credHead("Toolchain and Environment", "The organizations and people in this category enable Homebrew in general by creating and maintaining a cohesive environment for the community.");
-	credit("devkitPro", "7538897", null, "devkitPro", null, "devkitPro");
-	credit("Wintermute", "101194", null, "wintermute", null, null, "devkitPro.org");
-	credit("Fincs", "581494", "fincsdev", "fincs");
-	credit("yellows8", "585494", "yellows8");
-	credit("ReSwitched", "26338222", null, "reswitched", null, null, "reswitched.github.io");
-	credit("exjam", "1302758", null, "exjam");
-	credit("brett19", "1621627", null, "brett19");
-
-	credHead("Homebrew Community Special Thanks", "Awesome people within the community whose work, words, or actions in some way inspired this program to exist in the manner it does.");
-
-	credit("Whovian9369", "5240754", null, null, "whovian9369");
-	credit("FIX94", "12349638", null, "FIX94");
-	credit("dojafoja", "15602819", null, "dojafoja");
-	credit("misson20000", "616626", null, "misson20000", null, null, null, "misson20000#0752");
-	credit("roblabla", "1069318", null, "roblabla", null, null, null, "roblabla#8145");
-	credit("tomGER", "25822956", "tumGER", "tumGER");
-	credit("sirocyl", "944067", "sirocyl", "sirocyl");
-	credit("m4xw", "13141469", "m4xwdev", "m4xw");
-	credit("vaguerant", "5259025", null, "vaguerant");
-	credit("Koopa", "13039555", "CodingKoopa", "CodingKoopa");
-	credit("Nikki", "3280345", "NWPlayer123", "NWPlayer123");
-	credit("shchmue", "7903403", null, "shchmue");
-	credit("CTCaer", "3665130", "CTCaer", "CTCaer");
-	credit("SciresM", "8676005", "SciresM", "SciresM");
-	credit("Shinyquagsire", "1224096", "shinyquagsire", "shinyquagsire23");
-	credit("Marionumber1", "775431", "MrMarionumber1");
-	credit("jam1garner", "8260240", null, "jam1garner", null, null, "jam1.re");
+  // pull in the credits from the metarepo
+  for (let credit of credits) {
+    const { section, details, users } = credit;
+    credHead(section, details);
+    for (let user of users) {
+      createCredit(user);
+    }
+  }
 
   return out;
 }

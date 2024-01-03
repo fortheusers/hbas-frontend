@@ -734,6 +734,45 @@ button:hover, .infoBox a:hover {
   color: white;
 }
 
+details summary h3 {
+  display: inline;
+  margin-left: 5px;
+}
+details summary {
+  cursor: pointer;
+  margin: 15px;
+  margin-left: 0px;
+  margin-top: 20px;
+}
+
+.promptSnippet {
+  /* text area for code snippets with terminal prompt prefix */
+  font-family: monospace;
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-size: 15px;
+  color: black;
+  overflow: scroll;
+}
+
+.promptSnippet::before {
+  content: "$ ";
+}
+
+.responseSnippet {
+  width: 100%;
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: scroll;
+  height: 250px;
+  font-size: 12px;
+}
+
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
   .Header .right, .Footer .right {
@@ -819,6 +858,11 @@ button:hover, .infoBox a:hover {
   .Sidebar {
     width:0;
   }
+  .creditsContainer .singleCredit {
+    width: 100%;
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
 
   #platChooserList {
     flex-direction: column;
@@ -839,7 +883,7 @@ button:hover, .infoBox a:hover {
   }
 
   table:not(.donationList) {
-    margin-left: -45px; /* offsets margin for full width table on mobile */
+    margin-left: -25px; /* offsets margin for full width table on mobile */
     width: 100%;
   }
   table:not(.donationList) td {

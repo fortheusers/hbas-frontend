@@ -68,6 +68,12 @@ class AppList extends Component {
       ), []);
   }
 
+  static async fetchCredits() {
+    const creditsResp = await fetch(`https://fortheusers.github.io/meta-repo/credits.json`);
+    const { credits } = await creditsResp.json();
+    return credits;
+  }
+
   async componentDidMount() {
     await this.sortLogic(this);
   }
