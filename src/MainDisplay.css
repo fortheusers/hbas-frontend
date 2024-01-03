@@ -771,6 +771,7 @@ details summary {
   overflow: scroll;
   height: 250px;
   font-size: 12px;
+  color: black;
 }
 
 /*Mobile Display and Landscape display*/

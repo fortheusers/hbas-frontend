@@ -541,7 +541,6 @@ function genHBASCreditsHTML(credits) {
   }
 
   const createCredit = ({name, githubId, twitter, github, gitlab, patreon, url, discord, directAvatarURL, youtube, bsky, mastodon}) => {
-    out += `<div class="singleCredit"><a href="https://github.com/${github}"><img class="avatar" style="width:75px; height:75px; border-radius: 10px" src="${directAvatarURL || `https://avatars.githubusercontent.com/u/${githubId}?v=4`}"/></a><div class="socials"><span class="name">${name}</span>`;
     let socials = [];
     if (patreon) socials.push(`<a href="https://patreon.com/${patreon}"><img src="${patreonImg}" />${patreon}</a>`);
     if (github) socials.push(`<a href="https://github.com/${github}"><img src="${githubImg}" />${github}</a>`);
@@ -553,6 +552,7 @@ function genHBASCreditsHTML(credits) {
     if (youtube) socials.push(`<a href="https://youtube.com/@${youtube}"><img src="${youtubeImg}" />${youtube}</a>`);
     if (discord) socials.push(`<a href="https://discord.com"><img src="${discordImg}" />${discord}</a>`);
     socials = socials.slice(0, 2); // only use the first two
+    out += `<div class="singleCredit"><a ${github ? `href="https://github.com/${github}"` : ""}><img class="avatar" style="width:75px; height:75px; border-radius: 10px" src="${directAvatarURL || `https://avatars.githubusercontent.com/u/${githubId}?v=4`}"/></a><div class="socials"><span class="name">${name}</span>`;
     out += socials.join("");
     out += `</div></div>`;
   }
