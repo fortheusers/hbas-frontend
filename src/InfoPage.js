@@ -208,6 +208,9 @@ class InfoPage extends Component {
         <p className="pNormalWidth">
           The individual hosted packages are updated regularly with new apps and updates. These are maintained by ForTheUsers staff and volunteers from the community. If you would like to help or report and outdated package, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>.
         </p>
+        <p className="pNormalWidth">
+          The Switch and Wii U platform icons were designed by <a href="https://dribbble.com/shots/10302424-Nintendo-Controllers">Fred Corbin</a>.
+        </p>
         <p style={{marginTop: -40}} className="pNormalWidth creditsContainer" dangerouslySetInnerHTML={{__html: hbasCreditsHTML}}>
         </p>
         <h3>App Authors</h3>
