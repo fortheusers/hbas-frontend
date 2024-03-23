@@ -5,6 +5,7 @@ import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
 import { getParams, Spacer, Mobile, getFirstPixelFromImage, platformIcons } from './Utils';
 import Modal from 'react-responsive-modal';
+import { Trans, withTranslation } from 'react-i18next';
 
 class AppDetails extends Component {
   state = {
@@ -52,6 +53,7 @@ class AppDetails extends Component {
   };
 
   render() {
+    const {t } = this.props;
     const { open } = this.state;
     if (this.state.loading) {
       return (<div className="AppDetails">
@@ -61,7 +63,9 @@ class AppDetails extends Component {
 
     if (!this.pkg || Object.keys(this.pkg).length === 0) {
       return (<div className="AppDetails">
-        There is no package named "{this.curPkg}" for the selected repos.
+        <Trans i18nKey="noPackageNamed">
+          {this.curPkg}
+        </Trans>
       </div>);
     }
 
@@ -101,7 +105,7 @@ class AppDetails extends Component {
     let dlButton;
 
     if (ua.includes("Switch" || "WiiU")) {
-      dlButton = (<button onClick={() => alert(`We are sorry but Downloads are not available on this device.\n\nYou must install our Homebrew app to download from our Repo.\n\nIf you require more info on this please join us on Discord.`)}>Download</button>);
+      dlButton = (<button onClick={() => alert(t("noDownloadsOnThisDevice"))}>Download</button>);
     }
     else {
       dlButton = (<a target="_blank" rel="noopener noreferrer" href={`${repo}/zips/${name}.zip`}>Download</a>
@@ -128,7 +132,7 @@ class AppDetails extends Component {
         onClick={() => this.setState({
           pkg: { ...this.state.pkg, readMoreExpanded: true }
         })}>
-        Show More Details
+        {t("showDetails")}
       </button>
     );
 
@@ -138,7 +142,7 @@ class AppDetails extends Component {
         onClick={() => this.setState({
           pkg: { ...this.state.pkg, changelogExpanded: true }
         })}>
-        Show Full Changelog
+        {t("showChangelog")}
       </button>
     );
 
@@ -156,7 +160,7 @@ class AppDetails extends Component {
           }
         });
       }}>
-        Show Installed Files List
+        {t("showFiles")}
       </button>
     );
 
@@ -185,8 +189,8 @@ class AppDetails extends Component {
           <div className="catTitle">
             {title} <span className="lesser">by {author}</span>
             <div className="right">
-              <button id="feedback" onClick={lf}>Leave Feedback</button>
-              <button id="full" onClick={mba}>More by Author</button>
+              <button id="feedback" onClick={lf}>{t("leaveFeedback")}</button>
+              <button id="full" onClick={mba}>{t("moreBy")}</button>
             </div>
           </div>
           <div className="overlay">
@@ -197,36 +201,36 @@ class AppDetails extends Component {
             <div className="row">
               <div>{description}</div>
               <br />
-              <div className="sideHeader">Additional Info</div>
-              <div><span>Version</span> {version}</div>
-              <div><span>Updated</span> {updated}</div>
-              <div><span>Size</span> {extracted} KB</div>
-              <div><span>Zip Size</span> {filesize} KB</div>
-              <div><span>License</span> {license}</div>
+              <div className="sideHeader">{t("info")}</div>
+              <div><span>{t("version")}</span> {version}</div>
+              <div><span>{t("updated")}</span> {updated}</div>
+              <div><span>{t("size")}</span> {extracted} KB</div>
+              <div><span>{t("zipSize")}</span> {filesize} KB</div>
+              <div><span>{t("license")}</span> {license}</div>
               <br />
-              <div className="sideHeader">Download Stats</div>
-              <div><span>Count</span> {app_dls}</div>
+              <div className="sideHeader">{t("downloadStats")}</div>
+              <div><span>{t("count")}</span> {app_dls}</div>
               <div><span>md5</span><input className="md5text" defaultValue={md5} type="text" readonly></input></div>
             </div>
             {dlButton}
-            <a target="_blank" rel="noopener noreferrer" href={`${url}`}>Source</a>
-            <a target="_blank" rel="noopener noreferrer" href={`/stats?apps=${platform}/${name.toLowerCase()}`}>View Stats</a>
-            <button id="mobileonly" onClick={mba}>More by Author</button>
+            <a target="_blank" rel="noopener noreferrer" href={`${url}`}>{t("source")}</a>
+            <a target="_blank" rel="noopener noreferrer" href={`/stats?apps=${platform}/${name.toLowerCase()}`}>{t("viewStats")}</a>
+            <button id="mobileonly" onClick={mba}>{t("moreBy")}</button>
           </div>
           <div className="left row">
-            <p className="sideHeader">App Details</p>
+            <p className="sideHeader">{t("appDetails")}</p>
             <div className="details" dangerouslySetInnerHTML={{ __html: (readMoreExpanded || details.length < 250) ? details : (details.substring(0, 250) + "...") }}></div>
             {!readMoreExpanded && details.length >= 250 && readMoreContainer}
             {screens > 0 && screenShotContainer}
             {changelog !== "n/a" && (<div className="changelog">
-              <p className="sideHeader">Changelog</p>
+              <p className="sideHeader">{t("changelog")}</p>
               <p className="details" dangerouslySetInnerHTML={{ __html: (changelogExpanded || changelog.length < 250) ? changelog : (changelog.substring(0, 250) + "...") }}></p>
               {!changelogExpanded && changelog.length >= 250 && changeLogMoreContainer}
             </div>)}
             <div className="filesArea">
               { isShowingInstalledFiles ? (
                 <Fragment>
-                <p className="sideHeader">Installed Files List</p>
+                <p className="sideHeader">{t("installedFilesList")}</p>
                   <p className="installedFiles" dangerouslySetInnerHTML={{ __html: installedFiles }}></p>
                 </Fragment>
                 ): showFilesButton }
@@ -240,4 +244,4 @@ class AppDetails extends Component {
   }
 }
 
-export default AppDetails;
+export default withTranslation()(AppDetails);

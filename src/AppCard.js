@@ -3,6 +3,7 @@ import noicon from './img/noicon.png';
 import './MainDisplay.css';
 import ToolTip from 'react-portal-tooltip';
 import { getFirstPixelFromImage, platformIcons } from './Utils';
+import { withTranslation } from 'react-i18next';
 
 class AppCard extends Component {
   constructor(props) {
@@ -22,6 +23,8 @@ class AppCard extends Component {
 
   render() {
     const { name, title, version, author, repo, platform, description, url } = this.props;
+
+    const { t } = this.props;
 
     const cardClass = `AppCard  AppCard_${platform}`;
 
@@ -66,9 +69,9 @@ class AppCard extends Component {
                 </a>
             <div className="tootipWidth"><b>{ description }</b></div>
               <div className="tooltipButtons">
-                <button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>Download</button>
-                <button onClick={() => window.open(`${url}`)}>Source</button>
-                <button onClick={ mba }>More by Author</button>
+                <button onClick={() => window.open(`${repo}/zips/${name}.zip`)}>{t("download")}</button>
+                <button onClick={() => window.open(`${url}`)}>{t("source")}</button>
+                <button onClick={ mba }>{t("moreBy")}</button>
                 
               </div>
             </div>
@@ -80,4 +83,4 @@ class AppCard extends Component {
   }
 }
 
-export default AppCard;
+export default withTranslation()(AppCard);

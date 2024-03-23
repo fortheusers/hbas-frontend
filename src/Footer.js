@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {init_theme, toggle_theme} from './Utils';
 import './MainDisplay.css';
+import { withTranslation } from 'react-i18next';
 
 class Footer extends Component {
   // on mount, set the theme
@@ -9,23 +10,23 @@ class Footer extends Component {
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div className="Footer">
         <div className="left">
           <a className="copyright" href="https://gitlab.com/4TU/hbas-frontend/blob/master/LICENSE">
-            <span className="copyleft">&copy;</span> GPLv3 License</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a className="copyright" href="/dmca-request">DMCA Form</a>
+            <span className="copyleft">&copy;</span> {t("gplLicense")}</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a className="copyright" href="/dmca-request">{t("dmca")}</a>
         </div>
         <div className="right">
           <button style={{fontSize: 10, padding: 4, marginRight: 15, verticalAlign: "top"}} onClick={toggle_theme}>
-            Change Theme
+            {t("changeTheme")}
           </button>
-          <a className="copyright" href="https://fortheusers.org/">ForTheUsers </a>
-           is not affiliated with <a className="copyright" href="https://en.wikipedia.org/wiki/Nintendo"> Nintendo Co. Ltd</a>
+          {t("disclaimer")}
         </div>
       </div>
     );
   }
 }
 
-export default Footer;
+export default withTranslation()(Footer);

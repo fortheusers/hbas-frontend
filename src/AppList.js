@@ -158,11 +158,11 @@ class AppList extends Component {
       {platformPicker}
       <div className="catTitle">
         <div className="menuspan">
-        {name} <br className="mobilebr"></br><span className="sort">{t(sortFlavor)}</span>
+        {t(name)} <br className="mobilebr"></br><span className="sort">{t(sortFlavor)}</span>
         </div>
         <div className="menu">
-              <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
-              <button id="feedback" onClick={fdbk}>Leave Feedback</button>
+              <button onClick={() => this.adjustSort(this)}>{t("adjustSort")}</button>
+              <button id="feedback" onClick={fdbk}>{t("leaveFeedback")}</button>
               {/* <button onClick={help}>Help!</button>   */}
         </div>
         </div>

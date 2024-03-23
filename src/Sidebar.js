@@ -12,49 +12,49 @@ const categories = [
     short: "_search",
     name: "search",
     icon: faSearch,
-    hover: "  Search by App title or developer"
+    hover: "searchFlavor"
   }, {
     short: "_all",
     name: "allApps",
     icon: faThLarge,
-    hover: "All Apps"
+    hover: "allApps"
   }, {
     short: "_stats",
     name: "statistics",
     icon: faChartArea,
-    hover: "  View and compare download stats"
+    hover: "statsFlavor"
   }, {
     short: "game",
     name: "games",
     icon: faPlay,
-    hover: "  Homebrew games and ports"
+    hover: "gamesFlavor"
   }, {
     short: "emu",
     name: "emulators",
     icon: faGamepad,
-    hover: "  Games console emulators"
+    hover: "emulatorsFlavor"
   }, {
     short: "tool",
     name: "tools",
     icon: faCog,
-    hover: "  Practical applications"
+    hover: "toolsFlavor"
   }, {
     short: "advanced",
     name: "advanced",
     icon: faPuzzlePiece,
-    hover: "  System tools that usually require other apps to run"
+    hover: "advancedFlavor",
   }, {
     short: "theme",
     name: "themes",
     icon: faSwatchbook,
-    hover: "  Theming tools",
+    hover: "themesFlavor",
     platform: "switch"
   },
   {
     short: "aroma",
     name: "aroma",
     icon: faCoffee,
-    hover: "  Applications that have been ported or written specifically for the aroma enviroment",
+    hover: "aromaFlavor",
     platform: "wiiu"
   },
   // {
@@ -66,18 +66,18 @@ const categories = [
     short: "_misc",
     name: "misc",
     icon: faCubes,
-    hover: "  Apps that have no specific category"
+    hover: "miscFlavor"
   }, {
     short: "_quickstore",
     name: "quickstore",
     icon: faFastForward,
-    hover: "  Quickly compile a bundle off apps to download in one zipfile"
+    hover: "qsFlavor"
   },
   {
     short: "legacy",
     name: "legacy",
     icon: faBriefcase,
-    hover: "  Apps that now have limited functionality and are limited by OS version or CFW version"
+    hover: "legacyFlavor"
   },
 ];
 
@@ -175,7 +175,7 @@ class Sidebar extends Component {
               >
                 <div className="tooltip">
                   <FontAwesomeIcon icon={cat.icon} />&nbsp;&nbsp;
-                  <div className='tootipWidth right'>{cat.hover}</div>
+                  <div className='tootipWidth right'>{t(cat.hover)}</div>
 
                 </div>
               </ToolTip>

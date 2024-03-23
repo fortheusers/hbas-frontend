@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Trans } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { Spacer, Mobile } from './Utils';
 import {fetchCredits, fetchPackages} from './AppList';
@@ -53,6 +54,8 @@ class InfoPage extends Component {
     let pageText = <div>
       This page intentionally left blank.
     </div>;
+
+    const { t } = this.props;
 
     const location = window.location.pathname;
 
@@ -291,65 +294,87 @@ class InfoPage extends Component {
       const screensArray = [...Array(screensCount).keys()]
 
       pageText = <div style={{maxWidth: "100%"}}>
-        <h1>API Info</h1>
+        <h1><Trans i18nKey="apiInfo" /></h1>
         <p className="pNormalWidth">
-          This website (<a href="https://hb-app.store">hb-app.store</a>) is a web frontend to access the packages in our repositories. Both the <a href="https://github.com/fortheusers/hb-appstore">console app</a> and <a href="https://gitlab.com/4TU/hbas-frontend/">this site</a> are open-source clients that access these repos using our API.
+          <Trans i18nKey="websiteDescription">
+            <a href="https://hb-app.store">hb-app.store</a>
+            <a href="https://github.com/fortheusers/hb-appstore">console app</a>
+            <a href="https://gitlab.com/4TU/hbas-frontend/">this site</a>
+          </Trans>
         </p>
         <p className="pNormalWidth">
-          The two main repositories used by this project are:
+          {t("repositoriesDescription")}
           <ul>
             <li><img src={wiiuImg} style={{width: 24, verticalAlign: "middle", marginRight: 10 }} alt="Wii U" /><a href="https://wiiu.cdn.fortheusers.org/repo.json">wiiu.cdn.fortheusers.org/repo.json</a></li>
             <li><img src={switchImg} style={{width: 24, verticalAlign: "middle", marginRight: 10 }} alt="Switch" /><a href="https://switch.cdn.fortheusers.org/repo.json">switch.cdn.fortheusers.org/repo.json</a></li>
           </ul>
         </p>
         <p className="pNormalWidth">
-          A repository is a JSON file that contains a list of all the packages in the repository, along with their metadata. The repo content is updated by our build script whenever 4TU staff adds or updates the contents of a package.
-        </p><p className="pNormalWidth">When changes are made to the repos, a message is posted in <code>#hbas-updates</code> on our <a href="https://discord.gg/F2PKpEj">Discord</a>. The build script used to accomplish this is <a href="https://github.com/fortheusers/libget/wiki/Using-repogen.py">libget's repogen.py</a>, which turns a locally maintained directory of files for each package into compressed zip files and a <code>repo.json</code> file.
+          {t("repositoryExplanation")}
+        </p><p className="pNormalWidth">
+          <Trans i18nKey="changeNotification">
+            <code>#hbas-updates</code>
+            <a href="https://discord.gg/F2PKpEj">Discord</a>
+            <a href="https://github.com/fortheusers/libget/wiki/Using-repogen.py">repogen.py</a>
+            <code>repo.json</code>
+          </Trans>
         </p>
         <p className="pNormalWidth">
-          The below commands use <a href="https://curl.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to parse the JSON output. If you don't have these installed, you can any HTTP client and JSON parser of your choice.
+          <Trans i18nKey="commandUsage">
+            <a href="https://curl.se/">curl</a>
+            <a href="https://stedolan.github.io/jq/">jq</a>
+          </Trans>
         </p>
-        Target Repo for Examples:&nbsp;&nbsp;
+        {t("targetRepo")}&nbsp;&nbsp;
         <select
           onChange={event => this.setState({curRepo: event.target.value})}
           style={{backgroundImage: `url(${dropDownCarat})`, color: "unset"}}>
-          <option value={WIIU_CDN}>Wii U</option>
-          <option value={SWITCH_CDN}>Switch</option>
+          <option value={WIIU_CDN}>{t("wiiu")}</option>
+          <option value={SWITCH_CDN}>{t("switch")}</option>
         </select>
         <details className="pNormalWidth">
-          <summary><h3>Listing all packages</h3></summary>
-          Package metadata is stored in an array underneath the root-level <code>packages</code> key.
+          <summary><h3>{t("listingPackages")}</h3></summary>
+          <Trans i18nKey="packageMetadata">
+            <code>packages</code>
+          </Trans>
           <pre class="promptSnippet">
             curl <strong>{curRepo}</strong> | jq <strong>'.packages'</strong>
           </pre>
-          Response:
+          {t("response")}
           <pre class="responseSnippet">
             {JSON.stringify(packages, null, 2)}
           </pre>
         </details>
         <details className="pNormalWidth">
-          <summary><h3>Listing packages from a specific author</h3></summary>
-          The <code>packages</code> array can be filtered by any of its attributes. The below example uses <code>jq</code> to filter the array by <code>author</code>.
+          <summary><h3>{t("listingAuthorPackages")}</h3></summary>
+          <Trans i18nKey="authorFilter">
+            <code>packages</code>
+            <code>jq</code>
+            <code>author</code>
+          </Trans>
           <pre class="promptSnippet">
             curl <strong>{curRepo}</strong> | jq '.packages | map(select(<strong>.author == "vgmoose"</strong>))'
           </pre>
-          Response:
+          {t("response")}
           <pre class="responseSnippet">
             {JSON.stringify(packages.filter(pkg => pkg.author === "vgmoose"), null, 2)}
           </pre>
         </details>
         <details className="pNormalWidth">
-          <summary><h3>Listing all packages in a category</h3></summary>
-          Likewise, a category can be used to filter the array. The below example uses <code>jq</code> to filter the array by <code>category</code>.
+          <summary><h3>{t("listingCategoryPackages")}</h3></summary>
+          <Trans i18nKey="categoryFilter">
+            <code>jq</code>
+            <code>category</code>
+          </Trans>
           <pre class="promptSnippet">
             curl <strong>{curRepo}</strong> | jq '.packages | map(select(<strong>.category == "game"</strong>))'
           </pre>
-          Response:
+          {t("response")}
           <pre class="responseSnippet">
             {JSON.stringify(packages.filter(pkg => pkg.category === "game"), null, 2)}
           </pre>
         </details>
-        Target Package for Examples:&nbsp;&nbsp;
+        {t("targetPackage")}&nbsp;&nbsp;
         <select
           onChange={event => this.setState({curPackage: event.target.value})}
           style={{backgroundImage: `url(${dropDownCarat})`, color: "unset"}}
@@ -358,59 +383,75 @@ class InfoPage extends Component {
             {[...packages].sort((a, b) => a.title.localeCompare(b.title)).map(pkg => <option value={pkg.name}>{pkg.title}</option>)}
         </select>
         <details className="pNormalWidth">
-          <summary><h3>Getting info on a single package</h3></summary>
-          Every package in the array has a unique <code>name</code> attribute that identifies it. This short <code>name</code> is used to track updates to the package, and will not change even if the package's <code>title</code> or other metadata changes.
+          <summary><h3>{t("singlePackageInfo")}</h3></summary>
+          <Trans i18nKey="packageIdentifier">
+            <code>name</code>
+            <code>name</code>
+            <code>title</code>
+          </Trans>
           <br/><br/>
-          There's no specific API endpoint to get a single package, so the array needs to be searched for the package with the matching <code>name</code>.
+          <Trans i18nKey="packageSearch">
+            <code>name</code>
+          </Trans>
           <pre class="promptSnippet">
             curl {curRepo} | jq '.packages | map(select(<strong>.name == "{curPackage}"</strong>))<strong>[0]</strong>'
           </pre>
-          Response:
+          {t("response")}
           <pre class="responseSnippet">
             {JSON.stringify(packages.find(pkg => pkg.name === `${curPackage}`) || {}, null, 2)}
           </pre>
         </details>
         <details className="pNormalWidth">
-          <summary><h3>Downloading a specific package</h3></summary>
-          From inspecting the metadata, once you know the <code>name</code> of a package, you can download it at <code>/zips/<strong>[name]</strong>.zip</code>.
+          <summary><h3>{t("downloadingPackage")}</h3></summary>
+          <Trans i18nKey="packageDownload">
+            <code>name</code>
+            <code>/zips/<strong>[name]</strong>.zip</code>
+          </Trans>
           <br/><br/>
-          This URL can also be directly visited in a browser to download the package.
+          {t("visitUrlNotice")}
           <pre class="promptSnippet">
             curl -O {repoBase}<strong>/zips/{curPackage}.zip</strong>
           </pre>
-          Response: <a href={`${repoBase}/zips/${curPackage}.zip`}>{curPackage}.zip</a> in the current directory.
+          {t("response")} <Trans i18nKey="downloadResponse">
+            <a href={`${repoBase}/zips/${curPackage}.zip`}>{curPackage}.zip</a>
+          </Trans>
           <br/><br/>
-          There are no restrictions on how often a package can be downloaded, but please be considerate of our bandwidth. If the service is abused, we may implement rate limiting.
         </details>
         <details className="pNormalWidth">
-          <summary><h3>Getting package image assets</h3></summary>
-          Using the package <code>name</code> again, URLs for the package's icon and banner can be constructed, and viewed or downloaded.
+          <summary><h3>{t("packageImageAssets")}</h3></summary>
+          <Trans i18nKey="packageIcon">
+            <code>name</code>
+          </Trans>
           <pre class="promptSnippet">
             curl -O {repoBase}<strong>/packages/{curPackage}/icon.png</strong>
           </pre>
-          Response:<br/>
+          {t("response")}<br/>
           <a href={`${repoBase}/packages/${curPackage}/icon.png`}><img alt="example icon" src={`${repoBase}/packages/${curPackage}/icon.png`} /></a>
           <br/><br/>
-          The banner is a wide image that is displayed on the package's details page, but for historical reasons it's named <code>screen.png</code>.
+          <Trans i18nKey="bannerInfo">
+            <code>screen.png</code>
+          </Trans>
           <br/>
           <pre class="promptSnippet">
             curl -O {repoBase}<strong>/packages/{curPackage}/screen.png</strong>
           </pre>
-          Response:<br/>
+          {t("response")}<br/>
           <a href={`${repoBase}/packages/${curPackage}/screen.png`}><img style={{maxHeight: 200}} alt="example banner" width="100%" src={`${repoBase}/packages/${curPackage}/screen.png`} /></a>
           <br/><br/>
           </details>
         <details className="pNormalWidth">
-          <summary><h3>Downloading all screenshots for a package</h3></summary>
-          The total number of available screenshots is listed in the package metadata under the <code>screens</code> attribute. First we'll get this count and store it in an env variable:
+          <summary><h3>{t("downloadingScreenshots")}</h3></summary>
+          <Trans i18nKey="screenshotsInfo">
+            <code>screens</code>
+          </Trans>
           <pre class="promptSnippet">
           export SCREENS_COUNT=$(curl {curRepo} | jq '.packages | map(select(.name == "{curPackage}"))[0].screens')
           </pre>
-          Then we can use a bash expansion to download all the screenshots at once:
+          {t("screenshotsDownload")}<br/>
           <pre class="promptSnippet">
           curl --remote-name-all {repoBase}<strong>/packages/{curPackage}/screen{`{1..$SCREENS_COUNT}`}.png</strong>
           </pre>
-          Response: {
+          {t("response")} {
             screensArray.map(screenIdx => {
               const imgURL = `${repoBase}/packages/${curPackage}/screen${screenIdx + 1}.png`;
               return <div><a href={imgURL}><img width="100%" src={imgURL} alt={`screen${screenIdx + 1}`} /></a></div>;
@@ -418,67 +459,79 @@ class InfoPage extends Component {
           }
         </details>
         <p className="pNormalWidth">
-          If you have any questions about these responses or the usage of this API, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>. If you are using our repos for a project, we would love to hear about it!
+          <Trans i18nKey="questions">
+            <a href="https://discord.gg/F2PKpEj">Discord</a>
+          </Trans>
         </p>
         <p className="pNormalWidth">
-          For additional information on the structure of the packages, see the <a href="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary">libget wiki</a>. The info there lines up with the above, but it also details <a href="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#manifests">Manifests</a>, which are used by some packages to instruct the console app on how to handle certain files within a package during an update.
+          <Trans i18nKey="additionalInfo">
+            <a href="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary">libget wiki</a>
+            <a href="https://github.com/fortheusers/libget/wiki/Overview-&-Glossary#manifests">Manifests</a>
+          </Trans>
         </p>
         <p className="pNormalWidth">
-          The libget wiki also <a href="https://github.com/fortheusers/libget/wiki/Packages-and-Package-Structure">goes over an easy way</a> to generate and maintain your a repo, using <code>pkgbuild.json</code> files and <a href="https://gitlab.com/4TU/spinarak">Spinarak</a>. This can be convenient for self-hosting your own packages and managing updates directly to users. However, this use case is uncommon and most hb-appstore users don't add and track external repos at this time.
+          <Trans i18nKey="libgetWiki">
+            <a href="https://github.com/fortheusers/libget/wiki/Packages-and-Package-Structure">an easy way</a>
+            <code>pkgbuild.json</code>
+            <a href="https://gitlab.com/4TU/spinarak">Spinarak</a>
+          </Trans>
         </p>
         
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>;
     } else if (location === "/submit-or-request") {
-      pageText = <div style={{maxWidth: "100%"}}>
-        <h1>Submit or Request an App</h1>
+      pageText = <div>
+        <h1><Trans i18nKey="submitOrRequestAnApp" /></h1>
         <p className="pNormalWidth">
-          The packages distributed in our repositories are sent in either by homebrew developers themselves or by volunteer users in the community. Please check the guidelines on this page before submitting an app for review.
+          <Trans i18nKey="packagesDistributed" />
         </p>
         <p className="pNormalWidth">
-          When you are ready to submit, the actual form is located at <a href="https://submit.fortheusers.org">submit.fortheusers.org</a>. For specific info on how these repos are maintained, see the <a href="/api-info">API</a> page.
+          <Trans i18nKey="readyToSubmit" /> <a href="https://submit.fortheusers.org">submit.fortheusers.org</a>.&nbsp;
+          <Trans i18nKey="specificInfo">
+            <a href="/api-info"><Trans i18nKey="apiPageLink" />API Page</a>
+          </Trans>
         </p>
         <p className="pNormalWidth">
-          <strong>Please Note:</strong> The term "app" is being used for simplicity here, but a package can consist of any relevant files, such as games, mods, or configs. (Or even public domain <a href="/switch/ebooks">eBooks</a>).
+          <strong><Trans i18nKey="pleaseNote" /></strong> <Trans i18nKey="termAppUsed"><a href="/switch/ebooks"><Trans i18nKey="ebooksLink" />eBooks</a></Trans>
         </p>
-        <h3>Guidelines</h3>
+        <h3><Trans i18nKey="guidelines" /></h3>
         <p className="pNormalWidth">
-          We try to keep the requirements for apps to be listed here as minimal as possible, but there are a few things considered when reviewing submissions:
+          <Trans i18nKey="requirementsForApps" />
           <ul>
-            <li><strong>Open Source</strong> - Listed apps must have source code publicly available, and ideally be licensed under a permissive license such as MIT, GPL, BSD, etc.</li>
-            <li><strong>No Piracy</strong> - Homebrew is a hobbyist endeavor, and as such, we do not accept apps that are intended to be used primarily for <a href="https://en.wikipedia.org/wiki/Video_game_piracy">video game piracy</a>.</li>
-            <li><strong>Permission</strong> - Authors of apps should be contacted to verify that they are aware of and approve of their app being listed here.</li>
-            <li><strong>Don't Break Stuff</strong> - Apps should not be malicious, or cause damage to the user's device.  This includes apps that are known to be unstable or cause crashes.</li>
+            <li><strong><Trans i18nKey="openSource" /></strong> - <Trans i18nKey="listedAppsMust" /></li>
+            <li><strong><Trans i18nKey="noPiracy" /></strong> - <Trans i18nKey="homebrewIsAHobbyist" /> <a href="https://en.wikipedia.org/wiki/Video_game_piracy"><Trans i18nKey="videoGamePiracyLink" /></a>.</li>
+            <li><strong><Trans i18nKey="permission" /></strong> - <Trans i18nKey="authorsOfApps" /></li>
+            <li><strong><Trans i18nKey="dontBreakStuff" /></strong> - <Trans i18nKey="appsShouldNotBe" /></li>
           </ul>
         </p>
-        <h3>Suggestions</h3>
+        <h3><Trans i18nKey="suggestions" /></h3>
         <p className="pNormalWidth">
-          The following concerns are not strictly required, but are recommended for a better user experience:
+          <Trans i18nKey="concernsNotStrictlyRequired" />
           <ul>
-            <li><strong>Stability™</strong> - Apps should be reasonably reliable, tested, and functional. Beta or in-development apps are okay, but should be clearly marked as such.</li>
-            <li><strong>Usability</strong> - Likewise, apps should be relatively easy for the average user to understand, and not require extensive technical knowledge to operate.</li>
-            <li><strong>Purposeful</strong> - Your app should serve a clear purpose, and try to not be redundant with other apps already listed here.</li>
-            <li><strong>Appropriate</strong> - Apps should not contain excessive profanity or other offensive content. However, we also recognize that some apps may be intended for mature audiences, and will be reviewed on a case-by-case basis.</li>
+            <li><strong><Trans i18nKey="stability" /></strong> - <Trans i18nKey="appsShouldBeReliable" /></li>
+            <li><strong><Trans i18nKey="usability" /></strong> - <Trans i18nKey="appsShouldBeEasy" /></li>
+            <li><strong><Trans i18nKey="purposeful" /></strong> - <Trans i18nKey="appShouldServe" /></li>
+            <li><strong><Trans i18nKey="appropriate" /></strong> - <Trans i18nKey="appsShouldNotContain" /></li>
           </ul>
         </p>
-        <h3>Asset Info</h3>
+        <h3><Trans i18nKey="assetInfo" /></h3>
         <p className="pNormalWidth">
-          If a good icon is not provided, our staff or volunteer designers on Discord may create one. The banner and screenshots fields are more optional, but recommended.
+          <Trans i18nKey="ifGoodIconNotProvided" />
           <ul>
-            <li><strong>Icon</strong> - A square or square-ish image that represents your app.</li>
-            <li><strong>Screenshots</strong> - Multiple fullscreen captures of what your app looks while running</li>
-            <li><strong>Banner</strong> - A wide rectangle to be displayed on your app details page</li>
+            <li><strong><Trans i18nKey="icon" /></strong> - <Trans i18nKey="squareImageThatRepresents" /></li>
+            <li><strong><Trans i18nKey="screenshots" /></strong> - <Trans i18nKey="multipleFullscreenCaptures" /></li>
+            <li><strong><Trans i18nKey="banner" /></strong> - <Trans i18nKey="wideRectangleToBeDisplayed" /></li>
           </ul>
         </p>
-        <h3>Final Notes</h3>
+        <h3><Trans i18nKey="finalNotes" /></h3>
         <p className="pNormalWidth">
-          Not all apps on our repositories have equal importance: Some are simple homebrew games, some are utilities, some are ports of existing software, and some are just silly. We try to be as inclusive as possible, but may reject a submission for any reason.
+          <Trans i18nKey="notAllAppsOnOurRepositories" />
         </p>
         <p className="pNormalWidth">
-          If you have any questions about the submission process, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>.  Otherwise, when you are ready to submit, the form is located at <a href="https://submit.fortheusers.org">submit.fortheusers.org</a>.
+          <Trans i18nKey="ifYouHaveAnyQuestions" /> <a href="https://discord.gg/F2PKpEj">Discord</a>. <Trans i18nKey="otherwiseWhenYouAreReady" /> <a href="https://submit.fortheusers.org">submit.fortheusers.org</a>.
         </p>
         <p className="pNormalWidth">
-          <strong>Thank you for your interest in contributing to our repositories!</strong>
+          <strong><Trans i18nKey="thankYouForYourInterest" /></strong>
         </p>
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>;
@@ -486,39 +539,32 @@ class InfoPage extends Component {
       const allPackages = this.state.allPackages;
 
       pageText = <div style={{maxWidth: "100%"}}>
-        <h1>Removal / DMCA Request</h1>
-        <p className="pNormalWidth">
-          If you are the author of an app within our repositories, or represent a copyright holder and have concerns that your work or rights are infringed upon, please submit a removal or DMCA request below.  Our goal is to honor all rights related to intellectual property, and we strive to respond swiftly to any related concerns.
-        </p>
-        <p className="pNormalWidth">
-          The packages that are provided for download on this website are by homebrew developers in the community, are submitted by volunteer users or the developers themselves, and are intended to be distributed under their respective open-source licenses.
-        </p>
+        <h1><Trans>removalDMCARequest</Trans></h1>
+        <p className="pNormalWidth"><Trans>p1</Trans></p>
+        <p className="pNormalWidth"><Trans>p2</Trans></p>
         <br/>
-        <form
-          action="https://formspree.io/f/mdoqoezp"
-          method="POST"
-        >
+        <form action="https://formspree.io/f/mdoqoezp" method="POST">
           <label>
-            <p>Package name:</p>
+            <p><Trans>packageName</Trans></p>
             <select name="package" style={{maxWidth: "100%"}}>
-              <option>Select a package...</option>
+              <option>{t("selectPackage")}</option>
               {allPackages.map(pkg => (<option value={pkg.name}>{pkg.title} - ({pkg.platform}/{pkg.name})</option>))}
-              <option value="other">Other / Multiple / Explained in Reason</option>
+              <option value="other">{t("otherMultipleExplained")}</option>
             </select>
           </label>
           <br/><br/>
           <label name="email">
-            <p>Contact Email:</p>
+            <p><Trans>contactEmail</Trans></p>
             <input type="email" name="email" style={{width: 300}} />
           </label>
           <br/><br/>
-          <p>Are you the author or an authorized representative of the copyright holder?</p>
-          <input type="radio" name="authorization" value="yes" /> Yes&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio" name="authorization" value="no" /> No&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio" name="authorization" value="other" /> Other
+          <p><Trans>authorOrRepresentative</Trans></p>
+          <input type="radio" name="authorization" value="yes" /> <Trans>yes</Trans>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="authorization" value="no" /> <Trans>no</Trans>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="authorization" value="other" /> <Trans>other</Trans>
           <br/><br/>
           <label name="reason">
-            <p>Explanation and Relevant Information:</p>
+            <p><Trans>explanationAndRelevantInfo</Trans></p>
             <textarea name="reason" style={{
               width: 600,
               height: "200px",
@@ -526,10 +572,10 @@ class InfoPage extends Component {
             }} />
           </label>
           <br/><br/>
-          <input type="submit" value="Submit" />
+          <input type="submit" value={t("submit")} />
         </form>
         <br/><br/><br/><br/><br/><br/><br/><br/>
-      </div>;
+        </div>;
     }
 
     return (
@@ -594,7 +640,7 @@ function genHBASCreditsHTML(credits) {
   return out;
 }
 
-export default InfoPage;
+export default withTranslation()(InfoPage);
 
 // https://www.30secondsofcode.org/js/s/levenshtein-distance/
 const levenshtein = (s, t) => {

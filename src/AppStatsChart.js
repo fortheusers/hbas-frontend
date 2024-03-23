@@ -18,9 +18,11 @@ import {
   parseDate,
 } from 'react-day-picker/moment';
 
+import { withTranslation } from 'react-i18next';
+
 var colors = [ "#4363d8 ", "#e6194B ", "#3cb44b ", "#ffe119 ", "#f58231 ", "#911eb4 ", "#42d4f4 ", "#f032e6" ];
 
-export default class AppStatsChart extends PureComponent {
+class AppStatsChart extends PureComponent {
 
   state = {
     stats: {},
@@ -92,6 +94,8 @@ export default class AppStatsChart extends PureComponent {
   render() {
     const { stats, packages, packageDetails, start, end, useAuto } = this.state;
 
+    const { t } = this.props;
+
     // loading state, while waiting for async fetch
     if (Object.keys(stats).length === 0) {
       return (<div className="AppList">
@@ -138,7 +142,7 @@ export default class AppStatsChart extends PureComponent {
 
     const headerInfo = (
       <div className="catTitle">
-        App Download Stats
+        {t("appDownloadStats")}
     </div>);
 
     // actual chart
@@ -166,8 +170,13 @@ export default class AppStatsChart extends PureComponent {
           type = 'number'
         />
         <YAxis />
-        <Tooltip />
-        <Legend />
+        <Tooltip 
+          labelFormatter={(unixTime) => {
+            console.log(unixTime);
+            return moment.unix(unixTime / 1000).format('MMM DD YYYY');
+          }}
+        />
+          <Legend />
         {
           packages.map((pkg, x) => {
             return <Line
@@ -223,7 +232,7 @@ export default class AppStatsChart extends PureComponent {
       <Select
         styles={customStyle}
         isMulti={true}
-        placeholder="Select an app to graph stats..."
+        placeholder={t("selectPrompt")}
         onChange={newPackages => {
           (newPackages || []).forEach((pkg, x) => pkg.color = new TinyColor(colors[x]).brighten(35).toString());
           this.setState({ packages: (newPackages || []).map(pkg => pkg.value)}, this.updateQueryParams);
@@ -267,7 +276,7 @@ export default class AppStatsChart extends PureComponent {
         opacity: useAuto ? '30%' : '100%',
         pointerEvents: useAuto ? 'none' : 'auto'
       }}>
-        Range:&nbsp;&nbsp;
+        {t("range")}&nbsp;&nbsp;
         <DayPickerInput
           placeholder="Start Day"
           value={start}
@@ -275,7 +284,7 @@ export default class AppStatsChart extends PureComponent {
           formatDate={formatDate}
           parseDate={parseDate}
         />
-        &nbsp;&nbsp;to&nbsp;&nbsp;
+        &nbsp;&nbsp;{t("to")}&nbsp;&nbsp;
         <DayPickerInput
           placeholder="End Day"
           value={end}
@@ -286,10 +295,10 @@ export default class AppStatsChart extends PureComponent {
         <div style={{
           marginTop: 25,
         }}>
-          <button onClick={() => this.last(14)}>Last 14 Days</button>
-          <button onClick={() => this.last(30)}>Last Month</button>
-          <button onClick={() => this.last(90)}>Last 90 Days</button>
-          <button onClick={() => this.last(365)}>Last Year</button>
+          <button onClick={() => this.last(14)}>{t("last14")}</button>
+          <button onClick={() => this.last(30)}>{t("lastMonth")}</button>
+          <button onClick={() => this.last(90)}>{t("last90")}</button>
+          <button onClick={() => this.last(365)}>{t("lastYear")}</button>
         </div>
       </div>
       <div style={{
@@ -298,13 +307,14 @@ export default class AppStatsChart extends PureComponent {
         <input type="checkbox" id="alltime" checked={useAuto} onClick={
           e => this.setState({ useAuto: e.target.checked }, this.updateQueryParams)
         } />
-        <label for="alltime">Show data for All Time (automatically sets time range)</label>
+        <label for="alltime">{t("allTime")}</label>
       </div>
     </div>;
 
     const warningNotice = <div className="warningNotice">
       <FontAwesomeIcon icon={faExclamationTriangle} className={"fa-warn"} />
       <div>
+        {/* No translation needed, since we should fix this! */}
         <p>Since the 2.3 hb-appstore update (in March 2023), app download stats on this page will appear to drop off, and be <strong>significantly lower</strong> than their actual values. This is a result of console users updating and switching to our new CDN servers.</p>
         <p>Accurate download data is still being collected and stored! However, it is not yet surfaced on this Statistics page. <strong>All historical data will be viewable after this is addressed!</strong> Thank you for understanding.</p>
       </div>
@@ -324,3 +334,5 @@ export default class AppStatsChart extends PureComponent {
     );
   }
 }
+
+export default withTranslation()(AppStatsChart);
