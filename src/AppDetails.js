@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import loading from './img/loader.gif';
-import AppList from './AppList';
+import {fetchPackages} from './AppList';
 import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
 import { getParams, Spacer, Mobile, getFirstPixelFromImage, platformIcons } from './Utils';
@@ -25,7 +25,7 @@ class AppDetails extends Component {
 
   async componentDidMount() {
 
-    const packages = await AppList.fetchPackages(this.state.platform);
+    const packages = await fetchPackages(this.state.platform);
     this.pkg = packages.find(pkg => pkg.name.toLowerCase() === this.curPkg && pkg.platform === this.state.platform);
 
     if (!this.pkg) return this.setState({ loading: false });

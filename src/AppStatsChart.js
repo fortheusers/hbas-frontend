@@ -7,7 +7,7 @@ import LibGet from './LibGet';
 import loader from './img/loader.gif';
 import moment from 'moment';
 import Select from 'react-select';
-import AppList from './AppList';
+import {fetchPackages} from './AppList';
 import { TinyColor } from '@ctrl/tinycolor';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,7 +33,7 @@ export default class AppStatsChart extends PureComponent {
   async componentDidMount() {
     // fetch async and save to state
     const statsProper = await LibGet.getStats().then(response => response.json());
-    const allPackages = await AppList.fetchPackages();
+    const allPackages = await fetchPackages();
 
     const { start: ogStart, end: ogEnd } = this.state;
 

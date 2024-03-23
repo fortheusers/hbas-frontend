@@ -1,26 +1,57 @@
 import React, { Component, Fragment } from 'react';
+import { Trans } from 'react-i18next';
 import AppCard from './AppCard';
 import LibGet from './LibGet';
 import loader from './img/loader.gif';
-import Sidebar from './Sidebar';
+import { getCurrentCategory, getAllCategories } from './Sidebar';
 import { getParams, Spacer, Mobile, stringDateToTimestamp } from './Utils';
 import PlatformPicker from './PlatformPicker';
 import icon from './img/icon.png';
 
+import { withTranslation } from 'react-i18next';
+
+export async function fetchPackages(platform) {
+  const repos = LibGet.getRepos(platform);
+
+  const repoPackages = await Promise.all(
+    (await LibGet.getApps(repos)).map(
+      async (response) => await response.json()
+    ));
+  
+  return repoPackages.reduce(
+    (acc, cur, idx) => acc.concat(
+      cur["packages"].map(pkg => ({
+        ...pkg,
+        repo: repos[idx].url,
+        platform: repos[idx].platform
+      }))
+    ), []);
+}
+
+export async function fetchCredits() {
+  const creditsResp = await fetch(`https://fortheusers.github.io/meta-repo/credits.json`);
+  const { credits } = await creditsResp.json();
+  return credits;
+}
+
 let sorts = [{
-  flavor: "by most recent",
+  flavor: "listing.sort.recent",
   order: (b, a) => stringDateToTimestamp(a.updated) - stringDateToTimestamp(b.updated)
 },
 {
-  flavor: "by download count",
+  flavor: "listing.sort.download",
   order: (b, a) => a.app_dls - b.app_dls
 },
 {
-  flavor: "randomly",
+  flavor: "listing.sort.alpha",
+  order: (a, b) => a.title.localeCompare(b.title)
+},
+{
+  flavor: "listing.sort.random",
   order: () => 0.5 - Math.random()
 },
 {
-  flavor: "by file size",
+  flavor: "listing.sort.size",
   order: (b, a) => (a.filesize + a.filesize) - (b.filesize + b.filesize)
 }];
 
@@ -32,7 +63,7 @@ class AppList extends Component {
 
   constructor(props) {
     super(props);
-    this.category = Sidebar.getCurrentCategory();
+    this.category = getCurrentCategory();
     const { platform, query } = getParams(props);
     this.platform = platform;
     this.query = query;
@@ -50,42 +81,18 @@ class AppList extends Component {
     await me.sortLogic(me);
   }
 
-  static async fetchPackages(platform) {
-    const repos = LibGet.getRepos(platform);
-
-    const repoPackages = await Promise.all(
-      (await LibGet.getApps(repos)).map(
-        async (response) => await response.json()
-      ));
-    
-    return repoPackages.reduce(
-      (acc, cur, idx) => acc.concat(
-        cur["packages"].map(pkg => ({
-          ...pkg,
-          repo: repos[idx].url,
-          platform: repos[idx].platform
-        }))
-      ), []);
-  }
-
-  static async fetchCredits() {
-    const creditsResp = await fetch(`https://fortheusers.github.io/meta-repo/credits.json`);
-    const { credits } = await creditsResp.json();
-    return credits;
-  }
-
   async componentDidMount() {
     await this.sortLogic(this);
   }
 
   async sortLogic(me) {
     
-    let packages = await AppList.fetchPackages(this.platform);
+    let packages = await fetchPackages(this.platform);
 
     // perform the actual sort of packages, based on current sort / category
     packages = packages.sort(sorts[me.state.curSort].order);
 
-    const cats = new Set(Sidebar.getAllCategories().map(cat => cat.short));
+    const cats = new Set(getAllCategories().map(cat => cat.short));
 
     const { short } = me.category;
     // let through for all and search, and misc only if not in any others
@@ -103,6 +110,7 @@ class AppList extends Component {
   render() {
     const { packages, curSort } = this.state;
     const { name } = this.category;
+    const { t } = this.props;
 
     if (!packages) {
       return (<div className="AppList">
@@ -120,27 +128,37 @@ class AppList extends Component {
 
     const isOnHome = window.location.pathname === "" || window.location.pathname === "/";
 
-    const platformPicker = isOnHome ? <div id="homeBlurb" style={{
-      marginBottom: 10,
-      marginLeft: 50,
-      marginRight: 50,
-      marginTop: 10}}>
-      <div style={{padding: 10, textAlign: "center"}}>
-        <img src={icon} alt="AppStore Logo" />
-        <span style={{
-          padding: 10
-          }}>Homebrew App Store</span>
+    const platformPicker = isOnHome ? (
+      <div id="homeBlurb" style={{
+        marginBottom: 10,
+        marginLeft: 50,
+        marginRight: 50,
+        marginTop: 10
+      }}>
+        <div style={{padding: 10, textAlign: "center"}}>
+          <img src={icon} alt="AppStore Logo" />
+          <span style={{padding: 10}}>Homebrew App Store</span>
+        </div>
+        <p>
+          <Trans i18nKey="homebrewDescription">
+            <a href="https://en.wikipedia.org/wiki/Homebrew_(video_games)">homebrew apps</a>
+          </Trans>
+        </p>
+        <p>
+          <Trans i18nKey="submitRequest">
+            <a href="/submit-or-request">Submit</a>
+            <a href="/about">About</a>
+          </Trans>
+        </p>
+        <PlatformPicker />
       </div>
-      <p>Homebrew App Store is a free and open-source repository of <a href="https://en.wikipedia.org/wiki/Homebrew_(video_games)">homebrew apps</a> for the Wii U and Switch consoles. The apps, tools, and games distributed here are all made by independent software developers within the community.</p>
-      <p>If you would like to list your own open-source app here, or request an existing one to add to this index, please see the <a href="/submit-or-request">Submit</a> page. For other info about the team and project, see our <a href="/about">About</a> page.</p>
-      <PlatformPicker />
-    </div> : null;
+    ) : null;
 
     let headerText = (<Fragment>
       {platformPicker}
       <div className="catTitle">
         <div className="menuspan">
-        {name} <br className="mobilebr"></br><span className="sort">{sortFlavor}</span>
+        {name} <br className="mobilebr"></br><span className="sort">{t(sortFlavor)}</span>
         </div>
         <div className="menu">
               <button onClick={() => this.adjustSort(this)}>Adjust Sort</button>
@@ -194,4 +212,4 @@ class AppList extends Component {
   }
 }
 
-export default AppList;
+export default withTranslation()(AppList);

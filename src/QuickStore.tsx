@@ -7,7 +7,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import JSZip from 'jszip';
 import { urlToPromise, saveAs } from './LibGet';
 import PlatformPicker from './PlatformPicker';
-import AppList from './AppList';
+import {fetchPackages} from './AppList';
 import loader from './img/loader.gif';
 import noicon from './img/noicon.png';
 import './Quickstore.css';
@@ -44,7 +44,7 @@ const QuickStore = (props: { platform: Platform }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const allPackages = await AppList.fetchPackages();
+            const allPackages = await fetchPackages();
             setAllApps(allPackages);
         }
         fetchData();

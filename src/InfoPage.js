@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import { Trans } from 'react-i18next';
+
 import { Spacer, Mobile } from './Utils';
-import AppList from './AppList';
+import {fetchCredits, fetchPackages} from './AppList';
 import twitterImg from './img/twitter.png';
 import githubImg from './img/github.png';
 import gitlabImg from './img/gitlab.png';
@@ -30,12 +32,12 @@ class InfoPage extends Component {
     const location = window.location.pathname;
 
     if (location === "/about") {
-      let credits = await AppList.fetchCredits();
+      let credits = await fetchCredits();
       this.setState({ credits });
     }
 
     if (location !== "/submit-or-request") {
-      let allPackages = await AppList.fetchPackages();
+      let allPackages = await fetchPackages();
       allPackages.sort((a, b) => a.title.localeCompare(b.title));
       this.setState({ allPackages })
 
@@ -192,40 +194,55 @@ class InfoPage extends Component {
       </table>;
 
       pageText = <div>
-        <h1>About hb-appstore</h1>
+        <h1><Trans i18nKey="aboutTitle" /></h1>
         <p className="pNormalWidth">
-          Homebrew App Store is a free and open-source repository of <a href="https://en.wikipedia.org/wiki/Homebrew_(video_games)">homebrew apps</a> for the Wii U and Switch consoles. This listing is maintained by the <a href="https://fortheusers.org">ForTheUsers team</a>, with the goal of making accessible and preserving the efforts of independent developers and hobbyists to end users.
-        </p><p className="pNormalWidth">
-          If you would like to list your own open-source app here, or request an existing one to add to this index, please see the <a href="/submit-or-request">Submit</a> page. For already listed apps, an <a href="/api-info">API</a> is available.
+          <Trans i18nKey="aboutDescription1">
+            <a href="https://en.wikipedia.org/wiki/Homebrew_(video_games)">Homebrew</a>
+            <a href="https://fortheusers.org">ForTheUsers</a>
+          </Trans>
         </p>
         <p className="pNormalWidth">
-          If you are a copyright holder and are concerned some of your work is being infringed upon, please fill out this <a href="/dmca-request">DMCA Form</a> to submit a takedown request. This also applies if you are an open-source developer and don't want us to distribute your project here.
-        </p>
-        <h3>How It Works</h3>
-        <p className="pNormalWidth">
-         The content in our repositories is available both as a website and as a <a href="https://github.com/fortheusers/hb-appstore">native homebrew app</a> for the Wii U and Switch consoles. These console apps try to provide a similar experience to using a web browser, and can be downloaded <a href="https://github.com/fortheusers/hb-appstore/releases">here</a>.
-        </p>
-        <p className="pNormalWidth">
-          The individual hosted packages are updated regularly with new apps and updates. These are maintained by ForTheUsers staff and volunteers from the community. If you would like to help or report and outdated package, please contact us on <a href="https://discord.gg/F2PKpEj">Discord</a>.
+          <Trans i18nKey="aboutDescription2">
+            <a href="/submit-or-request">Submit</a>
+            <a href="/api-info">API Info</a>
+          </Trans>
         </p>
         <p className="pNormalWidth">
-          The Switch and Wii U platform icons were designed by <a href="https://dribbble.com/shots/10302424-Nintendo-Controllers">Fred Corbin</a>.
+          <Trans i18nKey="aboutDescription3">
+            <a href="/dmca-request">DMCA Page</a>
+          </Trans>
+        </p>
+        <h3><Trans i18nKey="howItWorksTitle" /></h3>
+        <p className="pNormalWidth">
+          <Trans i18nKey="howItWorksDescription1">
+            <a href="https://github.com/fortheusers/hb-appstore">Github</a>
+            <a href="https://github.com/fortheusers/hb-appstore/releases">Download</a>
+          </Trans>
+        </p>
+        <p className="pNormalWidth">
+          <Trans i18nKey="howItWorksDescription2">
+            <a href="https://discord.gg/F2PKpEj">Discord</a>
+          </Trans>
+        </p>
+        <p className="pNormalWidth">
+          <Trans i18nKey="howItWorksDescription3">
+            <a href="https://dribbble.com/shots/10302424-Nintendo-Controllers">Art Credit</a>
+          </Trans>
         </p>
         <p style={{marginTop: -40}} className="pNormalWidth creditsContainer" dangerouslySetInnerHTML={{__html: hbasCreditsHTML}}>
         </p>
         <h3>App Authors</h3>
         <p className="pNormalWidth">
-          Of course, this project wouldn't exist without the developers of the apps themselves.  Thank you to all of the developers who have contributed to the homebrew community!
-          <br/><br/>
+          <Trans i18nKey="appAuthorsDescription" /><br/><br/>
           {authorList}
         </p>
 
-        <h3>Donations</h3>
+        <h3><Trans i18nKey="donationsTitle" /></h3>
         <p className="pNormalWidth">
-          Thank you for your interest in supporting this project!  We are not accepting donations, but if you would like to support the developers of the apps listed here, please visit their respective Github pages or websites as listed above.
+          <Trans i18nKey="donationsDescription1" />
         </p>
         <p className="pNormalWidth">
-          Otherwise, if you are still interested in supporting the project directly, we can recommend that you consider looking into and donating to one of the following causes instead:
+          <Trans i18nKey="donationsDescription2" />
           <br/><br/>
           <table className="donationList">
             <tr>
@@ -241,12 +258,17 @@ class InfoPage extends Component {
             </tr>
           </table>
         </p>
-        <h3>Licensing Info</h3>
+        <h3><Trans i18nKey="licensingTitle" /></h3>
         <p className="pNormalWidth">
-          This website and the console clients are licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>. The content on the repositories we host is also available to use under a <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC-BY-SA license</a>.
+          <Trans i18nKey="licensingDescription">
+            <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3 License</a>
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC License</a>
+          </Trans>
         </p>
         <p className="pNormalWidth">
-          That's pretty much everything! For other questions, reach out to one of the developers listed above, or join our <a href="https://discord.gg/F2PKpEj">Discord</a> server.
+          <Trans i18nKey="finalNote">
+            <a href="https://discord.gg/F2PKpEj">Discord Link</a>
+          </Trans>
         </p>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/>
       </div>;

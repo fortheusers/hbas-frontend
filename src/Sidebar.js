@@ -5,52 +5,54 @@ import { getParams } from './Utils';
 import ToolTip from 'react-portal-tooltip';
 import './MainDisplay';
 
+import { withTranslation } from 'react-i18next';
+
 const categories = [
   {
     short: "_search",
-    name: "Search",
+    name: "search",
     icon: faSearch,
     hover: "  Search by App title or developer"
   }, {
     short: "_all",
-    name: "All Apps",
+    name: "allApps",
     icon: faThLarge,
     hover: "All Apps"
   }, {
     short: "_stats",
-    name: "Statistics",
+    name: "statistics",
     icon: faChartArea,
     hover: "  View and compare download stats"
   }, {
     short: "game",
-    name: "Games",
+    name: "games",
     icon: faPlay,
     hover: "  Homebrew games and ports"
   }, {
     short: "emu",
-    name: "Emulators",
+    name: "emulators",
     icon: faGamepad,
     hover: "  Games console emulators"
   }, {
     short: "tool",
-    name: "Tools",
+    name: "tools",
     icon: faCog,
     hover: "  Practical applications"
   }, {
     short: "advanced",
-    name: "Advanced",
+    name: "advanced",
     icon: faPuzzlePiece,
     hover: "  System tools that usually require other apps to run"
   }, {
     short: "theme",
-    name: "Themes",
+    name: "themes",
     icon: faSwatchbook,
     hover: "  Theming tools",
     platform: "switch"
   },
   {
     short: "aroma",
-    name: "Aroma-Ready",
+    name: "aroma",
     icon: faCoffee,
     hover: "  Applications that have been ported or written specifically for the aroma enviroment",
     platform: "wiiu"
@@ -62,18 +64,18 @@ const categories = [
   // },
   {
     short: "_misc",
-    name: "Misc",
+    name: "misc",
     icon: faCubes,
     hover: "  Apps that have no specific category"
   }, {
     short: "_quickstore",
-    name: "QuickStore",
+    name: "quickstore",
     icon: faFastForward,
     hover: "  Quickly compile a bundle off apps to download in one zipfile"
   },
   {
     short: "legacy",
-    name: "Legacy",
+    name: "legacy",
     icon: faBriefcase,
     hover: "  Apps that now have limited functionality and are limited by OS version or CFW version"
   },
@@ -81,6 +83,14 @@ const categories = [
 
 let selected = "_all";
 let choice = "_all";
+
+export function getCurrentCategory() {
+  return selected;
+}
+
+export function getAllCategories() {
+  return categories;
+}
 
 class Sidebar extends Component {
   constructor(props) {
@@ -121,17 +131,10 @@ class Sidebar extends Component {
     isTooltipActive: false
   }
 
-  static getCurrentCategory() {
-    return selected;
-  }
-
-  static getAllCategories() {
-    return categories;
-  }
-
   render() {
     const platInfo = (this.platform && this.platform !== "all") ? `/${this.platform}` : "";
 
+    const { t } = this.props;
     return (
       <div className={`Sidebar _${this.platform}_only`}>
         {
@@ -161,7 +164,7 @@ class Sidebar extends Component {
                 onMouseLeave={e => this.setState({ toolTipCat: null })}
 
               >
-                {cat.name || "All Apps"}
+                {t(cat.name) || t("allApps")}
               </span>
 
               <ToolTip
@@ -190,4 +193,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default withTranslation()(Sidebar);
