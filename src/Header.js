@@ -48,7 +48,7 @@ class Header extends Component {
         style={{backgroundImage: `url(${platformIcons[this.platform]})`}}>
           <option value="switch">Switch&nbsp;&nbsp;</option>
           <option value="wiiu">Wii U&nbsp;&nbsp;</option>
-          <option value="all">Both&nbsp;&nbsp;</option>
+          <option value="all">All&nbsp;&nbsp;</option>
           <option value="3ds">3DS&nbsp;&nbsp;</option>
       </select>
     </Fragment>);
