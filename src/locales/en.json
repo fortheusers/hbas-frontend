@@ -7,10 +7,10 @@
     "homebrewDescription": "Homebrew App Store is a free and open-source repository of <0>homebrew apps</0> for the Wii U and Switch consoles. The apps, tools, and games distributed here are all made by independent software developers within the community.",
     "submitRequest": "If you would like to list your own open-source app here, or request an existing one to add to this index, please see the <0>Submit</0> page. For other info about the team and project, see our <1>About</1> page.",
     "choosePlatform": "Choose a Platform",
-    "wiiu": "Wii U",
-    "switch": "Switch",
-    "3ds": "3DS",
     "all": "All",
+    "3ds": "3DS",
+    "switch": "Switch",
+    "wiiu": "Wii U",
 
   "- App Listing UI": "-",
     "allApps": "All Apps",
