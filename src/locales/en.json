@@ -9,7 +9,8 @@
     "choosePlatform": "Choose a Platform",
     "wiiu": "Wii U",
     "switch": "Switch",
-    "both": "Both",
+    "3ds": "3DS",
+    "all": "All",
 
   "- App Listing UI": "-",
     "allApps": "All Apps",
