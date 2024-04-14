@@ -4,7 +4,8 @@ import { platformIcons } from "./Utils";
 export const plats = {
     "wiiu": "Wii U",
     "switch": "Switch",
-    "all": "Both",
+    "3ds": "3DS",
+    "all": "All",
 };
 
 const PlatformPicker = ({path = ""}) => {
