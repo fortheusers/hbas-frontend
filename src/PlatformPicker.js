@@ -2,9 +2,10 @@ import React from 'react';
 import { platformIcons } from "./Utils";
 
 export const plats = {
-    "wiiu": "Wii U",
+    "all": "All",
+    "3ds": "3DS",
     "switch": "Switch",
-    "all": "Both",
+    "wiiu": "Wii U",
 };
 
 const PlatformPicker = ({path = ""}) => {

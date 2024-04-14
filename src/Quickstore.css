@@ -79,7 +79,7 @@
 
 .clearfix::after {
     content: "";
-    clear: both;
+    clear: all;
     display: table;
   }
 
