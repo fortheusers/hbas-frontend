@@ -162,7 +162,7 @@ function get_system_theme() {
   */
 
   window.theme = "dark";
-  if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)") && window.matchMedia("(prefers-color-scheme: light)").matches) {
     window.theme = "light";
   }
 
@@ -253,17 +253,20 @@ export function remove_theme() {
 
 export function init_theme() {
   
-  window.matchMedia('(prefers-color-scheme: dark)')
-    /*
-        This makes it such that if a user changes the theme on their
-        browser and they have a preferred theme, the page maintains its prefered theme. 
-    */
-    .addEventListener("change", event => {
-        if (localStorage.getItem("theme")) {
-            switch_theme_rules(); // Switches Theme every time the prefered color gets updated
-        }
-    }
-  )
+  if (window.matchMedia) {
+
+    window.matchMedia('(prefers-color-scheme: dark)')
+      /*
+          This makes it such that if a user changes the theme on their
+          browser and they have a preferred theme, the page maintains its prefered theme. 
+      */
+      .addEventListener("change", event => {
+          if (localStorage.getItem("theme")) {
+              switch_theme_rules(); // Switches Theme every time the prefered color gets updated
+          }
+      }
+    )
+  }
 
   if (localStorage.getItem("theme")) {
     if (get_system_theme() !== localStorage.getItem("theme")) {

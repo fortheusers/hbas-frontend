@@ -217,7 +217,7 @@ class AppStatsChart extends PureComponent {
       })
     };
 
-    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)') && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     const customStyle = {
       multiValue: (base, state) => ({
