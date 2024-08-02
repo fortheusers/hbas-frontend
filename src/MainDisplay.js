@@ -46,6 +46,7 @@ class MainDisplay extends Component {
           <Route path='/api-info' component={Header} />
           <Route path='/submit-or-request' component={Header} />
           <Route path='/dmca-request' component={Header} />
+          <Route path='/request-takedown' component={Header} />
 
           <Route path='/:platform' component={Header}></Route>
           <Route path='/' component={Header}></Route>
@@ -89,6 +90,7 @@ class MainDisplay extends Component {
             <Route path='/api-info' component={InfoPage} />
             <Route path='/submit-or-request' component={InfoPage} />
             <Route path='/dmca-request' component={InfoPage} />
+            <Route path='/request-takedown' component={InfoPage} />
 
             <Route path='/:platform/:package' component={AppDetails} />
             <Route path='/:platform' component={AppList} />

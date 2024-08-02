@@ -16,7 +16,7 @@ class Footer extends Component {
         <div className="left">
           <a className="copyright" href="https://gitlab.com/4TU/hbas-frontend/blob/master/LICENSE">
             <span className="copyleft">&copy;</span> {t("gplLicense")}</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a className="copyright" href="/dmca-request">{t("dmca")}</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a className="copyright" href="/request-takedown">{t("dmca")}</a>
         </div>
         <div className="right">
           <button style={{fontSize: 10, padding: 4, marginRight: 15, verticalAlign: "top"}} onClick={toggle_theme}>

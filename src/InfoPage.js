@@ -212,7 +212,7 @@ class InfoPage extends Component {
         </p>
         <p className="pNormalWidth">
           <Trans i18nKey="aboutDescription3">
-            <a href="/dmca-request">DMCA Page</a>
+            <a href="/request-takedown">Removal Page (or DMCA)</a>
           </Trans>
         </p>
         <h3><Trans i18nKey="howItWorksTitle" /></h3>
@@ -535,7 +535,7 @@ class InfoPage extends Component {
         </p>
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>;
-    } else if (location === "/dmca-request") {
+    } else if (location === "/dmca-request" || location == "/request-takedown") {
       const allPackages = this.state.allPackages;
 
       pageText = <div style={{maxWidth: "100%"}}>
@@ -559,9 +559,9 @@ class InfoPage extends Component {
           </label>
           <br/><br/>
           <p><Trans>authorOrRepresentative</Trans></p>
-          <input type="radio" name="authorization" value="yes" /> <Trans>yes</Trans>&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio" name="authorization" value="no" /> <Trans>no</Trans>&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio" name="authorization" value="other" /> <Trans>other</Trans>
+          <input type="checkbox" name="authorization" value="author" /> <Trans>yes</Trans><br/>
+          <input type="checkbox" name="authorization" value="authorized" /> <Trans>no</Trans><br/>
+          <input type="checkbox" name="authorization" value="other" /> <Trans>other</Trans>
           <br/><br/>
           <label name="reason">
             <p><Trans>explanationAndRelevantInfo</Trans></p>

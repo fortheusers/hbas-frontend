@@ -3,7 +3,7 @@ import loading from './img/loader.gif';
 import {fetchPackages} from './AppList';
 import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
-import { getParams, Spacer, Mobile, getFirstPixelFromImage, platformIcons } from './Utils';
+import { getParams, Spacer, Mobile, getFirstPixelFromImage, platformIcons, getHumanSize } from './Utils';
 import Modal from 'react-responsive-modal';
 import { Trans, withTranslation } from 'react-i18next';
 
@@ -93,6 +93,12 @@ class AppDetails extends Component {
         isShowingInstalledFiles = false,
         installedFiles = ""
       } } = this.state;
+    
+    const humanSize = getHumanSize(filesize * 1000); // repo is in KB, convert to bytes
+    const extractedHumanSize = getHumanSize(extracted * 1000);
+
+    // convert "29/07/2024" to "2024-07-29"
+    const formattedUpdate = updated.split('/').reverse().join('/'); // TODO: hacky i think
 
     let mba = () => {
       window.location.href = (`../search/${author}`);
@@ -203,10 +209,10 @@ class AppDetails extends Component {
               <br />
               <div className="sideHeader">{t("info")}</div>
               <div><span>{t("version")}</span> {version}</div>
-              <div><span>{t("updated")}</span> {updated}</div>
-              <div><span>{t("size")}</span> {extracted} KB</div>
-              <div><span>{t("zipSize")}</span> {filesize} KB</div>
+              <div><span>{t("size")}</span> {extractedHumanSize}</div>
+              <div><span>{t("zipSize")}</span> {humanSize}</div>
               <div><span>{t("license")}</span> {license}</div>
+              <div><span>{t("updated")}</span> {formattedUpdate}</div>
               <br />
               <div className="sideHeader">{t("downloadStats")}</div>
               <div><span>{t("count")}</span> {app_dls}</div>

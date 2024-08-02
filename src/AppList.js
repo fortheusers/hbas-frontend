@@ -39,7 +39,7 @@ let sorts = [{
   order: (b, a) => stringDateToTimestamp(a.updated) - stringDateToTimestamp(b.updated)
 },
 {
-  flavor: "listing.sort.download",
+  flavor: "listing.sort.downloads",
   order: (b, a) => a.app_dls - b.app_dls
 },
 {

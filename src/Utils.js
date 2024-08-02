@@ -120,7 +120,7 @@ class Mobile extends Component {
           <option value="https://discord.gg/F2PKpEj">Discord</option>
           <option value="/api-info">API</option>
           <option value="/submit-or-request">Submit</option>
-          <option value="/dmca-request">DMCA</option>
+          <option value="/request-takedown">Request Takedown</option>
         </select>
       </div>
     </div>
@@ -273,4 +273,15 @@ export function init_theme() {
         switch_theme_rules();
     }
   }
+}
+
+export function getHumanSize(bytes) {
+  // convert bytes to human readable size string
+  const sizes = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) return '0 bytes';
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+  const size = bytes / Math.pow(1024, i);
+  // limit to 2 decimal places
+  const formattedSize = parseFloat(size.toFixed(2));
+  return formattedSize + ' ' + sizes[i];
 }
