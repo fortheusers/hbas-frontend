@@ -21,6 +21,9 @@ const PlatformPicker = ({path = ""}) => {
     return (<div style={{width: 500, maxWidth: "100%", margin: "0 auto", marginTop: 40}}>
         <h2 style={{fontSize: 18, padding: 5, backgroundColor: "unset", textAlign: "center"}}>Choose a Platform</h2>
         <div style={{display: "flex"}} id="platChooserList">{ platformSelect }</div>
+        <p style={{textAlign: "center"}}>
+            Looking for Wii or 3DS homebrew?<br/>Check out <a href="https://oscwii.org">Open Shop Channel</a> or <a href="https://db.universal-team.net">Universal-DB</a>!
+        </p>
     </div>);
 };
 

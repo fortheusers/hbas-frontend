@@ -535,7 +535,7 @@ class InfoPage extends Component {
         </p>
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>;
-    } else if (location === "/dmca-request" || location == "/request-takedown") {
+    } else if (location === "/dmca-request" || location === "/request-takedown") {
       const allPackages = this.state.allPackages;
 
       pageText = <div style={{maxWidth: "100%"}}>
