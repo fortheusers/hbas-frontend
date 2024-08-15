@@ -253,7 +253,7 @@ export function remove_theme() {
 
 export function init_theme() {
   
-  if (window.matchMedia) {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').addEventListener) {
 
     window.matchMedia('(prefers-color-scheme: dark)')
       /*
