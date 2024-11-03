@@ -114,7 +114,7 @@
     "guidelines": "Guidelines",
     "requirementsForApps": "We try to keep the requirements for apps to be listed here as minimal as possible, but there are a few things considered when reviewing submissions:",
     "openSource": "Open Source",
-    "listedAppsMust": "Listed apps must have source code publicly available, and ideally be licensed under a permissive license such as MIT, GPL, BSD, etc.",
+    "listedAppsMust": "Listed apps must have source code publicly available, and ideally be licensed under a permissive or copyleft license such as MIT, BSD, GPL, etc.",
     "noPiracy": "No Piracy",
     "homebrewIsAHobbyist": "Homebrew is a hobbyist endeavor, and as such, we do not accept apps that are intended to be used primarily for",
     "videoGamePiracyLink": "video game piracy",
