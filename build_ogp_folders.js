@@ -18,7 +18,9 @@ const process = require('process');
 
     // read all packages from the switch and wiiu repos
     const platforms = ["switch", "wiiu"];
-    for (const platform of platforms) {
+    const colors = ["#d62131", "#118ab7"];
+    for (let idx=0; idx<platforms.length; idx++) {
+        const platform = platforms[idx];
         const url = `https://${platform}.cdn.fortheusers.org/repo.json`;
         // fetch the json
         const data = await fetch(url).then((res) => res.json());
@@ -40,9 +42,16 @@ const process = require('process');
             for (const [prop, value] of Object.entries(properties)) {
                 curHTML = curHTML.replace(new RegExp(`property="${prop}" content="[^"]*"`, "g"), `property="${prop}" content="${value}"`);
             }
+            // also tack on a color for the theme
+            curHTML = curHTML.replace("\"theme-color\" content=\"#000000\"", `\"theme-color\" content=\"${colors[idx]}\"`);
+
             // write the HTML to the folder
             fs.writeFileSync(`${pkg.name}/index.html`, curHTML);
         });
+
+        // also write a platform specific HTML
+        const curHTML = mainHTML.replace("\"theme-color\" content=\"#000000\"", `\"theme-color\" content=\"${colors[idx]}\"`);
+        fs.writeFileSync(`index.html`, curHTML);
 
         // go up a dir before going back around
         process.chdir("..");
