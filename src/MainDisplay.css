@@ -577,7 +577,7 @@ button:hover, .infoBox.switch_only a:hover {
   padding-right: 40px;
 }
 
-button, .infoBox a {
+button, .infoBox a, .smallLinkButton {
   background-color: var(--dropDownBgColor);
   color: var(--buttonBgColor);
   border: none;
@@ -587,7 +587,13 @@ button, .infoBox a {
   font-weight: 500;
   cursor: pointer;
 }
-button:hover, .infoBox a:hover {
+.smallLinkButton {
+  margin-top: 10px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+button:hover, .infoBox a:hover, .smallLinkButton:hover {
   background-color: var(--secondaryButtonColor);
 }
 
@@ -945,7 +951,7 @@ details summary {
 }
 
 .filesArea {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .warningNotice {

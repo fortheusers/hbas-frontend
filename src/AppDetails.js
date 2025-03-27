@@ -188,6 +188,25 @@ class AppDetails extends Component {
       </div>
     );
 
+    const shaBlock = (this.pkg.sha256) ? (
+      <div>
+        <div><span>sha256</span><input className="shatext" defaultValue={this.pkg.sha256} type="text" readonly></input></div>
+      </div>
+    ) : null;
+
+    const editOnGHButton = (this.pkg.sha256) ? (
+      <div>
+        <a
+          className="smallLinkButton"
+          href={`https://github.com/fortheusers/switch-hbas-repo/tree/main/packages/${this.pkg.name}/pkgbuild.json`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Edit Package Contents on Github
+        </a>
+      </div>
+    ) : null;
+
     return (
       <div className="AppDetails">
         <Mobile />
@@ -217,11 +236,11 @@ class AppDetails extends Component {
               <div className="sideHeader">{t("downloadStats")}</div>
               <div><span>{t("count")}</span> {app_dls}</div>
               <div><span>md5</span><input className="md5text" defaultValue={md5} type="text" readonly></input></div>
+              {shaBlock}
             </div>
             {dlButton}
             <a target="_blank" rel="noopener noreferrer" href={`${url}`}>{t("source")}</a>
             <a target="_blank" rel="noopener noreferrer" href={`/stats?apps=${platform}/${name.toLowerCase()}`}>{t("viewStats")}</a>
-            <button id="mobileonly" onClick={mba}>{t("moreBy")}</button>
           </div>
           <div className="left row">
             <p className="sideHeader">{t("appDetails")}</p>
@@ -241,6 +260,7 @@ class AppDetails extends Component {
                 </Fragment>
                 ): showFilesButton }
             </div>
+            {editOnGHButton}
             <Spacer />
           </div>
         </div>

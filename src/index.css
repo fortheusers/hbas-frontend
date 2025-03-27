@@ -13,7 +13,7 @@ code {
     monospace;
 }
 
-.md5text {
+.md5text, .shatext {
   margin-left: 5px;
   font-size: 10px;
   width: calc(100% - 45px);
@@ -24,7 +24,11 @@ code {
   font-family: monospace;
 }
 
-.md5text:hover {
+.shatext.shatext {
+  width: calc(100% - 65px);
+}
+
+.md5text:hover, .shatext:hover {
   background-color: white;
 }
 
