@@ -58,7 +58,8 @@ let sorts = [{
 class AppList extends Component {
   state = {
     packages: null,
-    curSort: 0
+    curSort: 0,
+    showLegacy: false,
   }
 
   constructor(props) {
@@ -71,6 +72,9 @@ class AppList extends Component {
 
   doesSearchMatch(query = "", pkg = {}) {
     const { title, description, author } = pkg;
+    const { showLegacy } = this.state;
+    // skip if package category is legacy and they're disabled
+    if (!showLegacy && pkg.category === "legacy") return false;
     const searchUs = [title, description, author];
     return searchUs.filter(a => a && a.toLowerCase().indexOf(query.toLowerCase()) >= 0).length > 0;
   }
@@ -179,6 +183,13 @@ class AppList extends Component {
         <div className="catTitle">
           Search: <input id="searchBox" type="text" onChange={updateURL} defaultValue={this.query}>
           </input>
+          <span style={{display: "inline-block"}}>
+            <input type="checkbox" id="showLegacy" name="showLegacy" onChange={() => {
+              this.setState({showLegacy: !this.state.showLegacy});
+              this.componentDidMount();
+            }
+            }></input> <label style={{fontSize: 18}} for="showLegacy">Include "Legacy" Apps</label>
+          </span>
         </div>
       )
     }
