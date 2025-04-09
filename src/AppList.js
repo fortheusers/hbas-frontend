@@ -73,7 +73,7 @@ class AppList extends Component {
   doesSearchMatch(query = "", pkg = {}) {
     const { title, description, author } = pkg;
     const { showLegacy } = this.state;
-    // skip if package category is legacy and they're disabled
+    // skip if package category is legacy and legacy is disabled
     if (!showLegacy && pkg.category === "legacy") return false;
     const searchUs = [title, description, author];
     return searchUs.filter(a => a && a.toLowerCase().indexOf(query.toLowerCase()) >= 0).length > 0;
@@ -106,7 +106,10 @@ class AppList extends Component {
         (me.query);
     });
 
-    packages = packages.filter(pkg => me.doesSearchMatch(me.query, pkg));
+    // filter packages if we have a search query only
+    if (me.query) {
+      packages = packages.filter(pkg => me.doesSearchMatch(me.query, pkg));
+    }
 
     me.setState({ packages, query: me.query });
   }

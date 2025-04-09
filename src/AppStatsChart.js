@@ -197,7 +197,7 @@ const AppStatsChart = () => {
   // actual chart
   const chartInfo = (<div
     style={{
-      width: '100%',
+      width: '100%'
     }}>
       <LineChart
         width={800}
@@ -219,9 +219,11 @@ const AppStatsChart = () => {
         type = 'number'
       />
       <YAxis />
-      <Tooltip 
+      <Tooltip
         labelFormatter={(unixTime) => {
-          return moment.unix(unixTime / 1000).format('MMM DD YYYY');
+          return <span style={{color: "black"}}>
+            {moment.unix(unixTime / 1000).format('MMM DD YYYY')}
+          </span>
         }}
       />
         <Legend />
@@ -252,31 +254,15 @@ const AppStatsChart = () => {
     }
   }
 
-  const darkStyles = {
-    control: (provided, state) => ({
-      ...provided,
-      backgroundColor: "black",
-      color: "#000000",
-      
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: 'black',
-    })
-  };
-
-  const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)') && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
   const customStyle = {
     multiValue: (base, state) => ({
       ...base,
       backgroundColor: state.data.color,
-    }),
-    ...(isDarkMode ? darkStyles : {})
+    })
   };
 
   const maxOptions = 8; // gets a bit laggy after this, also we only have 8 colors
-  const pkgSelector = <div style={{ width: 450 }}>
+  const pkgSelector = <div style={{ width: 450, color: "black" }}>
     <Select
       styles={customStyle}
       isMulti={true}

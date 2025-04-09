@@ -207,6 +207,18 @@ class AppDetails extends Component {
       </div>
     ) : null;
 
+    const isWithinOneWeek = timestamp => {
+      // check if the given timestamp is within the last 7 days
+      const twoDaysInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+      const currentTime = new Date().getTime();
+      const appUpdateTime = new Date(timestamp).getTime();
+      return (currentTime - appUpdateTime) < twoDaysInMilliseconds;
+    };
+
+    const formatWithCommas = number => {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     return (
       <div className="AppDetails">
         <Mobile />
@@ -234,7 +246,7 @@ class AppDetails extends Component {
               <div><span>{t("updated")}</span> {formattedUpdate}</div>
               <br />
               <div className="sideHeader">{t("downloadStats")}</div>
-              <div><span>{t("count")}</span> {app_dls}</div>
+              <div><span>{t("count")}</span> {app_dls === 0 && isWithinOneWeek(updated) ? "n/a" : formatWithCommas(app_dls)}</div>
               <div><span>md5</span><input className="md5text" defaultValue={md5} type="text" readonly></input></div>
               {shaBlock}
             </div>
