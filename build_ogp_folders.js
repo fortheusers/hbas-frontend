@@ -140,7 +140,7 @@ const getCssEmbed = platform => {
         }
         footer {
             text-align: center;
-            margin-top: 20px;
+            padding: 20px;
             font-size: 0.8em;
             color: #666;
         }
@@ -198,6 +198,9 @@ const getCssEmbed = platform => {
         .intro {
             margin: 30px;
             margin-bottom: 15px;
+        }
+        #root {
+            display: none;
         }
     </style>`;
 }
