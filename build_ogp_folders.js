@@ -11,19 +11,6 @@ const process = require('process');
 const getCssEmbed = platform => {
     const platformColor = platform == "switch" ? "#d62131" : "#118ab7";
     return `<style>
-        body {
-            font-family: sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 20px;
-        }
-        .nojs-page {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-        }
         .colorbar {
             width: calc(100% + 40px);
             height: 10px;
@@ -34,83 +21,6 @@ const getCssEmbed = platform => {
         .colorbar.purple {
             background-color:rgb(78, 65, 128);
         }
-        h3 img {
-            width: 30px;
-            height: 30px;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-        h3 {
-            padding: 10px;
-            text-align: center;
-        }
-        h3 a {
-            color: #333;
-            text-decoration: none;
-        }
-        h3 a:hover {
-            text-decoration: underline;
-        }
-        .app-info {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            background-color:rgb(245, 245, 245);
-            border-radius: 8px;
-        }
-        .app-info img {
-            height: 100px;
-            margin-right: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-        .app-info h2 {
-            margin: 0;
-        }
-        .app-info ul {
-            list-style: none;
-            padding: 0;
-        }
-        .app-info .app-icon {
-            margin-right: 20px;
-            padding: 20px;
-            min-width: 150px;
-        }
-        .app-info h2 {
-            padding-bottom: 20px;
-        }
-        .app-info .info {
-            margin: 10px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-        .app-icon span, .info span {
-            font-size: 0.8em;
-            color: #666;
-        }
-        .info code {
-            max-width: 150px;
-            display: inline-block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        table td:first-child {
-            padding: 2px;
-            text-align: right;
-            font-weight: bold;
-            vertical-align: top;
-            padding-right: 15px;
-        }
-        .links {
-            margin: 0 auto;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-        }
         .links a {
             text-decoration: none;
             padding: 10px 20px;
@@ -120,90 +30,12 @@ const getCssEmbed = platform => {
             border-radius: 5px;
             margin-right: 10px;
         }
-        .links a:hover {
-            background-color: #007bff;
-        }
-        .screenshots {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-        .screenshots img {
-            max-width: 350px;
-            border-radius: 8px;
-            border: 4px solid transparent;
-        }
-        .screenshots img:hover {
-            border: 4px solid #007bff;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.8em;
-            color: #666;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        .description p {
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-        .app-listing .app-info {
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            border: 4px solid transparent;
-        }
-        .info.listing-info {
-            width: 100%;
-        }
-        .app-listing a {
-            text-decoration: none;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .app-listing .app-info:hover {
-            border: 4px solid #007bff;
-        }
-        .app-home {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-        }
-        .app-home a {
-            text-decoration: none;
-            color: #333;
-        }
-        .app-home a:hover {
-            text-decoration: underline;
-        }
-        .app-home .app-icon {
-            text-align: center;
-            margin-left: 30px;
-            margin-right: 30px;
-        }
-        .app-home .app-icon img {
-            width: 100px;
-        }
-        .plat {
-            margin-bottom: 10px;
-        }
-        .intro {
-            margin: 30px;
-            margin-bottom: 15px;
-        }
-        #root {
-            display: none;
-        }
-    </style>`;
+    </style>
+    <link rel="stylesheet" href="/nojs_style.css">
+    `;
 }
+
+const returnToTop = "<a href=\"#\" class=\"return-to-top\">Return to Top</a>";
 
 const noscriptMarker = "<noscript>This website requires JavaScript to function.</noscript>";
 const footer = `<footer>
@@ -211,7 +43,7 @@ const footer = `<footer>
 </footer>`;
 
 const buildNoscriptHome = () => {
-    return `<noscript>
+    return `<yesscript>
     <title>Homebrew App Store</title>
     ${getCssEmbed()}
     <div class="nojs-page">
@@ -238,36 +70,83 @@ const buildNoscriptHome = () => {
 
 const buildNoscriptIndex = (platform, packages) => {
     packages.sort((a, b) => {
-        // convert "DD/MM/YYYY" string to unix integer
-        const aDate = new Date(a.updated.split("/").reverse().join("-")).getTime();
-        const bDate = new Date(b.updated.split("/").reverse().join("-")).getTime();
+        // if one of the titles doesn't start with a letter, sort it to the end
+        if (!a.title.match(/^[a-zA-Z]/)) return 1;
+        if (!b.title.match(/^[a-zA-Z]/)) return -1;
+        return a.title.localeCompare(b.title);
+    });
+
+    const updatedPackages = [...packages];
+    updatedPackages.sort((a, b) => {
+        // convert updated strings (DD/MM/YYYY) to Date objects
+        const aDate = new Date(a.updated.split("/").reverse().join("-"));
+        const bDate = new Date(b.updated.split("/").reverse().join("-"));
         return bDate - aDate;
     });
+
+    // get a unique list of all starting letters (or symbol for all others)
+    const letters = [...new Set(packages.filter(pkg => pkg.title.match(/^[a-zA-Z]/)).map(pkg => pkg.title[0].toUpperCase()))];
+    letters.push("#");
+
+    let letterList = "<div class=\"letters\">";
+    letters.forEach(letter => {
+        letterList += `<a href="#${letter}">${letter}</a>`;
+    });
+    letterList += "</div>";
+
+    let seenLetters = new Set();
+
+    const makeAppListEntry = (platform, pkg) => {
+        return `<a href="/${platform}/${pkg.name}">
+        <div class="app-info">
+            <div class="app-icon">
+                <img loading="lazy" src="https://${platform}.cdn.fortheusers.org/packages/${pkg.name}/icon.png" alt="${pkg.title} icon">
+            </div>
+            <div class="info listing-info">
+                <h2>${pkg.title}<span> by ${pkg.author}</span></h2>
+                <p>${pkg.description}</p>
+                <p>Version: ${pkg.version}, Updated: ${pkg.updated}</p>
+            </div>
+        </div>
+        </a>`
+    };
+
     // same as below, but for the main listing of the repo
-    return `<noscript>
+    return `<yesscript>
     <title>Homebrew App Store (${platform})</title>
     ${getCssEmbed(platform)}
     <div class="nojs-page">
         <div class="colorbar"></div>
-        <h3><a href="/${platform}"><img src="/icon.png" alt="App Store Icon"/>Homebrew App Store (${platform})</a></h3>
-        <div class="app-listing">
+        <a href="/" class="back">Back</span>
+        <h3 class="listing-header"><a href="/${platform}"><img src="/icon.png" alt="App Store Icon"/>Homebrew App Store (${platform})</a></h3>
+        <input type="checkbox" class="switch" id="switchbox" checked />
+        <div class="switch-controls">
+            <div class="switch-container">
+                <label for="switchbox" class="slider round"></label>
+            </div>
+            <div class="sorterlabel">
+                <label for="switchbox">Sort by Most Recent</label>
+            </div>
+        </div>
+        ${letterList}
+        <div class="app-listing alpha-sort">
             ${packages.map(pkg => {
-                return `<a href="/${platform}/${pkg.name}">
-                    <div class="app-info">
-                        <div class="app-icon">
-                            <img src="https://${platform}.cdn.fortheusers.org/packages/${pkg.name}/icon.png" alt="${pkg.title} icon">
-                        </div>
-                        <div class="info listing-info">
-                            <h2>${pkg.title}<span> by ${pkg.author}</span></h2>
-                            <p>${pkg.description}</p>
-                            <p>Version: ${pkg.version}</p>
-                        </div>
-                    </div>
-                </a>`;
+                let curLetter = pkg.title[0].toUpperCase();
+                if (!curLetter.match(/^[a-zA-Z]/)) curLetter = "#";
+                letterSeparator = "";
+                if (!seenLetters.has(curLetter)) {
+                    seenLetters.add(curLetter);
+                    letterSeparator = `<h3 id="${curLetter}">${curLetter}</h3>`;
+                }
+                return `${letterSeparator}${makeAppListEntry(platform, pkg)}`;
             }).join("")}
+        </div>
+        <div class="app-listing updated-sort">
+            ${updatedPackages.map(pkg => makeAppListEntry(platform, pkg)).join("")}
         </div>
     </div>
     ${footer}
+    ${returnToTop}
     </noscript>`;
 }
 
@@ -286,11 +165,12 @@ const buildNoscriptHtml = (platform, package) => {
 
     const parseNewlines = paragraph => paragraph.replace(/\\n/g, "<br/>")
 
-    return `<noscript>
+    return `<yesscript>
     <title>${package.title} by ${package.author} - Homebrew App Store (${platform})</title>
     ${getCssEmbed(platform)}
     <div class="nojs-page">
         <div class="colorbar"></div>
+        <a href="/${platform}" class="back">Back</a>
         <h3><a href="/${platform}"><img src="/icon.png" alt="App Store Icon"/>Homebrew App Store (${platform})</a></h3>
         <div class="app-info">
         <div class="app-icon">
@@ -300,7 +180,7 @@ const buildNoscriptHtml = (platform, package) => {
             <ul class="info">
             <table>
                 <tr><tr><td>Version</td><td>${package.version}</td></tr>
-                <tr><td>Zip size</td><td>${numFormat(package.filesize)} MiB</td></tr>
+                <tr><td>Zip size</td><td>${numFormat(package.filesize)} KiB</td></tr>
                 <tr><td>License</td><td>${package.license}</td></tr>
                 <tr><td>Updated</td><td>${package.updated}</td></tr>
                 <tr><td>Downloads</td><td>${numFormat(package.app_dls)}</td></tr>
