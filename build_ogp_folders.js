@@ -43,7 +43,7 @@ const footer = `<footer>
 </footer>`;
 
 const buildNoscriptHome = () => {
-    return `<yesscript>
+    return `<noscript>
     <title>Homebrew App Store</title>
     ${getCssEmbed()}
     <div class="nojs-page">
@@ -112,7 +112,7 @@ const buildNoscriptIndex = (platform, packages) => {
     };
 
     // same as below, but for the main listing of the repo
-    return `<yesscript>
+    return `<noscript>
     <title>Homebrew App Store (${platform})</title>
     ${getCssEmbed(platform)}
     <div class="nojs-page">
@@ -165,7 +165,7 @@ const buildNoscriptHtml = (platform, package) => {
 
     const parseNewlines = paragraph => paragraph.replace(/\\n/g, "<br/>")
 
-    return `<yesscript>
+    return `<noscript>
     <title>${package.title} by ${package.author} - Homebrew App Store (${platform})</title>
     ${getCssEmbed(platform)}
     <div class="nojs-page">
