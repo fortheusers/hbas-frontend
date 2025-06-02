@@ -313,9 +313,10 @@ class InfoPage extends Component {
           {t("repositoryExplanation")}
         </p><p className="pNormalWidth">
           <Trans i18nKey="changeNotification">
-            <code>#hbas-updates</code>
+            <a href="https://bsky.app/profile/hb-app.store">Bluesky</a>
             <a href="https://discord.gg/F2PKpEj">Discord</a>
             <a href="https://github.com/fortheusers/libget/wiki/Using-repogen.py">repogen.py</a>
+            <a href="https://github.com/fortheusers/spinarak">spinarak</a>
             <code>repo.json</code>
           </Trans>
         </p>
@@ -474,6 +475,7 @@ class InfoPage extends Component {
             <a href="https://github.com/fortheusers/libget/wiki/Packages-and-Package-Structure">an easy way</a>
             <code>pkgbuild.json</code>
             <a href="https://gitlab.com/4TU/spinarak">Spinarak</a>
+            <a href="https://github.com/fortheusers/switch-hbas-repo">switch-hbas-repo</a>
           </Trans>
         </p>
         
@@ -487,6 +489,9 @@ class InfoPage extends Component {
         </p>
         <p className="pNormalWidth">
           <Trans i18nKey="readyToSubmit" /> <a href="https://submit.fortheusers.org">submit.fortheusers.org</a>.&nbsp;
+          <Trans i18nKey="metadataRepo">
+            <a href="https://github.com/fortheusers/switch-hbas-repo">metadata repo</a>
+          </Trans>&nbsp;
           <Trans i18nKey="specificInfo">
             <a href="/api-info"><Trans i18nKey="apiPageLink" />API Page</a>
           </Trans>

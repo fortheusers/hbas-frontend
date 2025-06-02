@@ -119,6 +119,8 @@ class Mobile extends Component {
           <option value="/about">About</option>
           <option value="https://discord.gg/F2PKpEj">Discord</option>
           <option value="/api-info">API</option>
+          <option value="https://bsky.app/profile/hb-app.store">Bluesky</option>
+          <option value="https://bsky.app/profile/hb-app.store/rss">RSS</option>
           <option value="/submit-or-request">Submit</option>
           <option value="/request-takedown">Request Takedown</option>
         </select>

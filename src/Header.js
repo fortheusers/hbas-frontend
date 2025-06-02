@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
-// import { faCube, faPlus, faServer, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBluesky, faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faRss } from '@fortawesome/free-solid-svg-icons'
 import './MainDisplay.css';
 import icon from './img/icon.png';
 import { getParams, platformIcons } from './Utils';
@@ -55,7 +55,7 @@ class Header extends Component {
     return (
       <div className="nav">
         <ul>
-          <li id="title" className="title">
+          <li id="title" className="title" style={hidePlatformSubtitle ? { marginTop: 2} : {}}>
             {/* <FontAwesomeIcon icon={faCube} /> */}
             <a id="title" href="/">
               <img id="store_icon" src={icon} alt="AppStore Logo" style={{ width: 16 }} />
@@ -65,8 +65,10 @@ class Header extends Component {
           </li>
 
           {/* Desktop Links */}
-          <li id="discord"><a href="https://discord.gg/F2PKpEj">Discord</a></li>
-          <li id="account"><a href="https://github.com/fortheusers">Github</a></li>
+          <li id="rss"><a href="https://bsky.app/profile/hb-app.store/rss" target="_blank"><FontAwesomeIcon icon={faRss} /></a></li>
+          <li id="bluesky"><a href="https://bsky.app/profile/hb-app.store" target="_blank"><FontAwesomeIcon icon={faBluesky} /></a></li>
+          <li id="discord"><a href="https://discord.gg/F2PKpEj" target="_blank"><FontAwesomeIcon icon={faDiscord} /></a></li>
+          <li id="account"><a href="https://github.com/fortheusers" target="_blank"><FontAwesomeIcon icon={faGithub} /></a></li>
           <li id="dns"><a href="/api-info">API</a></li>
           <li id="submit"><a href="/submit-or-request">Submit</a></li>
           <li id="ftu"><a href="/about">About</a></li>

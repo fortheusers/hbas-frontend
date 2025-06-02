@@ -108,6 +108,7 @@
     "submitOrRequestAnApp": "Submit or Request an App",
     "packagesDistributed": "The packages distributed in our repositories are sent in either by homebrew developers themselves or by volunteer users in the community. Please check the guidelines on this page before submitting an app for review.",
     "readyToSubmit": "When you are ready to submit, the actual form is located at",
+    "metadataRepo": "On Switch, we also accept PRs to our <0>pkgbuild metadata repo</0> on Github. Please feel free to submit or update app info there as well.",
     "specificInfo": "For specific info on how these repos are maintained, see the <0>API</0> page.",
     "pleaseNote": "Please Note:",
     "termAppUsed": "The term \"app\" is being used for simplicity here, but a package can consist of any relevant files, such as games, mods, or configs. (Or even public domain <0>eBooks</0>).",
@@ -166,7 +167,7 @@
     "websiteDescription": "This website (<0>hb-app.store</0>) is a web frontend to access the packages in our repositories. Both the <1>console app</1> and <2>this site</2> are open-source clients that access these repos using our API.",
     "repositoriesDescription": "The two main repositories used by this project are:",
     "repositoryExplanation": "A repository is a JSON file that contains a list of all the packages in the repository, along with their metadata. The repo content is updated by our build script whenever 4TU staff adds or updates the contents of a package.",
-    "changeNotification": "When changes are made to the repos, a message is posted in <0>#hbas-updates</0> on our <1>Discord</1>. The build script used to accomplish this is <2>libget's repogen.py</2>, which turns a locally maintained directory of files for each package into compressed zip files and a <3>repo.json</3> file.",
+    "changeNotification": "When changes are made to the repos, a message is posted to <0>@hb-app.store on Bluesky</0> and to <1>#hbas-updates on Discord</1>. The build script used to accomplish this is a combination of <2>libget's repogen.py</2>, and <3>spinarak</3> both of which turn a locally maintained directory of files for each package into compressed zip files and a <4>repo.json</4> file.",
     "commandUsage": "The below commands use <0>curl</0> and <1>jq</1> to parse the JSON output. If you don't have these installed, you can any HTTP client and JSON parser of your choice.",
     "targetRepo": "Target Repo for Examples:",
     "listingPackages": "Listing all packages",
@@ -192,5 +193,5 @@
     "screenshotsDownload": "Then we can use a bash expansion to download all the screenshots at once:",
     "questions": "If you have any questions about these responses or the usage of this API, please contact us on <0>Discord</0>. If you are using our repos for a project, we would love to hear about it!",
     "additionalInfo": "For additional information on the structure of the packages, see the <0>libget wiki</0>. The info there lines up with the above, but it also details <1>Manifests</1>, which are used by some packages to instruct the console app on how to handle certain files within a package during an update.",
-    "libgetWiki": "The libget wiki also <0>goes over an easy way</0> to generate and maintain your a repo, using <1>pkgbuild.json</1> files and <2>Spinarak</2>. This can be convenient for self-hosting your own packages and managing updates directly to users. However, this use case is uncommon and most hb-appstore users don't add and track external repos at this time."
+    "libgetWiki": "The libget wiki also <0>goes over an easy way</0> to generate and maintain your a repo, using <1>pkgbuild.json</1> files and <2>Spinarak</2>. This can be convenient for self-hosting your own packages and managing updates directly to users. For an example of a spinarak-managed repo, see <3>switch-hbas-repo</3> on Github."
 }
