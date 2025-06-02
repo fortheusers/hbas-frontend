@@ -65,10 +65,10 @@ class Header extends Component {
           </li>
 
           {/* Desktop Links */}
-          <li id="rss"><a href="https://bsky.app/profile/hb-app.store/rss" target="_blank"><FontAwesomeIcon icon={faRss} /></a></li>
-          <li id="bluesky"><a href="https://bsky.app/profile/hb-app.store" target="_blank"><FontAwesomeIcon icon={faBluesky} /></a></li>
-          <li id="discord"><a href="https://discord.gg/F2PKpEj" target="_blank"><FontAwesomeIcon icon={faDiscord} /></a></li>
-          <li id="account"><a href="https://github.com/fortheusers" target="_blank"><FontAwesomeIcon icon={faGithub} /></a></li>
+          <li id="rss"><a href="https://bsky.app/profile/hb-app.store/rss" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faRss} /></a></li>
+          <li id="bluesky"><a href="https://bsky.app/profile/hb-app.store" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faBluesky} /></a></li>
+          <li id="discord"><a href="https://discord.gg/F2PKpEj" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faDiscord} /></a></li>
+          <li id="account"><a href="https://github.com/fortheusers" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faGithub} /></a></li>
           <li id="dns"><a href="/api-info">API</a></li>
           <li id="submit"><a href="/submit-or-request">Submit</a></li>
           <li id="ftu"><a href="/about">About</a></li>
