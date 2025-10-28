@@ -125,7 +125,7 @@ class AppDetails extends Component {
           const imgURL = `${repo}/packages/${name}/screen${screenIdx + 1}.png`;
           return (<span>
             <img onClick={() => this.onOpenModal(imgURL)} className="screen_thumb" src={imgURL} alt="Screen shot" />
-            <Modal open={open === imgURL} onClose={this.onCloseModal}>
+            <Modal open={open === imgURL} onClose={this.onCloseModal} center>
               <img onClick={this.onCloseModal} className="modal_screen" src={imgURL} alt="Screen shot" />
             </Modal>
           </span>);
@@ -173,7 +173,7 @@ class AppDetails extends Component {
     const bannerContainer = (
       // fallback to wider banner style (used by app)
       <div id="bannerWrapper">
-        <img className="banner" crossorigin="anonymous" src={`${repo}/packages/${name}/screen.png`} alt="banner"
+        <img className="banner" crossOrigin="anonymous" src={`${repo}/packages/${name}/screen.png`} alt="banner"
           onError={e => {
             const img = e.target;
             img.style.margin = "0 auto";
@@ -190,7 +190,7 @@ class AppDetails extends Component {
 
     const shaBlock = (this.pkg.sha256) ? (
       <div>
-        <div><span>sha256</span><input className="shatext" defaultValue={this.pkg.sha256} type="text" readonly></input></div>
+        <div><span>sha256</span><input className="shatext" defaultValue={this.pkg.sha256} type="text" readOnly></input></div>
       </div>
     ) : null;
 
@@ -247,7 +247,7 @@ class AppDetails extends Component {
               <br />
               <div className="sideHeader">{t("downloadStats")}</div>
               <div><span>{t("count")}</span> {app_dls === 0 && isWithinOneWeek(formattedUpdate) ? "TBD" : formatWithCommas(app_dls)}</div>
-              <div><span>md5</span><input className="md5text" defaultValue={md5} type="text" readonly></input></div>
+              <div><span>md5</span><input className="md5text" defaultValue={md5} type="text" readOnly></input></div>
               {shaBlock}
             </div>
             {dlButton}
