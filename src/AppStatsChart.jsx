@@ -16,6 +16,7 @@ import {
 } from 'react-day-picker/moment';
 
 import { useTranslation } from 'react-i18next';
+import queryString from 'query-string';
 
 var colors = [ "#4363d8 ", "#e6194B ", "#3cb44b ", "#ffe119 ", "#f58231 ", "#911eb4 ", "#42d4f4 ", "#f032e6" ];
 
@@ -74,7 +75,6 @@ const AppStatsChart = () => {
       }), {});
 
       // try to load comma separated apps from query string
-      const queryString = require('query-string');
       const parsed = queryString.parse(window.location.search);
       const { apps, time = "" } = parsed;
 
@@ -153,7 +153,7 @@ const AppStatsChart = () => {
         for (let x=0; x<statsByYear[year][month].length; x++) {
           const count = statsByYear[year][month][x];
           if (count > 0) {
-            const key = `${x+1 < 10}${x+1}/${month}/${year}`;
+            const key = `${x+1 < 10 ? '0' : ''}${x+1}/${month}/${year}`;
             curStats[key] = count;
           }
         }
@@ -161,7 +161,7 @@ const AppStatsChart = () => {
     }
     return Object.keys(curStats).map(day => {
       const time = moment(day, "DD/MMM/YYYY").valueOf();
-      if (!useAuto && (time < start || time > end)) return null;
+      if (!useAuto && (time < start.getTime() || time > end.getTime())) return null;
 
       return {
         value: curStats[day],
@@ -185,7 +185,7 @@ const AppStatsChart = () => {
     (prev, curKey) => ({
       ...prev,
       [curKey]: dataByTime[time][curKey]
-    }), { time }
+    }), { time: +time }
   ))
   .sort((a, b) => a.time - b.time );
 
@@ -213,7 +213,7 @@ const AppStatsChart = () => {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis
         dataKey = 'time'
-        domain = {useAuto ? ['auto', 'auto' ] : [ start.getTime(), end.getTime() ]}
+        domain = {useAuto ? ['auto', 'auto'] : [ start.getTime(), end.getTime() ]}
         name = 'Date'
         tickFormatter = {(unixTime) => moment(unixTime).format('MMM DD YYYY')}
         type = 'number'
@@ -314,7 +314,11 @@ const AppStatsChart = () => {
       <DayPickerInput
         placeholder="Start Day"
         value={start}
-        onDayChange={day => day && setState({ ...state, start: day })}
+        onDayChange={day => {
+          if (day && day instanceof Date && !isNaN(day.getTime())) {
+            setState({ ...state, start: day });
+          }
+        }}
         formatDate={formatDate}
         parseDate={parseDate}
       />
@@ -322,7 +326,11 @@ const AppStatsChart = () => {
       <DayPickerInput
         placeholder="End Day"
         value={end}
-        onDayChange={day => day && setState(...state, { end: day })}
+        onDayChange={day => {
+          if (day && day instanceof Date && !isNaN(day.getTime())) {
+            setState({ ...state, end: day });
+          }
+        }}
         formatDate={formatDate}
         parseDate={parseDate}
       />

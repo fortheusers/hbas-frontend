@@ -7,8 +7,12 @@ export const plats = {
     "all": "Both",
 };
 
-const PlatformPicker = ({path = ""}) => {
-    const platformSelect = (Object.keys(plats)).map(plat => {
+const PlatformPicker = ({path = "", isQuickStore = false}) => {
+    let filteredPlats = plats;
+    if (isQuickStore) {
+        delete filteredPlats["all"]; // quickstore isn't cross platform
+    }
+    const platformSelect = (Object.keys(filteredPlats)).map(plat => {
         return (
             <a href={`/${plat}${path}`} className="platChooser">
                 <div>

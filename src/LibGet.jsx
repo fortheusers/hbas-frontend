@@ -1,5 +1,5 @@
 import JSZipUtils from 'jszip-utils';
-import { saveAs } from 'filesaver.js';
+import { saveAs } from 'file-saver';
 
 const repos = [
     {

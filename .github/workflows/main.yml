@@ -11,7 +11,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    container: node:18.9.0
+    container: node:20-alpine
     steps:
       - uses: actions/checkout@v2
       - name: Cache node modules
@@ -22,9 +22,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build
-        run: CI=true npm run build
+        run: npm run build
       - name: Create OGP Metadata
         run: node ./build_ogp_folders.js
       - name: Deploy to BunnyCDN

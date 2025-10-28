@@ -11,8 +11,8 @@ Localization files go in `src/locales`, and see the [en.json](https://github.com
 The list of active repos are defined in `src/LibGet.js`.
 
 ```
-yarn install
-yarn start
+npm install
+npm start
 ```
 
 ## License

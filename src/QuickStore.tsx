@@ -86,7 +86,7 @@ const QuickStore = (props: { platform: Platform }) => {
         return (<div className="quickstore-container">
             <Mobile />
             { headerInfo }
-            <PlatformPicker path="/quickstore" />
+            <PlatformPicker path="/quickstore" isQuickStore />
             <Spacer />
         </div>);
     }
