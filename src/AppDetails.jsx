@@ -198,7 +198,7 @@ class AppDetails extends Component {
       <div>
         <a
           className="smallLinkButton"
-          href={`https://github.com/fortheusers/switch-hbas-repo/tree/main/packages/${this.pkg.name}/pkgbuild.json`}
+          href={`https://github.com/fortheusers/${platform}-hbas-repo/tree/main/packages/${this.pkg.name}/pkgbuild.json`}
           target="_blank"
           rel="noopener noreferrer"
         >
