@@ -207,6 +207,19 @@ class AppDetails extends Component {
       </div>
     ) : null;
 
+    const viewPackageHistory = (this.pkg.sha256) ? (
+      <div>
+        <a
+          className="smallLinkButton"
+          href={`https://github.com/fortheusers/${platform}-hbas-repo/commits/main/packages/${this.pkg.name}/pkgbuild.json`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Package History on Github
+        </a>
+      </div>
+    ) : null;
+
     const isWithinOneWeek = timestamp => {
       // check if the given timestamp is within the last 7 days
       const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
@@ -273,6 +286,7 @@ class AppDetails extends Component {
                 ): showFilesButton }
             </div>
             {editOnGHButton}
+            {viewPackageHistory}
             <Spacer />
           </div>
         </div>

@@ -108,7 +108,7 @@
     "submitOrRequestAnApp": "Submit or Request an App",
     "packagesDistributed": "The packages distributed in our repositories are sent in either by homebrew developers themselves or by volunteer users in the community. Please check the guidelines on this page before submitting an app for review.",
     "readyToSubmit": "When you are ready to submit, the actual form is located at",
-    "metadataRepo": "On Switch, we also accept PRs to our <0>pkgbuild metadata repo</0> on Github. Please feel free to submit or update app info there as well.",
+    "metadataRepo": "If you're a developer, we also accept PRs to our <0>pkgbuild metadata repo</0> on Github. Please feel free to submit or update app info there as well.",
     "specificInfo": "For specific info on how these repos are maintained, see the <0>API</0> page.",
     "pleaseNote": "Please Note:",
     "termAppUsed": "The term \"app\" is being used for simplicity here, but a package can consist of any relevant files, such as games, mods, or configs. (Or even public domain <0>eBooks</0>).",
