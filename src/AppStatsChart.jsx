@@ -351,6 +351,10 @@ const AppStatsChart = () => {
       } />
       <label for="alltime">{t("allTime")}</label>
     </div>
+    <div style={{ marginTop: 60, maxWidth: 600 }}>
+      <p>These stats are generated from our repos by scanning CDN logs using <a href="https://github.com/fortheusers/counting-book" target="_blank" rel="noopener noreferrer">counting-book</a>. They don't include Github release download counts, and only reflect the approximate outgoing traffic from our end.</p>
+      <p>If you're a developer, to get a more accurate idea of your app's userbase, we suggest cross referencing these stats against a <a href="https://tooomm.github.io/github-release-stats/ " target="_blank" rel="noopener noreferrer">Github release stats</a> checker.</p>
+    </div>
   </div>;
 
   return (
