@@ -11,7 +11,7 @@
     display: none;
 }
 
-.quickstore-container > p {
+.quickstore-container>p {
     text-align: left;
     margin-left: 40px;
     margin-right: 40px;
@@ -45,13 +45,13 @@
 .quickItem img {
     height: 80px;
     width: 80px;
-    object-fit: cover; 
+    object-fit: cover;
     float: left;
     /* vertical-align: middle; */
 
 }
 
-.quickItem > div {
+.quickItem>div {
     margin-left: 20px;
     margin-top: 5px;
 }
@@ -81,13 +81,13 @@
     content: "";
     clear: both;
     display: table;
-  }
+}
 
 .main h2 {
     margin-left: 50px;
     margin-right: 50px;
     font-weight: 300;
-    background-color: #eee;
+    /* background-color: #eee; */
     padding: 10px;
     border: 1px solid #ccc;
     /* height: 10px; */
@@ -140,24 +140,28 @@ button[disabled] {
 }
 
 .progress {
-    width:20%;
+    width: 20%;
     min-width: 275px;
 }
 
 .progress .progressBar {
-  color: white;
-  margin-left: 40px;
-  font-size: 20px;
-  border-radius: 7px;   
-  width: calc(113px * 4); 
-  background-color: #555;
-  background-image: repeating-linear-gradient(60deg, transparent, transparent 20px, darkred 20px, darkred 40px);
-  animation: slide 2s linear infinite;
-  will-change: background-position;
+    color: white;
+    margin-left: 40px;
+    font-size: 20px;
+    border-radius: 7px;
+    width: calc(113px * 4);
+    background-color: #555;
+    background-image: repeating-linear-gradient(60deg, transparent, transparent 20px, darkred 20px, darkred 40px);
+    animation: slide 2s linear infinite;
+    will-change: background-position;
 }
-@keyframes slide {
-  from { background-position-x: 0; }
-    to { background-position-x: 113px;}
-  }
 
-  
+@keyframes slide {
+    from {
+        background-position-x: 0;
+    }
+
+    to {
+        background-position-x: 113px;
+    }
+}

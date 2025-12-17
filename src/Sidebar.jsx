@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faFastForward, faCubes, faChartArea, faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase, faSearch, faThLarge, faPlay, faGamepad, faCog, faPuzzlePiece, faSwatchbook, faFastForward, faCubes, faChartArea, faCoffee, faTrophy } from '@fortawesome/free-solid-svg-icons'
 import { getParams } from './Utils';
 import ToolTip from 'react-portal-tooltip';
 import './MainDisplay';
@@ -18,6 +18,11 @@ const categories = [
     name: "allApps",
     icon: faThLarge,
     hover: "allApps"
+  }, {
+    short: "_app-of-the-year",
+    name: "Top Apps",
+    icon: faTrophy,
+    hover: "appOfTheYearFlavor"
   }, {
     short: "_stats",
     name: "statistics",
@@ -115,6 +120,7 @@ class Sidebar extends Component {
     if (
       window.location.pathname.endsWith("/search")
       || window.location.pathname.endsWith("/stats")
+      || window.location.pathname.endsWith("/app-of-the-year")
       || window.location.pathname.endsWith("/quickstore")
     ) {
       const splitPart = window.location.pathname.split("/").pop();
@@ -140,7 +146,7 @@ class Sidebar extends Component {
         {
           categories.map(cat => {
             let target = cat.short !== "_all" ? `${platInfo}/category/${cat.name.toLowerCase()}` : `${platInfo || "/all"}`;
-            target = (cat.short === "_search" || cat.short === "_stats" || cat.short === "_quickstore") ? `${platInfo}/${cat.short.substring(1)}` : target;
+            target = (cat.short === "_search" || cat.short === "_stats" || cat.short === "_app-of-the-year" || cat.short === "_quickstore") ? `${platInfo}/${cat.short.substring(1)}` : target;
 
             // hide the category if it doesn't apply to the current platform
             if (this.platform && this.platform !== "all" && cat.platform && cat.platform !== this.platform) {

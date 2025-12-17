@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AppList from './AppList';
 import AppDetails from './AppDetails';
 import Sidebar from './Sidebar';
@@ -7,6 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 import InfoPage from './InfoPage';
 import AppStatsChart from './AppStatsChart';
+import AppOfTheYear from './AppOfTheYear';
 import QuickStore from './QuickStore.tsx';
 import './MainDisplay.css';
 
@@ -17,15 +18,15 @@ class MainDisplay extends Component {
 
   render() {
     if (this.state.hasError) {
-      return <h2 style={{padding: 10}}>
+      return <h2 style={{ padding: 10 }}>
         An error occurred, please check the console for more details.
-        { this.state.errorContent == null ? "" : <pre style={{
+        {this.state.errorContent == null ? "" : <pre style={{
           whiteSpace: "pre-wrap",
           color: "rgba(0,0,0,0.4)",
         }}>
           {this.state.errorContent.message}
           {this.state.errorContent.trace}
-        </pre> }
+        </pre>}
       </h2>;
     }
 
@@ -37,11 +38,12 @@ class MainDisplay extends Component {
           <Route path='/:platform/quickstore' component={Header} />
           <Route path='/:platform/search' component={Header} />
           <Route path='/:platform/:package' component={Header}></Route>
-          
+
           <Route path='/search' component={Header} />
           <Route path='/stats' component={Header} />
+          <Route path='/app-of-the-year' component={Header} />
           <Route path='/quickstore' component={Header} />
-          
+
           <Route path='/about' component={Header} />
           <Route path='/api-info' component={Header} />
           <Route path='/submit-or-request' component={Header} />
@@ -60,6 +62,9 @@ class MainDisplay extends Component {
 
             <Route path='/stats' component={Sidebar} />
             <Route path='/:platform/stats' component={Sidebar} />
+
+            <Route path='/app-of-the-year' component={Sidebar} />
+            <Route path='/:platform/app-of-the-year' component={Sidebar} />
 
             <Route path='/quickstore' component={Sidebar} />
             <Route path='/:platform/quickstore' component={Sidebar} />
@@ -80,9 +85,12 @@ class MainDisplay extends Component {
             <Route path='/:platform/stats' component={AppStatsChart} />
             <Route path='/stats' component={AppStatsChart} />
 
+            <Route path='/:platform/app-of-the-year' component={AppOfTheYear} />
+            <Route path='/app-of-the-year' component={AppOfTheYear} />
+
             <Route path='/quickstore' component={QuickStore} />
             <Route path='/:platform/quickstore' component={QuickStore} />
-            
+
             <Route path='/:platform/category/:category' component={AppList} />
             <Route path='/category/:category' component={AppList} />
 
