@@ -766,6 +766,18 @@ details summary {
   flex-direction: row;
 }
 
+.attention {
+  margin: 20px;
+  background-color: var(--footerBackgroundColor);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.attention svg {
+  float: left;
+  margin-right: 10px;
+}
+
 /*Mobile Display and Landscape display*/
 @media only screen and (max-width: 800px) {
 

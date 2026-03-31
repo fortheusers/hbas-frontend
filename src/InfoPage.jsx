@@ -3,7 +3,7 @@ import { Trans } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
 
 import { Spacer, Mobile } from './Utils';
-import {fetchCredits, fetchPackages} from './AppList';
+import { fetchCredits, fetchPackages } from './AppList';
 import twitterImg from './img/twitter.png';
 import githubImg from './img/github.png';
 import gitlabImg from './img/gitlab.png';
@@ -17,11 +17,14 @@ import switchImg from './img/switch.png';
 import wiiuImg from './img/wiiu.png';
 import dropDownCarat from './img/dropDownCarat.png';
 
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const WIIU_CDN = "https://wiiu.cdn.fortheusers.org/repo.json";
 const SWITCH_CDN = "https://switch.cdn.fortheusers.org/repo.json";
 
 class InfoPage extends Component {
-  
+
   state = {
     allPackages: [],
     credits: [],
@@ -67,7 +70,7 @@ class InfoPage extends Component {
       let hbasPageMap = {}; // lowercased author name -> array of hbas page urls
 
       let githubUrlToAuthorsMap = {}; // github urls -> array of lowercased author names
-                                      // used to prevent author GH pages from being misattributed
+      // used to prevent author GH pages from being misattributed
       for (let pkg of this.state.allPackages) {
         if (pkg.author) {
           let authorLower = pkg.author.toLowerCase().replaceAll("_", "-");
@@ -232,11 +235,11 @@ class InfoPage extends Component {
             <a href="https://dribbble.com/shots/10302424-Nintendo-Controllers">Art Credit</a>
           </Trans>
         </p>
-        <p style={{marginTop: -40}} className="pNormalWidth creditsContainer" dangerouslySetInnerHTML={{__html: hbasCreditsHTML}}>
+        <p style={{ marginTop: -40 }} className="pNormalWidth creditsContainer" dangerouslySetInnerHTML={{ __html: hbasCreditsHTML }}>
         </p>
         <h3>App Authors</h3>
         <p className="pNormalWidth">
-          <Trans i18nKey="appAuthorsDescription" /><br/><br/>
+          <Trans i18nKey="appAuthorsDescription" /><br /><br />
           {authorList}
         </p>
 
@@ -246,7 +249,7 @@ class InfoPage extends Component {
         </p>
         <p className="pNormalWidth">
           <Trans i18nKey="donationsDescription2" />
-          <br/><br/>
+          <br /><br />
           <table className="donationList">
             <tr>
               <td><a href="https://donate.wikimedia.org/">Wikipedia / Wikimedia</a></td>
@@ -273,7 +276,7 @@ class InfoPage extends Component {
             <a href="https://discord.gg/F2PKpEj">Discord Link</a>
           </Trans>
         </p>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br />
       </div>;
     } else if (location === "/api-info") {
       const { curRepo, curPackage } = this.state;
@@ -293,7 +296,7 @@ class InfoPage extends Component {
       const screensCount = (packages.find(pkg => pkg.name === `${curPackage}`) || {}).screens || 0;
       const screensArray = [...Array(screensCount).keys()]
 
-      pageText = <div style={{maxWidth: "100%"}}>
+      pageText = <div style={{ maxWidth: "100%" }}>
         <h1><Trans i18nKey="apiInfo" /></h1>
         <p className="pNormalWidth">
           <Trans i18nKey="websiteDescription">
@@ -305,8 +308,8 @@ class InfoPage extends Component {
         <p className="pNormalWidth">
           {t("repositoriesDescription")}
           <ul>
-            <li><img src={wiiuImg} style={{width: 24, verticalAlign: "middle", marginRight: 10 }} alt="Wii U" /><a href="https://wiiu.cdn.fortheusers.org/repo.json">wiiu.cdn.fortheusers.org/repo.json</a></li>
-            <li><img src={switchImg} style={{width: 24, verticalAlign: "middle", marginRight: 10 }} alt="Switch" /><a href="https://switch.cdn.fortheusers.org/repo.json">switch.cdn.fortheusers.org/repo.json</a></li>
+            <li><img src={wiiuImg} style={{ width: 24, verticalAlign: "middle", marginRight: 10 }} alt="Wii U" /><a href="https://wiiu.cdn.fortheusers.org/repo.json">wiiu.cdn.fortheusers.org/repo.json</a></li>
+            <li><img src={switchImg} style={{ width: 24, verticalAlign: "middle", marginRight: 10 }} alt="Switch" /><a href="https://switch.cdn.fortheusers.org/repo.json">switch.cdn.fortheusers.org/repo.json</a></li>
           </ul>
         </p>
         <p className="pNormalWidth">
@@ -328,8 +331,8 @@ class InfoPage extends Component {
         </p>
         {t("targetRepo")}&nbsp;&nbsp;
         <select
-          onChange={event => this.setState({curRepo: event.target.value})}
-          style={{backgroundImage: `url(${dropDownCarat})`, color: "unset"}}>
+          onChange={event => this.setState({ curRepo: event.target.value })}
+          style={{ backgroundImage: `url(${dropDownCarat})`, color: "unset" }}>
           <option value={WIIU_CDN}>{t("wiiu")}</option>
           <option value={SWITCH_CDN}>{t("switch")}</option>
         </select>
@@ -377,11 +380,11 @@ class InfoPage extends Component {
         </details>
         {t("targetPackage")}&nbsp;&nbsp;
         <select
-          onChange={event => this.setState({curPackage: event.target.value})}
-          style={{backgroundImage: `url(${dropDownCarat})`, color: "unset"}}
+          onChange={event => this.setState({ curPackage: event.target.value })}
+          style={{ backgroundImage: `url(${dropDownCarat})`, color: "unset" }}
           id="packageSelect"
-          >
-            {[...packages].sort((a, b) => a.title.localeCompare(b.title)).map(pkg => <option value={pkg.name}>{pkg.title}</option>)}
+        >
+          {[...packages].sort((a, b) => a.title.localeCompare(b.title)).map(pkg => <option value={pkg.name}>{pkg.title}</option>)}
         </select>
         <details className="pNormalWidth">
           <summary><h3>{t("singlePackageInfo")}</h3></summary>
@@ -390,7 +393,7 @@ class InfoPage extends Component {
             <code>name</code>
             <code>title</code>
           </Trans>
-          <br/><br/>
+          <br /><br />
           <Trans i18nKey="packageSearch">
             <code>name</code>
           </Trans>
@@ -408,7 +411,7 @@ class InfoPage extends Component {
             <code>name</code>
             <code>/zips/<strong>[name]</strong>.zip</code>
           </Trans>
-          <br/><br/>
+          <br /><br />
           {t("visitUrlNotice")}
           <pre class="promptSnippet">
             curl -O {repoBase}<strong>/zips/{curPackage}.zip</strong>
@@ -416,7 +419,7 @@ class InfoPage extends Component {
           {t("response")} <Trans i18nKey="downloadResponse">
             <a href={`${repoBase}/zips/${curPackage}.zip`}>{curPackage}.zip</a>
           </Trans>
-          <br/><br/>
+          <br /><br />
         </details>
         <details className="pNormalWidth">
           <summary><h3>{t("packageImageAssets")}</h3></summary>
@@ -426,31 +429,31 @@ class InfoPage extends Component {
           <pre class="promptSnippet">
             curl -O {repoBase}<strong>/packages/{curPackage}/icon.png</strong>
           </pre>
-          {t("response")}<br/>
+          {t("response")}<br />
           <a href={`${repoBase}/packages/${curPackage}/icon.png`}><img alt="example icon" src={`${repoBase}/packages/${curPackage}/icon.png`} /></a>
-          <br/><br/>
+          <br /><br />
           <Trans i18nKey="bannerInfo">
             <code>screen.png</code>
           </Trans>
-          <br/>
+          <br />
           <pre class="promptSnippet">
             curl -O {repoBase}<strong>/packages/{curPackage}/screen.png</strong>
           </pre>
-          {t("response")}<br/>
-          <a href={`${repoBase}/packages/${curPackage}/screen.png`}><img style={{maxHeight: 200}} alt="example banner" width="100%" src={`${repoBase}/packages/${curPackage}/screen.png`} /></a>
-          <br/><br/>
-          </details>
+          {t("response")}<br />
+          <a href={`${repoBase}/packages/${curPackage}/screen.png`}><img style={{ maxHeight: 200 }} alt="example banner" width="100%" src={`${repoBase}/packages/${curPackage}/screen.png`} /></a>
+          <br /><br />
+        </details>
         <details className="pNormalWidth">
           <summary><h3>{t("downloadingScreenshots")}</h3></summary>
           <Trans i18nKey="screenshotsInfo">
             <code>screens</code>
           </Trans>
           <pre class="promptSnippet">
-          export SCREENS_COUNT=$(curl {curRepo} | jq '.packages | map(select(.name == "{curPackage}"))[0].screens')
+            export SCREENS_COUNT=$(curl {curRepo} | jq '.packages | map(select(.name == "{curPackage}"))[0].screens')
           </pre>
-          {t("screenshotsDownload")}<br/>
+          {t("screenshotsDownload")}<br />
           <pre class="promptSnippet">
-          curl --remote-name-all {repoBase}<strong>/packages/{curPackage}/screen{`{1..$SCREENS_COUNT}`}.png</strong>
+            curl --remote-name-all {repoBase}<strong>/packages/{curPackage}/screen{`{1..$SCREENS_COUNT}`}.png</strong>
           </pre>
           {t("response")} {
             screensArray.map(screenIdx => {
@@ -475,11 +478,12 @@ class InfoPage extends Component {
             <a href="https://github.com/fortheusers/libget/wiki/Packages-and-Package-Structure">an easy way</a>
             <code>pkgbuild.json</code>
             <a href="https://gitlab.com/4TU/spinarak">Spinarak</a>
+            <a href="https://github.com/fortheusers/wiiu-hbas-repo">wiiu-hbas-repo</a>
             <a href="https://github.com/fortheusers/switch-hbas-repo">switch-hbas-repo</a>
           </Trans>
         </p>
-        
-        <br/><br/><br/><br/><br/><br/><br/><br/>
+
+        <br /><br /><br /><br /><br /><br /><br /><br />
       </div>;
     } else if (location === "/submit-or-request") {
       pageText = <div>
@@ -489,12 +493,16 @@ class InfoPage extends Component {
         </p>
         <p className="pNormalWidth">
           <Trans i18nKey="readyToSubmit" /> <a href="https://submit.fortheusers.org">submit.fortheusers.org</a>.&nbsp;
-          <Trans i18nKey="metadataRepo">
-            <a href="https://github.com/fortheusers/switch-hbas-repo">metadata repo</a>
-          </Trans>&nbsp;
           <Trans i18nKey="specificInfo">
             <a href="/api-info"><Trans i18nKey="apiPageLink" />API Page</a>
           </Trans>
+          <div className="attention">
+            <FontAwesomeIcon icon={faExclamationTriangle} />
+            <Trans i18nKey="metadataRepo">
+              <a href="https://github.com/fortheusers/wiiu-hbas-repo">wiiu-hbas-repo</a>
+              <a href="https://github.com/fortheusers/switch-hbas-repo">switch-hbas-repo</a>
+            </Trans>
+          </div>
         </p>
         <p className="pNormalWidth">
           <strong><Trans i18nKey="pleaseNote" /></strong> <Trans i18nKey="termAppUsed"><a href="/switch/ebooks"><Trans i18nKey="ebooksLink" />eBooks</a></Trans>
@@ -538,36 +546,36 @@ class InfoPage extends Component {
         <p className="pNormalWidth">
           <strong><Trans i18nKey="thankYouForYourInterest" /></strong>
         </p>
-        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <br /><br /><br /><br /><br /><br /><br /><br />
       </div>;
     } else if (location === "/dmca-request" || location === "/request-takedown") {
       const allPackages = this.state.allPackages;
 
-      pageText = <div style={{maxWidth: "100%"}}>
+      pageText = <div style={{ maxWidth: "100%" }}>
         <h1><Trans>removalDMCARequest</Trans></h1>
         <p className="pNormalWidth"><Trans>p1</Trans></p>
         <p className="pNormalWidth"><Trans>p2</Trans></p>
-        <br/>
+        <br />
         <form action="https://formspree.io/f/mdoqoezp" method="POST">
           <label>
             <p><Trans>packageName</Trans></p>
-            <select name="package" style={{maxWidth: "100%"}}>
+            <select name="package" style={{ maxWidth: "100%" }}>
               <option>{t("selectPackage")}</option>
               {allPackages.map(pkg => (<option value={pkg.name}>{pkg.title} - ({pkg.platform}/{pkg.name})</option>))}
               <option value="other">{t("otherMultipleExplained")}</option>
             </select>
           </label>
-          <br/><br/>
+          <br /><br />
           <label name="email">
             <p><Trans>contactEmail</Trans></p>
-            <input type="email" name="email" style={{width: 300}} />
+            <input type="email" name="email" style={{ width: 300 }} />
           </label>
-          <br/><br/>
+          <br /><br />
           <p><Trans>authorOrRepresentative</Trans></p>
-          <input type="checkbox" name="authorization" value="author" /> <Trans>yes</Trans><br/>
-          <input type="checkbox" name="authorization" value="authorized" /> <Trans>no</Trans><br/>
+          <input type="checkbox" name="authorization" value="author" /> <Trans>yes</Trans><br />
+          <input type="checkbox" name="authorization" value="authorized" /> <Trans>no</Trans><br />
           <input type="checkbox" name="authorization" value="other" /> <Trans>other</Trans>
-          <br/><br/>
+          <br /><br />
           <label name="reason">
             <p><Trans>explanationAndRelevantInfo</Trans></p>
             <textarea name="reason" style={{
@@ -576,17 +584,17 @@ class InfoPage extends Component {
               maxWidth: "100%"
             }} />
           </label>
-          <br/><br/>
+          <br /><br />
           <input type="submit" value={t("submit")} />
         </form>
-        <br/><br/><br/><br/><br/><br/><br/><br/>
-        </div>;
+        <br /><br /><br /><br /><br /><br /><br /><br />
+      </div>;
     }
 
     return (
       <div className="AppList">
         <Mobile />
-        { pageText }
+        {pageText}
         <Spacer />
       </div>
     );
@@ -598,8 +606,8 @@ function genHBASCreditsHTML(credits) {
   // TODO: have a single end point that serves this info over JSON, for both web and app clients
 
   // argument order:
-	// username, githubId, twitter, github, gitlab, patreon, url, discord, directAvatarURL
-	// only first two social points will be used
+  // username, githubId, twitter, github, gitlab, patreon, url, discord, directAvatarURL
+  // only first two social points will be used
 
   let out = "";
 
@@ -616,7 +624,7 @@ function genHBASCreditsHTML(credits) {
     return `https://${parts[1]}/@${parts[0]}`;
   }
 
-  const createCredit = ({name, githubId, twitter, github, gitlab, patreon, url, discord, directAvatarURL, youtube, bsky, mastodon}) => {
+  const createCredit = ({ name, githubId, twitter, github, gitlab, patreon, url, discord, directAvatarURL, youtube, bsky, mastodon }) => {
     let socials = [];
     if (patreon) socials.push(`<a href="https://patreon.com/${patreon}"><img src="${patreonImg}" />${patreon}</a>`);
     if (github) socials.push(`<a href="https://github.com/${github}"><img src="${githubImg}" />${github}</a>`);
@@ -659,10 +667,10 @@ const levenshtein = (s, t) => {
         i === 0
           ? j
           : Math.min(
-              arr[i - 1][j] + 1,
-              arr[i][j - 1] + 1,
-              arr[i - 1][j - 1] + (s[j - 1] === t[i - 1] ? 0 : 1)
-            );
+            arr[i - 1][j] + 1,
+            arr[i][j - 1] + 1,
+            arr[i - 1][j - 1] + (s[j - 1] === t[i - 1] ? 0 : 1)
+          );
     }
   }
   return arr[t.length][s.length];
