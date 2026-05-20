@@ -588,6 +588,7 @@ button:hover,
   width: auto;
   position: relative;
   display: block;
+  max-width: 100%;
 }
 
 .details {
