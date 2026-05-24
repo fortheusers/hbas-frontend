@@ -28,7 +28,7 @@ class Footer extends Component {
           <select
             style={{fontSize: 10, padding: 4, marginRight: 8, verticalAlign: "top"}}
             value={i18n.language}
-            onChange={e => i18n.changeLanguage(e.target.value)}
+            onChange={e => { localStorage.setItem('lang', e.target.value); i18n.changeLanguage(e.target.value); }}
           >
             {LANGUAGES.map(({ code, label }) => (
               <option key={code} value={code}>{label}</option>

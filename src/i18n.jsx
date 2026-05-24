@@ -6,9 +6,10 @@ import ruTranslation from './locales/ru.json';
 import esTranslation from './locales/es.json';
 
 const SUPPORTED = ['en', 'ru', 'es'];
-const detectedLang = (navigator.languages?.length ? navigator.languages : [navigator.language])
+const browserLang = (navigator.languages?.length ? navigator.languages : [navigator.language])
   .map(l => l.split('-')[0])
-  .find(l => SUPPORTED.includes(l)) ?? 'en';
+  .find(l => SUPPORTED.includes(l)) || 'en';
+const detectedLang = localStorage.getItem('lang') || browserLang;
 
 i18n
   .use(initReactI18next)
