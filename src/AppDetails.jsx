@@ -111,10 +111,10 @@ class AppDetails extends Component {
     let dlButton;
 
     if (ua.includes("Switch" || "WiiU")) {
-      dlButton = (<button onClick={() => alert(t("noDownloadsOnThisDevice"))}>Download</button>);
+      dlButton = (<button onClick={() => alert(t("noDownloadsOnThisDevice"))}>{t("download")}</button>);
     }
     else {
-      dlButton = (<a target="_blank" rel="noopener noreferrer" href={`${repo}/zips/${name}.zip`}>Download</a>
+      dlButton = (<a target="_blank" rel="noopener noreferrer" href={`${repo}/zips/${name}.zip`}>{t("download")}</a>
       );
     }
 

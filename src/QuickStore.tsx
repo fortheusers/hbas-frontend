@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Spacer, Mobile, getParams } from './Utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -38,6 +39,7 @@ const formatGH = (url: string) => {
 type Platform = "wiiu" | "switch" | "3ds";
 
 const QuickStore = (props: { platform: Platform }) => {
+    const { t } = useTranslation();
 
     const [ allApps, setAllApps ] = useState([]);
     const { platform: plat } = getParams(props) as {platform?: Platform};
@@ -65,9 +67,7 @@ const QuickStore = (props: { platform: Platform }) => {
             <div className="catTitle">
             QuickStore
             </div>
-            <p>
-                This page allows you to download multiple apps in a single zip file, that can then be extracted directly to the root of the SD card.
-            </p>
+            <p>{t("qsPurpose")}</p>
             <p className="disabled">
                 <input type="checkbox" id="experimental" disabled/>
                 <label htmlFor="experimental">Fetch releases directly from <FontAwesomeIcon icon={faPropIcon} /> Github where possible (Coming Soon)</label>
@@ -146,7 +146,7 @@ const QuickStore = (props: { platform: Platform }) => {
     const progress = (<div className='progress'><button className="progressBar"> 
             <FontAwesomeIcon icon={faCirclePropIcon} className={"fa-spin"} /> 
             &nbsp;  
-            Downloading {selectedPackages.length} packages...
+            {t("downloadVerb", { count: selectedPackages.length })}
     </button></div>);
 
     const dlButton = <div>
@@ -186,7 +186,7 @@ const QuickStore = (props: { platform: Platform }) => {
         >
             <FontAwesomeIcon icon={faDLPropIcon} />
             &nbsp;
-            Download&nbsp;{selectedPackages.length}&nbsp;Selected
+            {t("downloadPrompt", { count: selectedPackages.length })}
         </button>
     </div>;
 
