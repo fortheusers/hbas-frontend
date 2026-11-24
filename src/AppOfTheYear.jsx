@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Spacer, Mobile } from './Utils';
+import { Spacer, Mobile, FullWidthAd } from './Utils';
 import loader from './img/loader.gif';
 import switchIcon from './img/switch.png';
 import wiiuIcon from './img/wiiu.png';
@@ -893,6 +893,7 @@ const AppOfTheYear = () => {
     return (
         <div className="AppList">
             <Mobile />
+            <FullWidthAd />
             {headerInfo}
             {explanation}
             <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>

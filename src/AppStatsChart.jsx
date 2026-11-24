@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
-import { Spacer, Mobile } from './Utils';
+import { Spacer, Mobile, FullWidthAd } from './Utils';
 import loader from './img/loader.gif';
 import moment from 'moment';
 import Select from 'react-select';
@@ -360,11 +360,11 @@ const AppStatsChart = () => {
   return (
     <div className="AppList">
       <Mobile />
+      <FullWidthAd />
       { headerInfo }
       { pkgSelector }
       { chartInfo }
       { dayPicker }
-      {/* <FullWidthAd /> */}
       <Spacer />
     </div>
   );

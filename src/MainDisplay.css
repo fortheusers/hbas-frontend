@@ -22,6 +22,10 @@ p a {
   color: var(--footerTextColor);
 }
 
+.md5text, .shatext {
+  color: var(--text-color);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --searchColor: #eee;
@@ -538,6 +542,7 @@ a.platChooser h3 {
   margin: 10px;
   margin-bottom: 0px;
   padding: 0;
+  min-height: 0; /* gets overwritten if adsense script loads properly */
 }
 
 .AppList .right {

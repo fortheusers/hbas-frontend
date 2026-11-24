@@ -3,7 +3,7 @@ import loading from './img/loader.gif';
 import {fetchPackages} from './AppList';
 import noscreen from './img/noscreen.png';
 import './MainDisplay.css';
-import { getParams, Spacer, Mobile, getFirstPixelFromImage, platformIcons, getHumanSize } from './Utils';
+import { getParams, Spacer, Mobile, FullWidthAd, getFirstPixelFromImage, platformIcons, getHumanSize } from './Utils';
 import Modal from 'react-responsive-modal';
 import { Trans, withTranslation } from 'react-i18next';
 
@@ -235,6 +235,7 @@ class AppDetails extends Component {
     return (
       <div className="AppDetails">
         <Mobile />
+        <FullWidthAd />
         <div className="AppDetailsInner">
           <div className="catTitle">
             {title} <span className="lesser">by {author}</span>
@@ -290,7 +291,6 @@ class AppDetails extends Component {
             <Spacer />
           </div>
         </div>
-        {/* <FullWidthAd /> */}
       </div>
     );
   }

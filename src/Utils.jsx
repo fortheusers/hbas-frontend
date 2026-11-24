@@ -33,12 +33,8 @@ const platformIcons = {
 class FullWidthAd extends Component {
   ads = [
     {
-      adClient: "ca-pub-7623664678937879",
-      adSlot: "6161516658"
-    },
-    {
-      adClient: "ca-pub-8148658375496745",
-      adSlot: "4266492119"
+      adClient: "ca-pub-3788114138085549",
+      adSlot: "8466770574"
     }
   ]
 
@@ -57,8 +53,7 @@ class FullWidthAd extends Component {
       <AdSense.Google
         client={adClient}
         slot={adSlot}
-        style={{ display: 'block', height: 70 }}
-        format='fluid'
+        format='horizontal'
         responsive='true'
       />
     </div>;

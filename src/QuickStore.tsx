@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Spacer, Mobile, getParams } from './Utils';
+import { Spacer, Mobile, getParams, FullWidthAd } from './Utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faCircleNotch, faDownload } from '@fortawesome/free-solid-svg-icons';
@@ -193,10 +193,10 @@ const QuickStore = (props: { platform: Platform }) => {
     return (
         <div className="quickstore-container">
           <Mobile />
+            <FullWidthAd />
           { headerInfo }
           { isDownloading ? progress : dlButton }
           { appList }
-          {/* <FullWidthAd /> */}
           <Spacer />
         </div>
       );

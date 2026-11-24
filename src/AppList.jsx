@@ -4,7 +4,7 @@ import AppCard from './AppCard';
 import LibGet from './LibGet';
 import loader from './img/loader.gif';
 import { getCurrentCategory, getAllCategories } from './Sidebar';
-import { getParams, Spacer, Mobile, stringDateToTimestamp } from './Utils';
+import { getParams, Spacer, Mobile, stringDateToTimestamp, FullWidthAd } from './Utils';
 import PlatformPicker from './PlatformPicker';
 import icon from './img/icon.png';
 
@@ -209,6 +209,7 @@ class AppList extends Component {
     return (
       <div className="AppList">
         <Mobile />
+        <FullWidthAd />
         { headerText }
         {
           packages.map(pkg => {
@@ -219,7 +220,6 @@ class AppList extends Component {
             ;
           })
         }
-        {/* <FullWidthAd /> */}
         <Spacer />
       </div>
     );
